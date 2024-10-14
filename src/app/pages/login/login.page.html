@@ -1,37 +1,42 @@
 <ion-content [fullscreen]="true" class="fondo">
   <div>
     <div class="img-logo">
-      <img src="../../../assets/icon/ChefPerfil.png" alt="Imagen Chef">
+      <img src="../../../assets/icon/logo.png" alt="Imagen Chef">
     </div>
+    <br>
     <ion-text>
-      <h2 class="color titulo">Sazon y Arte</h2>
+      <h2 class="color titulo">beLoved</h2>
     </ion-text>
     <ion-text class="ion-margin-top">
-      <p class="ion-text-center ion-padding color">El mejor restaurante de Chile, donde disfrutarás de platos deliciosos y un ambiente único. ¡Te esperamos!</p>
+      <p class="ion-text-center ion-padding color">El mejor restaurante de Chile, donde disfrutarás de platos deliciosos
+        y un ambiente único. ¡Te esperamos!</p>
     </ion-text>
   </div>
 
   <div class="seccion-form">
     <form action="" class="inicio-sesion">
-      <div> 
+      <div>
         <ion-item class="ion-margin-end ion-margin-top ion-color">
           <ion-icon aria-hidden="true" name="people-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Ingresa tu nombre de usuario" label="Nombre Usuario" label-placement="floating" maxlength="15" color="dark" name="usuario" [(ngModel)]="usuario"></ion-input>
+          <ion-input placeholder="Ingresa tu nombre de usuario" label="Nombre Usuario" label-placement="floating"
+            maxlength="15" color="dark" name="usuario" [(ngModel)]="usuario"></ion-input>
         </ion-item>
         <ion-item class="ion-margin-end ion-margin-top ion-color">
           <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
-          <ion-input type="password" placeholder="Contraseña" color=dark name="contrasenia" [(ngModel)]="contrasenia" class="color-negro">
+          <ion-input type="password" placeholder="Contraseña" color=dark name="contrasenia" [(ngModel)]="contrasenia"
+            class="color-negro">
             <ion-input-password-toggle slot="end"></ion-input-password-toggle>
           </ion-input>
         </ion-item>
         <div class="ion-text-center">
-          <ion-button class="ion-margin-top ion-margin-bottom boton-inicio txt-marcado" shape="round" (click)="irPagina()" >Iniciar Sesión</ion-button>
+          <ion-button class="ion-margin-top ion-margin-bottom boton-inicio txt-marcado" shape="round"
+            (click)="irPagina()">Iniciar Sesión</ion-button>
         </div>
       </div>
       <ion-text class="ion-text-end ion-margin-bottom">
         <p class="ion-margin-end txt-marcado" [routerLink]="['/rcontrasenia']">Recuperar Contraseña?</p>
       </ion-text>
-    
+
       <ion-text class="ion-text-center">
         <p class="ion-padding-top">No tienes una cuenta? <span [routerLink]="['/register']"><b>Registrate</b></span></p>
       </ion-text>
