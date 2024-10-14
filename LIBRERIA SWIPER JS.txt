@@ -1,0 +1,35 @@
+-- SWIPER JS
+
+Swiper js es una librería que reemplazo el ion-slide ya que este se elimino en la v7.
+
+Paso 1 - Instalación de la librería
+
+-- npm install swiper@latest  --> Instalamos esta dependencia en el proyecto 
+
+Paso 2 - Añadir el CUSTOM_ELEMENTS_SCHEMA
+
+--  import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'; --> este se importa en la pagina que se usara
+
+@NgModule({
+  schemas: [..., CUSTOM_ELEMENTS_SCHEMA]  -- y se agrega en el ngModule
+});
+
+Paso 3 - Llamar al Swiper
+
+-- import { register } from 'swiper/element/bundle'; -- importamos en el app.component de la aplicación
+
+register(); y pegamos este register() para llamar al swiper
+
+@Component({
+  ...
+})
+
+Paso 4 - Usar el Swiper
+
+-- el swiper se llama con estas etiquetas, haciéndolo completamente funcional.
+
+<swiper-container>
+  <swiper-slide>Slide 1</swiper-slide>
+  <swiper-slide>Slide 2</swiper-slide>
+  <swiper-slide>Slide 3</swiper-slide>
+</swiper-container>

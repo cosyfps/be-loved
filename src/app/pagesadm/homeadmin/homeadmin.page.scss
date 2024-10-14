@@ -1,0 +1,69 @@
+.fondo{
+    --background: linear-gradient(to right, #4e3725, #2d1b14);
+}
+
+/*Titulo*/
+
+.titulo{
+    font-size: 35px;
+    margin-top: 20px;
+    margin-bottom: -20px;
+    margin-left: 20px;
+    color: white;
+}
+
+.nombre{
+    font-size: 35px;
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    margin-left: 20px; 
+}
+
+.logo{
+    width: 150px;
+}
+
+/* Cuerpo */
+
+ion-text{
+    h3{
+        font-size: 30px;
+        color: white;
+        margin-bottom: 10px;
+    }
+}
+
+.btn-center{
+    text-align: center;
+}
+
+.btn-usuario{
+    width: 80%;
+    margin-top: 30px;
+    background-color: white;
+    color: #2d1b14;
+    font-weight: bold;
+}
+.btn-reservas{
+    width: 80%;
+    margin-top: 20px;
+    background-color: white;
+    color: #2d1b14;
+    font-weight: bold;
+}
+.btn-mesas{
+    width: 80%;
+    margin-top: 20px;
+    background-color: white;
+    color: #2d1b14;
+    font-weight: bold;
+}
+.btn-salida{
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    color: #2d1b14;
+    font-weight: bold;
+
+}

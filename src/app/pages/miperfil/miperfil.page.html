@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="fondo">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="fondo">
+  
+  <div class="ion-no-margin">
+    <div class="img-logo" style="position: relative;">
+      <img class="avatar-icon" *ngIf="imagen" [src]="imagen" alt="Imagen" (click)="tomarFoto()">
+      <img class="avatar-icon" *ngIf="!imagen" src="../../../assets/icon/avatar.jpg" alt="Avatar" (click)="tomarFoto()">
+      <ion-button fill="clear" class="editar-icon" (click)="tomarFoto()">
+        <ion-icon name="create-outline" size="large"></ion-icon>
+      </ion-button>
+    </div>
+    <ion-text class="ion-text-center">
+      <h5 class="usuario">{{usuario}}</h5>
+    </ion-text>  
+  </div>
+
+  <div class="seccion-form">
+    <form action="" class="miperfil">
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="person-outline" slot="start"></ion-icon>
+        <ion-input label="Nombre y Apellido" label-placement="floating" fill="clear" color="dark" value="{{nombre}}" readonly></ion-input>
+      </ion-item>
+      
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="mail-outline" slot="start"></ion-icon>
+        <ion-input label="Correo Electronico" label-placement="floating" fill="clear" color="dark" value="{{correo}}" readonly></ion-input>
+      </ion-item>
+      
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="call-outline" slot="start"></ion-icon>
+        <ion-input label="Telefono" label-placement="floating" fill="clear" color="dark" value="{{telefono}}" readonly></ion-input>
+      </ion-item>
+    
+      <div class="ion-text-center ion-margin">
+        <ion-button  expand="block" class="ion-margin boton-inicio txt-marcado" (click)="irEditarperfil()">
+          Editar Perfil
+          <ion-icon slot="end" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" [routerLink]="['/misreservas']">
+          Mis Reservas
+          <ion-icon slot="end" name="wine-outline"></ion-icon>
+        </ion-button>
+        <ion-button  expand="block" class="ion-margin boton-inicio txt-marcado" (click)="cambiarContrasenia()">
+          Editar Contraseña
+          <ion-icon slot="end" name="key-outline"></ion-icon>
+        </ion-button>
+      </div> 
+    </form>
+  </div>
+ 
+</ion-content>

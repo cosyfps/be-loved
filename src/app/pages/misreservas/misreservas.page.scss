@@ -1,0 +1,61 @@
+.fondo{
+    --background: linear-gradient(to right, #4e3725, #2d1b14);
+    min-height: 100%;
+}
+
+
+.img-logo{
+    text-align: center;
+    img{
+        width: 210px;
+        margin-right: 12px;
+        margin-top: 10px;
+}}
+
+.mis-reservas ion-card {
+    background: radial-gradient(circle, #ffffff, #d3c6b1); 
+    border-radius: 10px; 
+    p{
+        margin-top: 10px;
+        color: #4e3725;
+        font-weight: bold;
+    }
+    ion-card-title{
+        color: #4e3725;
+    }
+}
+
+div{
+    text-align: center;
+    .cancelar-button {
+        width: 300px;
+        margin: 20px; 
+        font-weight: bold;
+        color: white;
+        background-color: #4e3725;
+        text-transform: uppercase;
+    }
+}
+.espacio{
+    margin-right: 8px;
+}
+
+div{
+    text-align: center;
+    .boton-inicio {
+        width: 300px;
+        margin: 20px; 
+        background-color: white;
+        color: #4e3725;
+        font-weight: bold;
+        text-transform: uppercase;
+        .color-inicio{
+            color: #4e3725;
+        }
+    }
+}
+
+
+.color-button{
+    color: white;
+}  

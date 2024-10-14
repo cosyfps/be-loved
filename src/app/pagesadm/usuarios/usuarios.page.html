@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="fondo">
+    <ion-buttons>
+      <button mat-mini-fab aria-label="boton home" class="btn-home" [routerLink]="['/homeadmin']">
+        <mat-icon>home</mat-icon>
+      </button>
+      <ion-title>Listado de Usuarios</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo">
+  <ion-searchbar animated="true" placeholder="Ingrese el Rut" class="ion-margin-top search-bar" type="tel" maxlength="9" [(ngModel)]="buscarRut" (click)="buscarUsuario(buscarRut)"></ion-searchbar>
+  <div class="container-usuarios">
+    <ion-text *ngIf="errorRut" class="ion-text-center">SIN RESULTADO</ion-text>
+    <!-- Listar usuarios utilizando *ngFor -->
+    <mat-card *ngFor="let usu of usuario" class="container-usuario">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>person</mat-icon>
+        <mat-card-title>{{ usu.nombreCompleto }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <P>ID: {{usu.id_usuario}}</P>
+        <p>Rut: {{ usu.rut }}</p>
+        <p>Usuario: {{ usu.nombreUsuario }}</p>
+        <p>Correo: {{ usu.correo }}</p>
+        <p>Teléfono: {{ usu.telefono }}</p>
+        <p>Rol: {{usu.id_rol_fk}}</p>
+      </mat-card-content>
+      <mat-card-actions class="action-buttons">
+        <button mat-button class="botones-accion-del" (click)="eliminarUsuario(usu)">
+          Restablecer
+          <mat-icon mat-card-avatar class="icon-del">delete</mat-icon>
+        </button>
+        <button mat-button class="botones-accion-del" (click)="cambiarRol(usu)">
+          Cambiar Rol
+          <mat-icon mat-card-avatar class="icon-del">delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ion-content>
+

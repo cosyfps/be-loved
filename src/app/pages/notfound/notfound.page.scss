@@ -1,0 +1,29 @@
+.fondo{
+    --background: linear-gradient(to right, #4e3725, #2d1b14);
+    min-height: 100%;
+}
+.img-logo{
+    text-align: center;
+    img{
+        width: 250px;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+}
+
+.boton-reserva{
+    width: 80%;
+    height: 80px;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #4e3725;
+    text-transform: uppercase;
+    .color-inicio{
+        color: white;
+    }
+    .espacio{
+        margin-right: 10px;
+    }
+}

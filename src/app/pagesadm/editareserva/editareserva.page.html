@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="fondo">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="fondo">
+  
+  <div class="ion-no-margin">
+    <div class="img-logo">
+      <img src="../../../assets/icon/ChefPerfil.png" alt="Imagen Chef">
+    </div>
+    <ion-text class="ion-text-center">
+      <h5 class="usuario">EDITAR RESERVA</h5>
+    </ion-text>
+  </div>
+
+  <div class="seccion-form">
+    <form class="miperfil">
+      
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="person-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Maximo 30 caracteres" label="Cliente" label-placement="floating" maxlength="30" color="dark"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="call-outline" slot="start"></ion-icon>
+        <ion-input type="tel" label="Telefono" label-placement="floating" placeholder="EJ : 123456789" color="dark" maxlength="9"></ion-input>
+      </ion-item>
+      
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="calendar-outline" slot="start"></ion-icon>
+        <ion-input label="Fecha Reserva" placeholder="Fecha de la reserva" label-placement="floating" fill="clear" color="dark"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="restaurant-outline" slot="start"></ion-icon>
+        <ion-input type="number" placeholder="Numero de mesa" label="Nro Mesa" label-placement="floating" fill="clear" color="dark"></ion-input>
+      </ion-item>
+      
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="list-outline" slot="start"></ion-icon>
+        <ion-select aria-label="TipoMesas" placeholder="Selecciona el tipo de mesa" color="dark">
+          <ion-select-option value="Local" color="dark" >Local</ion-select-option>
+          <ion-select-option value="Terraza" color="dark">Terraza</ion-select-option>
+        </ion-select>
+      </ion-item>
+    
+      <div class="ion-text-center ion-margin">
+        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="editarReserva()">
+          Confirmar
+          <ion-icon slot="end" name="checkmark-done-outline"></ion-icon>
+        </ion-button>
+        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" [routerLink]="['/reservas']">
+          Cancelar
+          <ion-icon slot="end" name="close-outline"></ion-icon>
+        </ion-button>
+      </div> 
+    </form>
+  </div>
+ 
+</ion-content>

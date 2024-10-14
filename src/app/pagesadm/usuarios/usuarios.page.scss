@@ -1,0 +1,55 @@
+.fondo{
+    --background: linear-gradient(to right, #4e3725, #2d1b14);
+}
+.btn-home{
+    background-color: white;
+    color: #4e3725;
+    width: 60px;
+    margin-left: 15px;
+    margin: 10px;
+}
+.search-bar{
+    --background: #f0f0f0;
+    color: black;
+}
+.container-usuarios {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    
+}
+  
+.container-usuario{
+    background-color: white;
+    color: #2d1b14;
+    margin-bottom: 30px;
+    width: 90%;
+}
+.botones-accion-ed{
+    width: 150px;
+    margin: 5px;
+    background-color: #4e3725;
+    color: white !important;
+
+    .icon-edit{
+        color: white;
+        margin: 0px;
+        margin-right: 5px;
+    }
+
+
+}
+.botones-accion-del{
+    width: 150px;
+    background-color: #4e3725;
+    margin-left: 10px;
+    color: white !important;
+
+    .icon-del{
+        color: white;
+        margin: 0px;
+        margin-right: 5px;
+    }
+}

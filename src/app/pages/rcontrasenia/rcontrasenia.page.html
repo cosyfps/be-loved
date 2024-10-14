@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="fondo">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="fondo">
+  <div>
+    <div class="img-logo">
+      <img src="../../../assets/icon/ChefPerfil.png" alt="Imagen Chef">
+    </div>
+    <ion-text class="ion-text-center">
+        <h3>Ingresa tu Correo Electronico</h3>
+    </ion-text>
+  </div>
+  
+
+  <div class="seccion-form">
+    <form action="" class="recuperar" #form="ngForm">
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="mail-outline" slot="start"></ion-icon>
+        <ion-input type="email" placeholder="Ingresa Correo valido" label="Correo Electronico" label-placement="floating" class="quitar-linea" errorText="Email invalido" name="correo" [(ngModel)]="correo" ngModel email></ion-input>
+      </ion-item>
+  
+      <div class="ion-text-center">
+        <ion-button class="ion-margin-top ion-margin-bottom boton-inicio txt-marcado" shape="round" [disabled]="form.invalid" (click)="enviarCorreo()">Enviar</ion-button>
+      </div>
+     
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,96 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="fondo">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nosotros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="fondo">
+  <div class="img-logo">
+    <img src="../../../assets/icon/ChefPerfil.png" alt="LogoSazon" c>
+  </div>
+
+  <div class="container-info">
+    <ion-text>
+      <h5 class="ion-text-center">Descubre Nuestra Historia</h5>
+      <p class="ion-text-center">Explora nuestras tarjetas y conoce Sazon y Arte</p>
+    </ion-text>
+
+    <swiper-container [pagination]="true" [loop]="true" class="nosotros-text">
+      <swiper-slide>
+        <ion-card class="ion-margin">
+          <img alt="Nosotros" src="../../assets/fondos/Historia-rest.jpg"/>
+          <ion-card-header>
+            <ion-card-title class="texto">Historia</ion-card-title>
+            <ion-card-subtitle class="texto">Nacimiento de Sazon y Arte</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <p class="texto">En 2006, el recién titulado en gastronomía, Benjamín Maureli, fundó su primera panadería, "El Arte de la Masa". Gracias a su éxito, en 2010 abrió el restaurante "Sazón y Arte", el cual rápidamente ganó fama por sus platillos únicos y el ambiente excepcional que ofrecía tanto a clientes como a empleados.</p>
+          </ion-card-content>
+        </ion-card>
+      </swiper-slide>
+      <swiper-slide>
+        <ion-card class="ion-margin">
+          <img alt="Nosotros" src="../../assets/fondos/local1.jpg"/>
+          <ion-card-header>
+            <ion-card-title class="texto">Local Sazon y Arte </ion-card-title>
+            <ion-card-subtitle class="texto">Nuestro orgullo</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <p class="texto">Gracias a nuestro esfuerzo y pasion por la cocina, el local sazon y arte es una realidad, 
+              donde siempre nos enfocamos en brindar la mejor experiencia a nuestros clientes.</p>
+          </ion-card-content>
+        </ion-card>
+      </swiper-slide>
+      <swiper-slide>
+        <ion-card class="ion-margin">
+          <img alt="Nosotros" src="../../assets/fondos/cocina1.jpg"/>
+          <ion-card-header>
+            <ion-card-title class="texto">Cocina</ion-card-title>
+            <ion-card-subtitle class="texto">En donde la magia y el arte surge</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p class="texto">nuestros cocineros altamente capacitados, se esfuerzan arduamente cada dia para brindar la mejor experiencia al paladar de nuestros consumidores</p>
+          </ion-card-content>
+        </ion-card>        
+      </swiper-slide>
+      <swiper-slide>
+        <ion-card class="ion-margin">
+          <img alt="Nosotros" src="../../assets/fondos/Maps.png"/>
+          <ion-card-header>
+            <ion-card-title class="texto">Direccion</ion-card-title>
+            <ion-card-subtitle class="texto">Visitanos!</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p class="texto">Ven y disfruta de nuestros platillos y de una experiencia única apta para todo publico,
+              nuestra dirección es bellavista 112, comuna de Providencia. Te esperamos</p>
+          </ion-card-content>
+        </ion-card>        
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <div class="ubicacion">
+    <h5 class="ion-margin-horizontal">Ubicación</h5>
+    <ion-card class="ion-margin">
+      <img alt="ubicacion" src="../../assets/fondos/Maps.png"/>
+      <ion-card-header>
+        <ion-card-title class="texto">Te Esperamos!</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <p class="ion-margin-horizontal texto">Direccion: Bellavista 112, Providencia, Región Metropolitana, Chile.</p>
+      </ion-card-content>
+      <ion-card-footer class="btn-center">
+        <button mat-fab class="boton-reserva" (click)="AbrirMaps()">
+          Ir a Maps
+          <mat-icon class="color-inicio espacio" fontIcon="location_on"></mat-icon>
+        </button>
+      </ion-card-footer>
+    </ion-card>
+  </div>
+
+</ion-content>
