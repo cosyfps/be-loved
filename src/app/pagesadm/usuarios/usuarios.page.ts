@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -22,7 +23,7 @@ export class UsuariosPage implements OnInit {
   searchUsername: string = "";
   errorUsername: boolean = false;
 
-  constructor(private menu: MenuController, private db: DatabaseService, private authFireBase: AuthfireBaseService) { }
+  constructor(private menu: MenuController, private router:Router, private db: DatabaseService, private authFireBase: AuthfireBaseService) { }
 
   ngOnInit() {
     this.menu.enable(false);
@@ -64,5 +65,9 @@ export class UsuariosPage implements OnInit {
     } else {
       this.db.changeUserRole(user.userId, "2");
     }
+  }
+
+  goToAdmin(){
+    this.router.navigate(['/admin']);
   }
 }

@@ -1,23 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="background">
-    <ion-buttons>
-      <button mat-mini-fab aria-label="home button" class="btn-home" [routerLink]="['/homeadmin']">
-        <mat-icon>home</mat-icon>
-      </button>
-      <ion-title>User List</ion-title>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="background">
-  <ion-searchbar animated="true" placeholder="Enter Rut" class="ion-margin-top search-bar" type="tel" maxlength="9"
-    [(ngModel)]="searchUsername" (click)="searchUser(searchUsername)"></ion-searchbar>
+
+  <div class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToAdmin()"></ion-icon>
+    <h2>Users List</h2>
+  </div>
+
+  <div class="search-container">
+    <ion-input animated="true" placeholder="Enter Username" class="ion-margin-top search-bar" type="tel" maxlength="9"
+      [(ngModel)]="searchUsername">
+      <ion-button fill="clear" slot="end" (click)="searchUser(searchUsername)">
+        <ion-icon name="search" class="search-icon"></ion-icon>
+      </ion-button>
+    </ion-input>
+  </div>
+
   <div class="users-container">
     <ion-text *ngIf="errorUsername" class="ion-text-center">NO RESULTS</ion-text>
     <!-- List users using *ngFor -->
+
     <mat-card *ngFor="let user of users" class="user-container">
       <mat-card-header>
-        <mat-icon mat-card-avatar>person</mat-icon>
         <mat-card-title>{{ user.fullName }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
@@ -28,7 +30,7 @@
       </mat-card-content>
       <mat-card-actions class="action-buttons">
         <button mat-button class="action-button-delete" (click)="deleteUser(user)">
-          Reset
+          Delete User
           <mat-icon mat-card-avatar class="icon-delete">delete</mat-icon>
         </button>
         <button mat-button class="action-button-delete" (click)="changeUserRole(user)">

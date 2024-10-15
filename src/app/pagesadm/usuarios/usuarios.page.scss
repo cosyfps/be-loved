@@ -1,53 +1,93 @@
-.fondo{
-    --background: linear-gradient(to right, #4e3725, #2d1b14);
+.background {
+    --background: linear-gradient(to right, #b39ddb, #9575cd);
 }
-.btn-home{
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.header-title h2 {
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 32px;
+    text-align: left;
+}
+
+.header-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 32px;
+}
+
+.btn-home {
     background-color: white;
-    color: #4e3725;
+    color: #9575cd;
     width: 60px;
     margin-left: 15px;
     margin: 10px;
 }
-.search-bar{
-    --background: #f0f0f0;
-    color: black;
+
+.search-bar {
+    color: white;
+    margin-top: 100px;
+    width: calc(90% - 40px);
+    border-radius: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 2px solid #ffffff;
 }
-.container-usuarios {
+
+.search-icon {
+    color: white;
+    position: absolute;
+    font-size: 24px;
+}
+
+.users-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    
 }
-  
-.container-usuario{
+
+.user-container {
     background-color: white;
-    color: #2d1b14;
+    color: #2b2b2b;
     margin-bottom: 30px;
     width: 90%;
 }
-.botones-accion-ed{
+
+.action-button-edit {
     width: 150px;
     margin: 5px;
-    background-color: #4e3725;
+    background-color: #9575cd;
     color: white !important;
 
-    .icon-edit{
+    .icon-edit {
         color: white;
         margin: 0px;
         margin-right: 5px;
     }
-
-
 }
-.botones-accion-del{
+
+.action-button-delete {
+    margin-top: 5px;
     width: 150px;
-    background-color: #4e3725;
+    background-color: #9575cd;
     margin-left: 10px;
     color: white !important;
 
-    .icon-del{
+    .icon-delete {
         color: white;
         margin: 0px;
         margin-right: 5px;
