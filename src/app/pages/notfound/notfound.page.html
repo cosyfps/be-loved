@@ -1,17 +1,12 @@
-<ion-header [translucent]="true">
-</ion-header>
-
-<ion-content [fullscreen]="true" class="fondo">
+<ion-content [fullscreen]="true" class="background">
   <div class="img-logo">
-    <img src="../../../assets/icon/ChefPerfil.png" alt="Imagen Chef">
+    <img src="../../../assets/img/404-error.webp" alt="Imagen Chef">
   </div>
   <ion-text>
-    <h1 class="ion-text-center">404</h1>
-    <h2 class="ion-text-center">PAGINA NO ENCONTRADA</h2>
+    <h2 class="ion-text-center">Page not found.</h2>
     <div class="ion-text-center">
-      <button mat-fab class="boton-reserva" [routerLink]="['/home']">
-        IR AL INICIO
-        <mat-icon class="color-inicio espacio" fontIcon="home"></mat-icon>
+      <button mat-fab class="boton-reserva" [routerLink]="['/login']">
+        Back to login
       </button>
     </div>
   </ion-text>
