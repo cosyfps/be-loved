@@ -8,8 +8,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'start',
     pathMatch: 'full'
+  },
+  {
+    path: 'start',
+    loadChildren: () => import('./pages/start/start.module').then( m => m.StartPageModule)
   },
   {
     path: 'login',
@@ -94,17 +98,8 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
-  }
-
-
-
- 
-
-
-
- 
-
-
+  },
+  
 
 ];
 

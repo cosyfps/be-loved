@@ -5,80 +5,144 @@ import { ServicioBDService } from 'src/app/services/servicio-bd.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  nombreyApellido: string ='';
-  rut : string ='';
-  usuario: string ='';
-  contrasenia: string ='';
-  nuevaContrasenia: string ='';
-  telefono: string ='';
-  correo: string ='';
-  id_rol: string='2';
+  username: string = '';
+  email: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+  id_rol: string = '0';
 
-  constructor(private menu:MenuController, private alertController: AlertController, private router: Router, private bd: ServicioBDService, private afAuth: AngularFireAuth, private authService: AuthfireBaseService) { }
+  constructor(private menu: MenuController, private alertController: AlertController, private router: Router, private bd: ServicioBDService, private afAuth: AngularFireAuth, private authService: AuthfireBaseService) { }
 
   ngOnInit() {
     this.menu.enable(false);
   }
-  insertar(){
 
-    this.authService.registro(this.correo,this.contrasenia);
+  async register() {
+    const uppercaseValidation = /[A-Z]/;
+    const lowercaseValidation = /[a-z]/;
+    const numberValidation = /[0-9]/;
+    const specialCharValidation = /[!@#$%^&*(),.?":{}|<>]/;
+    const minLengthValidation = /^.{8,}$/;
+    const emailValidation = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const usernameMinLengthValidation = /^.{4,}$/;
 
-    this.bd.insertarUsuario(this.rut, this.usuario, this.nombreyApellido, this.contrasenia, this.telefono, this.correo,'', Number(this.id_rol));
-  }
-
-  async IrLogin(){
-
-    const validaMayuscula = /[A-Z]/;
-
-    if (this.nombreyApellido == ""  || this.rut == "" || this.usuario == "" || this.contrasenia == "" || this.telefono == "" || this.correo == ""){
-      
+    if (this.username == '' || this.email == '' || this.password == '' || this.confirmPassword == '') {
       const alert = await this.alertController.create({
-        header: 'Campos Vacios',
-        message: 'Por favor intente de nuevo',
+        header: 'Empty Fields',
+        message: 'Please fill in all fields.',
         buttons: ['OK'],
-        cssClass: 'estilo-alertas'
+        cssClass: 'alert-style'
+      });
+      await alert.present();
+    } 
+    else if (!usernameMinLengthValidation.test(this.username)) {
+      const alert = await this.alertController.create({
+        header: 'Username Error',
+        message: 'Username must be at least 4 characters long.',
+        buttons: ['OK'],
+        cssClass: 'alert-style'
       });
       await alert.present();
     }
-    else if (validaMayuscula.test(this.contrasenia) == false) {
-
+    else if (!emailValidation.test(this.email)) {
       const alert = await this.alertController.create({
-        header: 'Error en contraseña',
-        message: 'La contraseña debe tener al menos una mayuscula',
+        header: 'Email Error',
+        message: 'Please enter a valid email address.',
         buttons: ['OK'],
-        cssClass: 'estilo-alertas'
+        cssClass: 'alert-style'
       });
       await alert.present();
-    } else if (this.contrasenia != this.nuevaContrasenia){
-
+    } 
+    else if (!minLengthValidation.test(this.password)) {
       const alert = await this.alertController.create({
-        header: 'Error en contraseña',
-        message: 'Las contraseñas no coinciden',
+        header: 'Password Error',
+        message: 'Password must be at least 8 characters long.',
         buttons: ['OK'],
-        cssClass: 'estilo-alertas'
+        cssClass: 'alert-style'
       });
       await alert.present();
-    } else{
+    } 
+    else if (!uppercaseValidation.test(this.password)) {
       const alert = await this.alertController.create({
-        header: 'Registrado',
-        message: 'Registrado Correctamente',
+        header: 'Password Error',
+        message: 'Password must contain at least one uppercase letter.',
         buttons: ['OK'],
-        cssClass: 'estilo-alertas'
+        cssClass: 'alert-style'
       });
       await alert.present();
-      this.insertar();
-      this.router.navigate(['/login']);
+    } 
+    else if (!lowercaseValidation.test(this.password)) {
+      const alert = await this.alertController.create({
+        header: 'Password Error',
+        message: 'Password must contain at least one lowercase letter.',
+        buttons: ['OK'],
+        cssClass: 'alert-style'
+      });
+      await alert.present();
+    } 
+    else if (!numberValidation.test(this.password)) {
+      const alert = await this.alertController.create({
+        header: 'Password Error',
+        message: 'Password must contain at least one number.',
+        buttons: ['OK'],
+        cssClass: 'alert-style'
+      });
+      await alert.present();
+    } 
+    else if (!specialCharValidation.test(this.password)) {
+      const alert = await this.alertController.create({
+        header: 'Password Error',
+        message: 'Password must contain at least one special character.',
+        buttons: ['OK'],
+        cssClass: 'alert-style'
+      });
+      await alert.present();
+    } 
+    else if (this.password !== this.confirmPassword) {
+      const alert = await this.alertController.create({
+        header: 'Password Error',
+        message: 'Passwords do not match.',
+        buttons: ['OK'],
+        cssClass: 'alert-style'
+      });
+      await alert.present();
+    } 
+    else {
+      try {
+        await this.authService.registro(this.email, this.password);
+        this.bd.insertarUsuario(this.username, this.email, this.password, '', Number(this.id_rol));
+        const alert = await this.alertController.create({
+          header: 'Registered',
+          message: 'Successfully registered.',
+          buttons: ['OK'],
+          cssClass: 'alert-style'
+        });
+        await alert.present();
+        this.router.navigate(['/login']);
+      } 
+      catch (error) {
+        const alert = await this.alertController.create({
+          header: 'Registration Error',
+          message: 'An error occurred during registration. Please try again.',
+          buttons: ['OK'],
+          cssClass: 'alert-style'
+        });
+        await alert.present();
+      }
     }
-    
   }
-  
 
+  goToLogin(){
+    this.router.navigate(['/login']);
+  }
 
+  goToStart(){
+    this.router.navigate(['/start']);
+  }
 }

@@ -342,10 +342,10 @@ export class ServicioBDService {
     });
   }
 
-  insertarUsuario(rut: String, nombreusuario: String, nombrecompleto: String, contrasenia: String, telefono: string, correo: String,fotousuario: string, id_rol_fk: number) {
+  insertarUsuario(nombreusuario: String, correo: String, contrasenia: String, fotousuario: string, id_rol_fk: number) {
     return this.database.executeSql(
-      'INSERT INTO Usuario (rut, nombreusuario, nombrecompleto, contrasenia, telefono, correo,fotousuario, id_rol_fk) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
-      [rut, nombreusuario, nombrecompleto, contrasenia, telefono, correo,fotousuario, id_rol_fk]
+      'INSERT INTO Usuario (nombreusuario, correo, contrasenia, fotousuario, id_rol_fk) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', 
+      [nombreusuario, correo, contrasenia, fotousuario, id_rol_fk]
     ).then(res => {
       this.listarUsuario();
     }).catch(e => {

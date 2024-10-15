@@ -1,65 +1,51 @@
-<ion-header [translucent]="true"  >
-  <ion-toolbar  class="fondo">
-    <ion-title>Registro</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="background">
 
-<ion-content [fullscreen]="true" class="fondo">
-  <div class="img-logo">
-    <img src="../../../assets/icon/ChefPerfil.png" alt="Imagen Chef">
+  <div class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToStart()"></ion-icon>
+    <h2>Register</h2>
   </div>
-    
-  <div class="seccion-form">
-    <form action="" class="registro" #form="ngForm">
-      <ion-item class="ion-margin-horizontal ion-color">
-        <ion-icon aria-hidden="true" name="person-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Maximo 25 caracteres" label="Nombre y Apellido" label-placement="floating" maxlength="25" color="dark" name="nombreyApellido" [(ngModel)]="nombreyApellido"></ion-input>
-      </ion-item>
 
-      <ion-item class="ion-margin-horizontal ion-color">
-        <ion-icon aria-hidden="true" name="id-card-outline" slot="start"></ion-icon>
-        <ion-input type = "tel" placeholder="EJ : 213781145 (Sin guion)" label="Rut" label-placement="floating" maxlength="9" color="dark" name="rut" [(ngModel)]="rut"></ion-input>
-      </ion-item>
-
+  <div class="form-section">
+    <form action="" #form="ngForm">
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="people-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Maximo 15 caracteres" label="Nombre Usuario" label-placement="floating" maxlength="15" color="dark" name="usuario" [(ngModel)]="usuario"></ion-input>
-      </ion-item>
-
-      <ion-item class="ion-margin-horizontal ion-color">
-        <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input type="password" placeholder="Contraseña (MAX 12 C.)" color=dark name="contrasenia" maxlength="12" [(ngModel)]="contrasenia">
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-        </ion-input>
-      </ion-item>
-
-      <ion-item class="ion-margin-horizontal ion-color">
-        <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input type="password" placeholder="Repetir Contraseña" color=dark name="nuevaContrasenia" maxlength="12" [(ngModel)]="nuevaContrasenia">
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-        </ion-input>
-      </ion-item>
-
-      <ion-item class="ion-margin-horizontal ion-color">
-        <ion-icon aria-hidden="true" name="call-outline" slot="start"></ion-icon>
-        <ion-input type="tel" label="Telefono" label-placement="floating" placeholder="EJ : 123456789" color="dark" maxlength="9" name="telefono" [(ngModel)]="telefono"></ion-input>
+        <ion-input placeholder="Max 15 characters" label="Username" label-placement="floating" maxlength="15"
+          color="dark" name="username" [(ngModel)]="username" required></ion-input>
+        <ion-note *ngIf="username.length > 0 && username.length < 4" color="danger">Username must be at least 4
+          characters long.</ion-note>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="mail-outline" slot="start"></ion-icon>
-        <ion-input type="email" placeholder="Ingresa Correo valido" label="Correo Electronico" label-placement="floating" class="quitar-linea" errorText="Correo Invalido" name="correo" [(ngModel)]="correo" ngModel email></ion-input>
+        <ion-input placeholder="Enter valid email" label="Email" label-placement="floating" class="remove-line"
+          name="email" [(ngModel)]="email" required email></ion-input>
+        <ion-note *ngIf="email.length > 0 && !form.controls['email']?.valid" color="danger">Invalid email
+          address.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input type="password" placeholder="Password (MAX 12 C.)" label="Password" label-placement="floating"
+          color="dark" name="password" maxlength="12" [(ngModel)]="password" required></ion-input>
+        <ion-note *ngIf="password.length > 0 && password.length < 8" color="danger">Password must be at least 8
+          characters long.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input type="password" placeholder="Confirm Password" label="Confirm Password" label-placement="floating"
+          color="dark" name="confirmPassword" maxlength="12" [(ngModel)]="confirmPassword" required></ion-input>
+        <ion-note *ngIf="confirmPassword.length > 0 && confirmPassword !== password" color="danger">Passwords do not
+          match.</ion-note>
       </ion-item>
 
       <div class="ion-text-center">
-        <ion-button class="ion-margin-top ion-margin-bottom boton-inicio txt-marcado" shape="round" (click)="IrLogin()" [disabled]="form.invalid">Registrarse</ion-button>
+        <ion-button class="ion-margin-top ion-margin-bottom start-button text-highlight" shape="block"
+          (click)="register()">Register</ion-button>
       </div>
-    
+      <div class="ion-text-center">
+        <a class="anchor-login" (click)="goToLogin()">Already have an account? Log in</a>
+      </div>
     </form>
   </div>
 </ion-content>
-
-
-
