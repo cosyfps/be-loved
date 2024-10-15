@@ -39,7 +39,7 @@ export class ForgotPasswordPage implements OnInit {
       });
       await alert.present();
     } else {
-      this.authService.resetContra(this.email).then(() => {
+      this.authService.resetPassword(this.email).then(() => {
         this.showAlert('Password Reset', 'An email has been sent to reset your password');
       }).catch(() => {
         this.showAlert('Error', 'Failed to send email');

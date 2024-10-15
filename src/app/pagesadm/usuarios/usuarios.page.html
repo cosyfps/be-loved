@@ -1,43 +1,41 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="fondo">
+  <ion-toolbar class="background">
     <ion-buttons>
-      <button mat-mini-fab aria-label="boton home" class="btn-home" [routerLink]="['/homeadmin']">
+      <button mat-mini-fab aria-label="home button" class="btn-home" [routerLink]="['/homeadmin']">
         <mat-icon>home</mat-icon>
       </button>
-      <ion-title>Listado de Usuarios</ion-title>
+      <ion-title>User List</ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="fondo">
-  <ion-searchbar animated="true" placeholder="Ingrese el Rut" class="ion-margin-top search-bar" type="tel" maxlength="9" [(ngModel)]="buscarRut" (click)="buscarUsuario(buscarRut)"></ion-searchbar>
-  <div class="container-usuarios">
-    <ion-text *ngIf="errorRut" class="ion-text-center">SIN RESULTADO</ion-text>
-    <!-- Listar usuarios utilizando *ngFor -->
-    <mat-card *ngFor="let usu of usuario" class="container-usuario">
+<ion-content class="background">
+  <ion-searchbar animated="true" placeholder="Enter Rut" class="ion-margin-top search-bar" type="tel" maxlength="9"
+    [(ngModel)]="searchUsername" (click)="searchUser(searchUsername)"></ion-searchbar>
+  <div class="users-container">
+    <ion-text *ngIf="errorUsername" class="ion-text-center">NO RESULTS</ion-text>
+    <!-- List users using *ngFor -->
+    <mat-card *ngFor="let user of users" class="user-container">
       <mat-card-header>
         <mat-icon mat-card-avatar>person</mat-icon>
-        <mat-card-title>{{ usu.nombreCompleto }}</mat-card-title>
+        <mat-card-title>{{ user.fullName }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <P>ID: {{usu.id_usuario}}</P>
-        <p>Rut: {{ usu.rut }}</p>
-        <p>Usuario: {{ usu.nombreUsuario }}</p>
-        <p>Correo: {{ usu.correo }}</p>
-        <p>Teléfono: {{ usu.telefono }}</p>
-        <p>Rol: {{usu.id_rol_fk}}</p>
+        <p>ID: {{user.userId}}</p>
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Role: {{user.roleId}}</p>
       </mat-card-content>
       <mat-card-actions class="action-buttons">
-        <button mat-button class="botones-accion-del" (click)="eliminarUsuario(usu)">
-          Restablecer
-          <mat-icon mat-card-avatar class="icon-del">delete</mat-icon>
+        <button mat-button class="action-button-delete" (click)="deleteUser(user)">
+          Reset
+          <mat-icon mat-card-avatar class="icon-delete">delete</mat-icon>
         </button>
-        <button mat-button class="botones-accion-del" (click)="cambiarRol(usu)">
-          Cambiar Rol
-          <mat-icon mat-card-avatar class="icon-del">delete</mat-icon>
+        <button mat-button class="action-button-delete" (click)="changeUserRole(user)">
+          Change Role
+          <mat-icon mat-card-avatar class="icon-delete">delete</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>
   </div>
 </ion-content>
-

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { ServicioBDService } from 'src/app/services/servicio-bd.service';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
 
 @Injectable({
@@ -8,17 +8,16 @@ import { ServicioBDService } from 'src/app/services/servicio-bd.service';
 })
 export class AuthfireBaseService {
 
-  constructor(private AFauth: AngularFireAuth, private bd : ServicioBDService) { }
+  constructor(private afAuth: AngularFireAuth, private db: DatabaseService) { }
 
-
-  inicioSesion(nombreUsuario: string, contrasenia: string) {
-    return this.bd.BuscarCorreoUsuario(nombreUsuario)
-      .then(usuarioInfo => {
-        if (usuarioInfo && usuarioInfo.correo) {
-          // Usamos Firebase para iniciar sesión con el correo y la contraseña
-          return this.AFauth.signInWithEmailAndPassword(usuarioInfo.correo, contrasenia);
+  login(username: string, password: string) {
+    return this.db.searchUserEmail(username)
+      .then(userInfo => {
+        if (userInfo && userInfo.email) {
+          // Use Firebase to sign in with email and password
+          return this.afAuth.signInWithEmailAndPassword(userInfo.email, password);
         } else {
-          throw new Error('No se encontró el correo del usuario');
+          throw new Error('User email not found');
         }
       })
       .catch(error => {
@@ -26,10 +25,10 @@ export class AuthfireBaseService {
       });
   }
 
-  eliminarUsuario(uid: string){
-    return this.AFauth.currentUser.then(user => {
+  deleteUser(uid: string) {
+    return this.afAuth.currentUser.then(user => {
       if (user) {
-        // Requiere que el usuario esté autenticado
+        // Requires the user to be authenticated
         return user.delete();
       } else {
         return null;
@@ -37,14 +36,12 @@ export class AuthfireBaseService {
     });
   }
   
-  registro(correo: string, contrasenia: string){
-    
-    return this.AFauth.createUserWithEmailAndPassword(correo, contrasenia);
+  register(email: string, password: string) {
+    return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  resetContra(email: string){
-    
-    return this.AFauth.sendPasswordResetEmail(email);
+  resetPassword(email: string) {
+    return this.afAuth.sendPasswordResetEmail(email);
   }
 
 }

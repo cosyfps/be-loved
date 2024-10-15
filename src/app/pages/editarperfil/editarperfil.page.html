@@ -11,11 +11,11 @@
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="people-outline" slot="start"></ion-icon>
         <ion-input placeholder="Maximo 15 caracteres" label="Nombre Usuario" label-placement="floating" maxlength="15"
-          color="dark" name="usuarioNuevo" [(ngModel)]="usuarioNuevo"></ion-input>
+          color="dark" name="newUsername" [(ngModel)]="newUsername"></ion-input>
       </ion-item>
 
       <div class="ion-text-center ion-margin">
-        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="irPerfil()">
+        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="successfulEdit()">
           Confirmar
           <ion-icon slot="end" name="checkmark-done-outline"></ion-icon>
         </ion-button>

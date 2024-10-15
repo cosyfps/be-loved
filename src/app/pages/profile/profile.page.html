@@ -7,38 +7,34 @@
 
   <div class="ion-no-margin">
     <div class="img-logo" style="position: relative;">
-      <img class="avatar-icon" *ngIf="imagen" [src]="imagen" alt="Imagen">
-      <img class="avatar-icon" *ngIf="!imagen" src="../../../assets/img/avatar.jpg" alt="Avatar">
-      <ion-button fill="clear" class="editar-icon" (click)="tomarFoto()">
+      <img class="avatar-icon" *ngIf="image" [src]="image" alt="Image">
+      <img class="avatar-icon" *ngIf="!image" src="../../../assets/img/avatar.jpg" alt="Avatar">
+      <ion-button fill="clear" class="editar-icon" (click)="takePhoto()">
         <ion-icon name="pencil" size="large"></ion-icon>
       </ion-button>
     </div>
-
-    <ion-text class="ion-text-center">
-      <h5 class="usuario">{{usuario}}</h5>
-    </ion-text>
   </div>
 
   <div class="seccion-form">
     <form action="">
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="person-outline" slot="start"></ion-icon>
-        <ion-input label="Username" fill="clear" color="dark" value="{{usuario}}" readonly></ion-input>
+        <ion-input label="Username" fill="clear" color="dark" value="{{username}}" readonly></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="mail-outline" slot="start"></ion-icon>
-        <ion-input label="Email" fill="clear" color="dark" value="{{correo}}" readonly></ion-input>
+        <ion-input label="Email" fill="clear" color="dark" value="{{email}}" readonly></ion-input>
       </ion-item>
 
       <div class="ion-text-center ion-margin">
         <ion-button class="boton-inicio txt-marcado" style="display: inline-block; width: 45%;"
-          (click)="irEditarperfil()">
+          (click)="goToEditProfile()">
           Edit Username
           <ion-icon slot="end" name="build"></ion-icon>
         </ion-button>
         <ion-button class="boton-inicio txt-marcado" style="display: inline-block; width: 45%;"
-          (click)="cambiarContrasenia()">
+          (click)="changePassword()">
           Edit Password
           <ion-icon slot="end" name="key-outline"></ion-icon>
         </ion-button>

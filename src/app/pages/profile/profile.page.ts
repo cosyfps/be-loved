@@ -3,7 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { MenuController } from '@ionic/angular';
-import { ServicioBDService } from 'src/app/services/servicio-bd.service';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,83 +12,73 @@ import { ServicioBDService } from 'src/app/services/servicio-bd.service';
 })
 export class ProfilePage implements OnInit {
 
-  usuario: string = "";
-  correo: string = "";
-  contrasenia: string = "";
-  id_usuario!: number;
+  username: string = "";
+  email: string = "";
+  password: string = "";
+  userId!: number;
+  image: any;
 
-  imagen: any;
-
-  constructor(private menu:MenuController,private router: Router, private storage: NativeStorage, private bd: ServicioBDService, private cdr: ChangeDetectorRef ) {
-
-  }
+  constructor(private menu: MenuController, private router: Router, private storage: NativeStorage, private db: DatabaseService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.menu.enable(false);
   }
 
-  ionViewWillEnter(){
-    
-    this.storage.getItem('username').then(data=>{
-      this.id_usuario = data;
+  ionViewWillEnter() {
+    this.storage.getItem('username').then(data => {
+      this.userId = data;
 
-      // llama a la consulta solo cuando se haya obtenido el id
-      return this.bd.miPerfil(this.id_usuario);
-
+      // Call the query only when the ID has been obtained
+      return this.db.getUserProfile(this.userId);
     }).then(data => {
       if (data) {
-        this.usuario = data.nombreusuario;
-        this.correo = data.correo;
-        this.contrasenia = data.contrasenia;
-        this.imagen = data.fotousuario;
+        this.username = data.username;
+        this.email = data.email;
+        this.password = data.password;
+        this.image = data.user_photo;
 
         this.cdr.detectChanges();
       }
     });
   }
 
-  tomarFoto = async () => {
+  takePhoto = async () => {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.Base64
     });
   
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    this.imagen = 'data:image/jpeg;base64,' + image.base64String;
+    // Set image as Base64
+    this.image = 'data:image/jpeg;base64,' + image.base64String;
 
-    this.bd.ModificarUsuario(this.usuario, this.correo, this.imagen, this.id_usuario);
-
+    this.db.updateUser(this.username, this.email, this.image, this.userId);
     this.cdr.detectChanges();
   };
 
-  irEditarperfil(){
+  goToEditProfile() {
     let navigationExtras: NavigationExtras = {
       state: {
-        us: this.usuario,
-        cor: this.correo,
-        id: this.id_usuario,
-        img : this.imagen
+        us: this.username,
+        cor: this.email,
+        id: this.userId,
+        img: this.image
       }
     }
     this.router.navigate(['/editarperfil'], navigationExtras);
   }
 
-  cambiarContrasenia(){
+  changePassword() {
     let navigationExtras: NavigationExtras = {
       state: {
-        id: this.id_usuario,
-        con: this.contrasenia
+        id: this.userId,
+        con: this.password
       }
     }
     this.router.navigate(['/cambiarcontra'], navigationExtras);
   }
 
-  goToHome(){
+  goToHome() {
     this.router.navigate(['/home']);
   }
-
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
-import { ServicioBDService } from 'src/app/services/servicio-bd.service';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
 @Component({
   selector: 'app-editarperfil',
@@ -11,28 +11,26 @@ import { ServicioBDService } from 'src/app/services/servicio-bd.service';
 })
 export class EditarperfilPage implements OnInit {
   
-  // Nueva Modificacion
-  usuarioNuevo: string = "";
+  // New Modification
+  newUsername: string = "";
 
-  // Datos Antiguos
-  usuarioAntiguo : string = "";
-  correoAntiguo : string = "";
+  // Old Data
+  oldUsername: string = "";
+  oldEmail: string = "";
 
-  // Dato para rescatar el id
-  id_usuario!: number;
-  imagen!: any;
+  // Data to retrieve the user ID
+  userId!: number;
+  image!: any;
 
-  constructor(private menu:MenuController,private router: Router, private alertController: AlertController, private bd: ServicioBDService,private activedrouter: ActivatedRoute) {
-    this.activedrouter.queryParams.subscribe(res=>{
-      if(this.router.getCurrentNavigation()?.extras.state){
-        this.usuarioNuevo = this.router.getCurrentNavigation()?.extras?.state?.['us'];
-        this.id_usuario = this.router.getCurrentNavigation()?.extras?.state?.['id'];
-        this.correoAntiguo = this.router.getCurrentNavigation()?.extras?.state?.['cor'];
-        
-        this.imagen = this.router.getCurrentNavigation()?.extras?.state?.['img'];
+  constructor(private menu: MenuController, private router: Router, private alertController: AlertController, private db: DatabaseService, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe(res => {
+      if (this.router.getCurrentNavigation()?.extras.state) {
+        this.newUsername = this.router.getCurrentNavigation()?.extras?.state?.['us'];
+        this.userId = this.router.getCurrentNavigation()?.extras?.state?.['id'];
+        this.oldEmail = this.router.getCurrentNavigation()?.extras?.state?.['cor'];
+        this.image = this.router.getCurrentNavigation()?.extras?.state?.['img'];
 
-
-        this.usuarioAntiguo =  this.usuarioNuevo
+        this.oldUsername = this.newUsername;
       }
     })
   }
@@ -40,35 +38,31 @@ export class EditarperfilPage implements OnInit {
   ngOnInit() {
     this.menu.enable(false);
   }
-  async irPerfil() {
 
-    if (this.usuarioNuevo == ""){
+  async successfulEdit() {
+    if (this.newUsername == "") {
       const alert = await this.alertController.create({
-        header: 'Campos vacios',
-        message: 'Por Favor intentelo de nuevo',
+        header: 'Empty Fields',
+        message: 'Please try again',
         buttons: ['OK'],
-        cssClass: 'estilo-alertas'
-      });
-  
-      await alert.present();
-    } else if (this.usuarioNuevo == this.usuarioAntiguo){
-      const alert = await this.alertController.create({
-        header: 'Los datos no pueden ser igual a los anteriores',
-        message: 'Por favor intentelo de nuevo',
-        buttons: ['OK'],
-        cssClass: 'estilo-alertas'
+        cssClass: 'alert-style'
       });
       await alert.present();
-    }
-    else{
-
-      this.bd.ModificarUsuario(this.usuarioNuevo, this.correoAntiguo, this.imagen, this.id_usuario)       
+    } else if (this.newUsername == this.oldUsername) {
+      const alert = await this.alertController.create({
+        header: 'Data cannot be the same as the previous',
+        message: 'Please try again',
+        buttons: ['OK'],
+        cssClass: 'alert-style'
+      });
+      await alert.present();
+    } else {
+      this.db.updateUser(this.newUsername, this.oldEmail, this.image, this.userId);
       this.router.navigate(['/profile']);
     } 
   }
 
-  goToProfile(){
+  goToProfile() {
     this.router.navigate(['/profile']);
   }
 }
-

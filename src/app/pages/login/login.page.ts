@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
-import { ServicioBDService } from 'src/app/services/servicio-bd.service';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginPage implements OnInit {
   username: string = "";
   password: string = "";
 
-  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: ServicioBDService, private authFirebase: AuthfireBaseService) {}
+  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: DatabaseService, private authFirebase: AuthfireBaseService) {}
 
   ngOnInit() {
     this.menu.enable(false);
@@ -34,17 +34,17 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/homeadmin']);
     } else {
       try {
-        let firebaseCredential = await this.authFirebase.inicioSesion(this.username, this.password);
+        let firebaseCredential = await this.authFirebase.login(this.username, this.password);
         
         if (firebaseCredential) {
           // Verify user in the database
-          let validatedUser = await this.dbService.BuscarCorreoUsuario(this.username);
+          let validatedUser = await this.dbService.searchUserEmail(this.username);
   
           if (validatedUser) {
-            await this.dbService.modificarContra(this.password, validatedUser.id_usuario);
+            await this.dbService.updatePassword(this.password, validatedUser.id_user);
 
             // Save user data in NativeStorage
-            await this.storage.setItem('username', validatedUser.id_usuario);
+            await this.storage.setItem('username', validatedUser.id_user);
   
             // Redirect to home
             this.router.navigate(['/home']);

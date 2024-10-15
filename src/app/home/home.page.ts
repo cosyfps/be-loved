@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { MenuController } from '@ionic/angular';
-import { ServicioBDService } from '../services/servicio-bd.service';
+import { DatabaseService } from '../services/servicio-bd.service';
 import { Browser } from '@capacitor/browser';
 
 @Component({
@@ -12,10 +12,10 @@ import { Browser } from '@capacitor/browser';
 })
 export class HomePage implements OnInit {
 
-  id_usuario! : number;
-  usuario : string = "";
+  id_user! : number;
+  username : string = "";
 
-  constructor(private menu:MenuController, private storage: NativeStorage, private bd: ServicioBDService) { 
+  constructor(private menu:MenuController, private storage: NativeStorage, private bd: DatabaseService) { 
 
   }
 
@@ -28,14 +28,14 @@ export class HomePage implements OnInit {
     this.menu.enable(true);
 
     this.storage.getItem('username').then(data=>{
-      this.id_usuario = data;
+      this.id_user = data;
 
       // llama a la consulta solo cuando se haya obtenido el id
-      return this.bd.miPerfil(this.id_usuario);
+      return this.bd.getUserProfile(this.id_user);
 
     }).then(data => {
       if (data) {
-        this.usuario = data.nombreusuario;
+        this.username = data.username;
       }
     });
   }

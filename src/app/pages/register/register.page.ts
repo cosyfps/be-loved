@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
-import { ServicioBDService } from 'src/app/services/servicio-bd.service';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
 
@@ -11,13 +11,14 @@ import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+
   username: string = '';
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
-  id_rol: string = '0';
+  id_rol: string = '2';
 
-  constructor(private menu: MenuController, private alertController: AlertController, private router: Router, private bd: ServicioBDService, private afAuth: AngularFireAuth, private authService: AuthfireBaseService) { }
+  constructor(private menu: MenuController, private alertController: AlertController, private router: Router, private bd: DatabaseService, private afAuth: AngularFireAuth, private authService: AuthfireBaseService) { }
 
   ngOnInit() {
     this.menu.enable(false);
@@ -115,8 +116,8 @@ export class RegisterPage implements OnInit {
     } 
     else {
       try {
-        await this.authService.registro(this.email, this.password);
-        this.bd.insertarUsuario(this.username, this.email, this.password, '', Number(this.id_rol));
+        await this.authService.register(this.email, this.password);
+        this.bd.insertUser(this.username, this.email, this.password, '', Number(this.id_rol));
         const alert = await this.alertController.create({
           header: 'Registered',
           message: 'Successfully registered.',
