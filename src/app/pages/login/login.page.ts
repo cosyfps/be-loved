@@ -79,8 +79,8 @@ export class LoginPage implements OnInit {
     }
   }
 
-  goToRegister(){
-    this.router.navigate(['/register']);
+  goToRcontrasenia(){
+    this.router.navigate(['/rcontrasenia']);
   }
 
   goToStart(){

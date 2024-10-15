@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, MenuController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rcontrasenia',
@@ -9,41 +10,55 @@ import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
   styleUrls: ['./rcontrasenia.page.scss'],
 })
 export class RcontraseniaPage implements OnInit {
-  correo: string = "";
+  
+  email: string = "";
 
-  constructor(private menu: MenuController,private alertController: AlertController,private afAuth: AngularFireAuth, private authService: AuthfireBaseService) {}
+  constructor(private menu: MenuController, private router: Router, private alertController: AlertController, private afAuth: AngularFireAuth, private authService: AuthfireBaseService) {}
 
   ngOnInit() {
     this.menu.enable(false);
   }
 
-  async enviarCorreo() {
-    if (this.correo === "") {
+  async sendEmail() {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (this.email === "") {
       const alert = await this.alertController.create({
         header: 'Error',
-        message: 'Debe ingresar un correo',
+        message: 'Please enter an email address',
         buttons: ['OK'],
-        cssClass: 'estilo-alertas'
+        cssClass: 'alert-style'
+      });
+      await alert.present();
+    } else if (!emailPattern.test(this.email)) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Please enter a valid email address',
+        buttons: ['OK'],
+        cssClass: 'alert-style'
       });
       await alert.present();
     } else {
-      this.authService.resetContra(this.correo).then(() => {
-        this.Alerta('Resetear Contraseña', 'Se ha enviado un correo para restablecer su contraseña');
-        
+      this.authService.resetContra(this.email).then(() => {
+        this.showAlert('Password Reset', 'An email has been sent to reset your password');
       }).catch(() => {
-        this.Alerta('Error', 'No se pudo enviar el correo');
+        this.showAlert('Error', 'Failed to send email');
       });
     }
   }
 
-  async Alerta(titulo: string, msj:string) {
+  async showAlert(title: string, message: string) {
     const alert = await this.alertController.create({
-      header: titulo,
-      message: msj,
+      header: title,
+      message: message,
       buttons: ['OK'],
-      cssClass:'estilo-alertas'
+      cssClass: 'alert-style'
     });
 
     await alert.present();
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 }
