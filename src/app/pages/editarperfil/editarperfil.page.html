@@ -5,22 +5,22 @@
     <h2>Edit Username</h2>
   </ion-text>
 
-  <div class="seccion-form">
-    <form class="miperfil">
+  <div class="section-form">
+    <form class="my-profile">
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="people-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Maximo 15 caracteres" label="Nombre Usuario" label-placement="floating" maxlength="15"
+        <ion-input placeholder="Maximum 15 characters" label="Username" label-placement="floating" maxlength="15"
           color="dark" name="newUsername" [(ngModel)]="newUsername"></ion-input>
       </ion-item>
 
       <div class="ion-text-center ion-margin">
-        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="successfulEdit()">
-          Confirmar
+        <ion-button expand="block" class="ion-margin start-button marked-text" (click)="successfulEdit()">
+          Confirm
           <ion-icon slot="end" name="checkmark-done-outline"></ion-icon>
         </ion-button>
-        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="goToProfile()">
-          Cancelar
+        <ion-button expand="block" class="ion-margin start-button marked-text" (click)="goToProfile()">
+          Cancel
           <ion-icon slot="end" name="close-outline"></ion-icon>
         </ion-button>
       </div>

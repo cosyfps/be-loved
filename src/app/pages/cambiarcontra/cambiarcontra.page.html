@@ -1,41 +1,41 @@
 <ion-content [fullscreen]="true" class="background">
 
   <ion-text class="header-title">
-    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToProfile()"></ion-icon>
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToProfilePage()"></ion-icon>
     <h2>Edit Password</h2>
   </ion-text>
 
-  <div class="seccion-form">
+  <div class="section-form">
     <form action="" class="">
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="key-outline" slot="start"></ion-icon>
-        <ion-input label="Contraseña Actual" label-placement="floating" fill="clear" color="dark" maxlength="12"
-          [(ngModel)]="validarContraAntigua" name="validarContraAntigua"></ion-input>
+        <ion-input label="Current Password" label-placement="floating" fill="clear" color="dark" maxlength="12"
+          [(ngModel)]="validateOldPassword" name="validateOldPassword"></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon slot="start" name="lock-open-outline"></ion-icon>
-        <ion-input label="Nueva Contraseña" label-placement="floating" fill="clear" color="dark" maxlength="12"
-          [(ngModel)]="nuevaContra" name="nuevaContra"></ion-input>
+        <ion-input label="New Password" label-placement="floating" fill="clear" color="dark" maxlength="12"
+          [(ngModel)]="newPassword" name="newPassword"></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-        <ion-input label="Confirmar Contraseña" label-placement="floating" fill="clear" color="dark" maxlength="12"
-          [(ngModel)]="confirmContra" name="confirmContra"></ion-input>
+        <ion-input label="Confirm Password" label-placement="floating" fill="clear" color="dark" maxlength="12"
+          [(ngModel)]="confirmPassword" name="confirmPassword"></ion-input>
       </ion-item>
 
     </form>
 
     <div class="ion-text-center ion-margin">
-      <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="irPerfil()">
-        Confirmar
+      <ion-button expand="block" class="ion-margin start-button marked-text" (click)="goToProfile()">
+        Confirm
         <ion-icon slot="end" name="checkmark-done-outline"></ion-icon>
       </ion-button>
 
-      <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" [routerLink]="['/profile']">
-        Cancelar
+      <ion-button expand="block" class="ion-margin start-button marked-text" (click)="goToProfilePage()">
+        Cancel
         <ion-icon slot="end" name="close-outline"></ion-icon>
       </ion-button>
     </div>

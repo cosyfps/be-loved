@@ -65,4 +65,5 @@ export class EditarperfilPage implements OnInit {
   goToProfile() {
     this.router.navigate(['/profile']);
   }
+  
 }

@@ -10,7 +10,7 @@ ion-menu::part(container) {
 }
 
 .menu-toolbar {
-  --background: #8522b3;
+  --background: #9575cd;
   /* Morado oscuro para la barra del menú */
 }
 
@@ -24,26 +24,26 @@ ion-menu::part(container) {
   }
 
   ion-item {
-    color: #6a1b9a;
+    color: #9575cd;
     /* Morado oscuro para el texto de los items */
     --background: white;
     font-weight: bold;
 
     ion-icon {
-      color: #6a1b9a;
+      color: #9575cd;
       /* Morado oscuro para los iconos */
     }
   }
 }
 
 .menu-footer {
-  --background: #6a1b9a;
+  --background: #9575cd;
   /* Morado oscuro para el pie del menú */
   color: white;
 
   ion-item {
     color: white;
-    --background: #8522b3;
+    --background: #9575cd;
     font-weight: bold;
     text-align: center;
 

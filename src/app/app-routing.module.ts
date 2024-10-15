@@ -32,10 +32,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cambiarcontra/cambiarcontra.module').then( m => m.CambiarcontraPageModule)
   },
   {
-    path: 'misreservas',
-    loadChildren: () => import('./pages/misreservas/misreservas.module').then( m => m.MisreservasPageModule)
-  },
-  {
     path: 'usuarios',
     loadChildren: () => import('./pagesadm/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
   },
