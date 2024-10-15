@@ -88,7 +88,7 @@ export class CambiarcontraPage implements OnInit {
         // funcion modiciar contra
         await user.updatePassword(this.nuevaContra); 
         this.bd.modificarContra(this.nuevaContra, this.id_usuario).then(res =>{
-          this.router.navigate(['/miperfil']);
+          this.router.navigate(['/profile']);
         });
 
       }
@@ -105,5 +105,9 @@ export class CambiarcontraPage implements OnInit {
       cssClass: 'estilo-alertas'
     });
     await toast.present();
+  }
+
+  goToProfile(){
+    this.router.navigate(['/profile']);
   }
 }

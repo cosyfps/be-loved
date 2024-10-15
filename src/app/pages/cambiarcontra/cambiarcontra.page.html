@@ -1,53 +1,47 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="fondo">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="background">
 
-<ion-content [fullscreen]="true" class="fondo">
-  
-  <div class="ion-no-margin">
-    <div class="img-logo">
-      <img src="../../../assets/icon/ChefPerfil.png" alt="Imagen Chef">
-    </div>
-    <ion-text class="ion-text-center">
-      <h5 class="usuario">CAMBIAR CONTRASEÑA</h5>
-    </ion-text>
-  </div>
- 
+  <ion-text class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToProfile()"></ion-icon>
+    <h2>Edit password</h2>
+  </ion-text>
+
+
 
   <div class="seccion-form">
-    <form action="" class="miperfil">
+    <form action="" class="">
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="key-outline" slot="start"></ion-icon>
-        <ion-input label="Contraseña Actual" label-placement="floating" fill="clear" color="dark" maxlength="12" [(ngModel)] ="validarContraAntigua" name="validarContraAntigua"></ion-input>
+        <ion-input label="Contraseña Actual" label-placement="floating" fill="clear" color="dark" maxlength="12"
+          [(ngModel)]="validarContraAntigua" name="validarContraAntigua"></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon slot="start" name="lock-open-outline"></ion-icon>
-        <ion-input label="Nueva Contraseña" label-placement="floating" fill="clear" color="dark" maxlength="12" [(ngModel)] ="nuevaContra" name="nuevaContra" ></ion-input>
+        <ion-input label="Nueva Contraseña" label-placement="floating" fill="clear" color="dark" maxlength="12"
+          [(ngModel)]="nuevaContra" name="nuevaContra"></ion-input>
       </ion-item>
-      
+
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-        <ion-input label="Confirmar Contraseña" label-placement="floating" fill="clear" color="dark" maxlength="12" [(ngModel)] ="confirmContra" name="confirmContra" ></ion-input>
+        <ion-input label="Confirmar Contraseña" label-placement="floating" fill="clear" color="dark" maxlength="12"
+          [(ngModel)]="confirmContra" name="confirmContra"></ion-input>
       </ion-item>
-    
-      <div class="ion-text-center ion-margin">
-        <ion-button  expand="block" class="ion-margin boton-inicio txt-marcado" (click)="irPerfil()">
-          Confirmar
-          <ion-icon slot="end" name="checkmark-done-outline"></ion-icon>
-        </ion-button>
-        
-        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" [routerLink]="['/miperfil']">
-          Cancelar
-          <ion-icon slot="end" name="close-outline"></ion-icon>
-        </ion-button>
-      </div> 
+
     </form>
+
+    <div class="ion-text-center ion-margin">
+      <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="irPerfil()">
+        Confirmar
+        <ion-icon slot="end" name="checkmark-done-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" [routerLink]="['/profile']">
+        Cancelar
+        <ion-icon slot="end" name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
+
   </div>
- 
+
 </ion-content>

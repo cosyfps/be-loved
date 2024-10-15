@@ -40,23 +40,3 @@
 :root {
     --ion-text-color: white;
 }
-
-
-/*Cambio de color para las alertas*/
-.estilo-alertas{
-
-    --background: #4e3725;
-    .alert-title{
-        color: white;
-    }
-    .alert-message{
-        color: white;
-    }
-    .alert-button{
-        background: white;
-        color: #4e3725;
-        margin-bottom: 5px;
-        border-radius: 4px;
-    }
-
-}
