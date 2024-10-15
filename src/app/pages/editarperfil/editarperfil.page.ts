@@ -12,15 +12,10 @@ import { ServicioBDService } from 'src/app/services/servicio-bd.service';
 export class EditarperfilPage implements OnInit {
   
   // Nueva Modificacion
-  nombreNuevo: string = "";
   usuarioNuevo: string = "";
-  telefonoNuevo: string = "";
-
 
   // Datos Antiguos
   usuarioAntiguo : string = "";
-  nombreAntiguo : string = "";
-  telefonoAntiguo : string = "";
   correoAntiguo : string = "";
 
   // Dato para rescatar el id
@@ -47,7 +42,7 @@ export class EditarperfilPage implements OnInit {
   }
   async irPerfil() {
 
-    if (this.nombreNuevo =="" || this.usuarioNuevo =="" || this.telefonoNuevo ==""){
+    if (this.usuarioNuevo == ""){
       const alert = await this.alertController.create({
         header: 'Campos vacios',
         message: 'Por Favor intentelo de nuevo',
@@ -56,7 +51,7 @@ export class EditarperfilPage implements OnInit {
       });
   
       await alert.present();
-    } else if (this.nombreNuevo == this.nombreAntiguo && this.usuarioNuevo == this.usuarioAntiguo && this.telefonoNuevo  ==  this.telefonoAntiguo){
+    } else if (this.usuarioNuevo == this.usuarioAntiguo){
       const alert = await this.alertController.create({
         header: 'Los datos no pueden ser igual a los anteriores',
         message: 'Por favor intentelo de nuevo',
@@ -67,10 +62,13 @@ export class EditarperfilPage implements OnInit {
     }
     else{
 
-      this.bd.ModificarUsuario(this.usuarioNuevo, this.correoAntiguo,this.imagen,this.id_usuario)       
-      this.router.navigate(['/miperfil']);
+      this.bd.ModificarUsuario(this.usuarioNuevo, this.correoAntiguo, this.imagen, this.id_usuario)       
+      this.router.navigate(['/profile']);
     } 
   }
 
+  goToProfile(){
+    this.router.navigate(['/profile']);
+  }
 }
 

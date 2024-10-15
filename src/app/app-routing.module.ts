@@ -40,32 +40,8 @@ const routes: Routes = [
     loadChildren: () => import('./pagesadm/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
   },
   {
-    path: 'reservas',
-    loadChildren: () => import('./pagesadm/reservas/reservas.module').then( m => m.ReservasPageModule)
-  },
-  {
-    path: 'mesas',
-    loadChildren: () => import('./pagesadm/mesas/mesas.module').then( m => m.MesasPageModule)
-  },
-  {
     path: 'homeadmin',
     loadChildren: () => import('./pagesadm/homeadmin/homeadmin.module').then( m => m.HomeadminPageModule)
-  },
-  {
-    path: 'editareserva',
-    loadChildren: () => import('./pagesadm/editareserva/editareserva.module').then( m => m.EditareservaPageModule)
-  },
-  {
-    path: 'contactocli',
-    loadChildren: () => import('./pagesadm/contactocli/contactocli.module').then( m => m.ContactocliPageModule)
-  },
-  {
-    path: 'agregarmesa',
-    loadChildren: () => import('./pagesadm/agregarmesa/agregarmesa.module').then( m => m.AgregarmesaPageModule)
-  },
-  {
-    path: 'editarmesa',
-    loadChildren: () => import('./pagesadm/editarmesa/editarmesa.module').then( m => m.EditarmesaPageModule)
   },
   {
     path: 'profile',

@@ -1,51 +1,30 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="fondo">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="background">
 
-<ion-content [fullscreen]="true" class="fondo">
-  
-  <div class="ion-no-margin">
-    <div class="img-logo">
-      <img src="../../../assets/icon/ChefPerfil.png" alt="Imagen Chef">
-    </div>
-    <ion-text class="ion-text-center">
-      <h5 class="usuario">EDITAR PERFIL</h5>
-    </ion-text>
-  </div>
+  <ion-text class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToProfile()"></ion-icon>
+    <h2>Edit Username</h2>
+  </ion-text>
 
   <div class="seccion-form">
     <form class="miperfil">
-      
-      <ion-item class="ion-margin-horizontal ion-color">
-        <ion-icon aria-hidden="true" name="person-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Maximo 25 caracteres" label="Nombre y Apellido" label-placement="floating" maxlength="25" color="dark" name="nombreNuevo" [(ngModel)]="nombreNuevo"></ion-input>
-      </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="people-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Maximo 15 caracteres" label="Nombre Usuario" label-placement="floating" maxlength="15" color="dark" name="usuarioNuevo" [(ngModel)]="usuarioNuevo"></ion-input>
+        <ion-input placeholder="Maximo 15 caracteres" label="Nombre Usuario" label-placement="floating" maxlength="15"
+          color="dark" name="usuarioNuevo" [(ngModel)]="usuarioNuevo"></ion-input>
       </ion-item>
-      
-      <ion-item class="ion-margin-horizontal ion-color">
-        <ion-icon aria-hidden="true" name="call-outline" slot="start"></ion-icon>
-        <ion-input type="tel" label="Telefono" label-placement="floating" placeholder="EJ : 123456789" color="dark" maxlength="9" name="telefonoNuevo" [(ngModel)]="telefonoNuevo"></ion-input>
-      </ion-item>
-    
+
       <div class="ion-text-center ion-margin">
         <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="irPerfil()">
           Confirmar
           <ion-icon slot="end" name="checkmark-done-outline"></ion-icon>
         </ion-button>
-        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" [routerLink]="['/miperfil']">
+        <ion-button expand="block" class="ion-margin boton-inicio txt-marcado" (click)="goToProfile()">
           Cancelar
           <ion-icon slot="end" name="close-outline"></ion-icon>
         </ion-button>
-      </div> 
+      </div>
     </form>
   </div>
- 
+
 </ion-content>

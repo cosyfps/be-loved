@@ -1,51 +1,43 @@
-.fondo{
-    --background: linear-gradient(to right, #4e3725, #2d1b14);
-    min-height: 100%;
+.background {
+    --background: linear-gradient(to right, #b39ddb, #9575cd);
 }
 
-.img-logo{
-    text-align: center;
-    img{
-        width: 170px;
-        margin-right: 10px;
-        margin-top: 10px;
-    }
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
-.usuario{
-    margin-top: -20px;
+
+.header-title h2 {
+    margin: 0;
     font-weight: bold;
-    font-size: 25px;
+    color: #ffffff;
+    font-size: 32px;
+    text-align: left;
 }
 
-.seccion-form{
+.header-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 32px;
+}
+
+.seccion-form {
+    margin-bottom: 20px;
     position: fixed;
-    bottom: 0;
+    top: 100px;
     left: 0;
     width: 100%;
-    height: 60vh;
-}
-.miperfil{
-    background: rgb(211, 210, 210);
-    color: #4e3725;
-    border-radius: 50px 50px 0px 0px;
-    padding: 10px; 
-    text-align: center;
-    height: 100%;
-    .quitar-linea{
-        --border-width: 0;
-    }
+    height: 68vh;
 }
 
-.ion-color{
-    color: #4e3725;
-}
-.boton-inicio{
-    --ion-color-primary: #4e3725;
+.boton-inicio {
+    --ion-color-primary: #9575cd;
     color: #fff;
+    margin-top: 10px;
 }
-.txt-marcado{
-    font-weight: bold;
-}
-
-
-/*ALERTA*/
