@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
 @Component({
-  selector: 'app-editarperfil',
-  templateUrl: './editarperfil.page.html',
-  styleUrls: ['./editarperfil.page.scss'],
+  selector: 'app-change-username',
+  templateUrl: './change-username.page.html',
+  styleUrls: ['./change-username.page.scss'],
 })
-export class EditarperfilPage implements OnInit {
-  
+export class ChangeUsernamePage implements OnInit {
+
   // New Modification
   newUsername: string = "";
 
@@ -65,5 +64,5 @@ export class EditarperfilPage implements OnInit {
   goToProfile() {
     this.router.navigate(['/profile']);
   }
-  
+
 }

@@ -65,7 +65,7 @@ export class ProfilePage implements OnInit {
         img: this.image
       }
     }
-    this.router.navigate(['/editarperfil'], navigationExtras);
+    this.router.navigate(['/change-username'], navigationExtras);
   }
 
   changePassword() {
@@ -75,7 +75,7 @@ export class ProfilePage implements OnInit {
         con: this.password
       }
     }
-    this.router.navigate(['/cambiarcontra'], navigationExtras);
+    this.router.navigate(['/change-password'], navigationExtras);
   }
 
   goToHome() {

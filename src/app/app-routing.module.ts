@@ -24,14 +24,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'editarperfil',
-    loadChildren: () => import('./pages/editarperfil/editarperfil.module').then( m => m.EditarperfilPageModule)
-  },
-  {
-    path: 'cambiarcontra',
-    loadChildren: () => import('./pages/cambiarcontra/cambiarcontra.module').then( m => m.CambiarcontraPageModule)
-  },
-  {
     path: 'usuarios',
     loadChildren: () => import('./pagesadm/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
   },
@@ -48,9 +40,19 @@ const routes: Routes = [
     loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
+    path: 'change-password',
+    loadChildren: () => import('./pages/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+  },
+  {
+    path: 'change-username',
+    loadChildren: () => import('./pages/change-username/change-username.module').then( m => m.ChangeUsernamePageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+ 
+
   
 
   

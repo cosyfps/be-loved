@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
-import { DatabaseService, } from 'src/app/services/servicio-bd.service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
 @Component({
-  selector: 'app-cambiarcontra',
-  templateUrl: './cambiarcontra.page.html',
-  styleUrls: ['./cambiarcontra.page.scss'],
+  selector: 'app-change-password',
+  templateUrl: './change-password.page.html',
+  styleUrls: ['./change-password.page.scss'],
 })
-export class CambiarcontraPage implements OnInit {
+export class ChangePasswordPage implements OnInit {
 
   oldPassword: string = "";
   validateOldPassword: string = "";
@@ -110,4 +110,5 @@ export class CambiarcontraPage implements OnInit {
   goToProfilePage() {
     this.router.navigate(['/profile']);
   }
+
 }
