@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, MenuController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
 import { Router } from '@angular/router';
+import { AlertController, MenuController } from '@ionic/angular';
+import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
 
 @Component({
-  selector: 'app-rcontrasenia',
-  templateUrl: './rcontrasenia.page.html',
-  styleUrls: ['./rcontrasenia.page.scss'],
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.page.html',
+  styleUrls: ['./forgot-password.page.scss'],
 })
-export class RcontraseniaPage implements OnInit {
-  
+export class ForgotPasswordPage implements OnInit {
+
   email: string = "";
 
   constructor(private menu: MenuController, private router: Router, private alertController: AlertController, private afAuth: AngularFireAuth, private authService: AuthfireBaseService) {}
@@ -61,4 +61,5 @@ export class RcontraseniaPage implements OnInit {
   goToLogin() {
     this.router.navigate(['/login']);
   }
+
 }

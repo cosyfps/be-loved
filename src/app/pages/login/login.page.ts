@@ -79,8 +79,8 @@ export class LoginPage implements OnInit {
     }
   }
 
-  goToRcontrasenia(){
-    this.router.navigate(['/rcontrasenia']);
+  goToForgotPassword(){
+    this.router.navigate(['/forgot-password']);
   }
 
   goToStart(){

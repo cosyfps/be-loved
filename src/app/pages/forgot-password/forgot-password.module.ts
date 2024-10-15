@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RcontraseniaPageRoutingModule } from './rcontrasenia-routing.module';
+import { ForgotPasswordPageRoutingModule } from './forgot-password-routing.module';
 
-import { RcontraseniaPage } from './rcontrasenia.page';
+import { ForgotPasswordPage } from './forgot-password.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RcontraseniaPageRoutingModule
+    ForgotPasswordPageRoutingModule
   ],
-  declarations: [RcontraseniaPage]
+  declarations: [ForgotPasswordPage]
 })
-export class RcontraseniaPageModule {}
+export class ForgotPasswordPageModule {}
