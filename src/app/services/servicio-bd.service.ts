@@ -4,6 +4,7 @@ import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Role } from './role';
 import { User } from './user';
+import { Task } from './task';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,13 @@ export class DatabaseService {
   insertUser1: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (2, 'cosyfps', 'KM_2024*Cl', 'kel.moreno@duocuc.cl', '', 2)";
   insertUser2: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (3, 'b3hidalgo', 'b3njA*2024', 'be.hidalgog@duocuc.cl', '', 2)";
 
+  // Task table
+  taskTable: string = "CREATE TABLE IF NOT EXISTS Task (id_task INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, description TEXT, due_date TEXT, status VARCHAR NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (user_id) REFERENCES Usuario (id_user));";
+
   // Variables to store query data from tables
   roleList = new BehaviorSubject([]);
   userList = new BehaviorSubject([]);
+  taskList = new BehaviorSubject([]);
 
   // Database status variable
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -57,6 +62,10 @@ export class DatabaseService {
 
   fetchUser(): Observable<User[]> {
     return this.userList.asObservable();
+  }
+
+  fetchTask(): Observable<Task[]> {
+    return this.taskList.asObservable();
   }
 
   dbState() {
@@ -87,6 +96,8 @@ export class DatabaseService {
       // Execute table creation
       await this.database.executeSql(this.roleTable, []);
       await this.database.executeSql(this.userTable, []);
+      await this.database.executeSql(this.taskTable, []);
+
 
       // Execute default inserts if they exist
       await this.database.executeSql(this.insertRoleAdmin, []);
@@ -259,6 +270,63 @@ export class DatabaseService {
     }).catch(e => {
       this.showAlert('User', 'Error: ' + JSON.stringify(e));
       return null;
+    });
+  }
+
+  // Task funtions
+  
+  listTasks() {
+    return this.database.executeSql('SELECT * FROM Task', []).then(res => {
+      // Variable to store query result
+      let items: Task[] = [];
+      // Check if at least one record is returned
+      if (res.rows.length > 0) {
+        // Iterate over the result
+        for (var i = 0; i < res.rows.length; i++) {
+          // Add records to the list
+          items.push({
+            id_task: res.rows.item(i).id_task,
+            title: res.rows.item(i).title,
+            description: res.rows.item(i).description,
+            due_date: res.rows.item(i).due_date,
+            status: res.rows.item(i).status,
+            user_id: res.rows.item(i).user_id
+          })
+        }
+      }
+      // Update the observable
+      this.taskList.next(items as any);
+    })
+  }
+
+  insertTask(title: string, description: string, due_date: string, status: string, user_id: number) {
+    return this.database.executeSql(
+      'INSERT INTO Task (title, description, due_date, status, user_id) VALUES (?, ?, ?, ?, ?)',
+      [title, description, due_date, status, user_id]
+    ).then(res => {
+      this.listTasks();
+    }).catch(e => {
+      this.showAlert('Insert Task', 'Error: ' + JSON.stringify(e));
+    });
+  }
+
+  updateTask(id_task: number, title: string, description: string, due_date: string, status: string) {
+    return this.database.executeSql(
+      'UPDATE Task SET title = ?, description = ?, due_date = ?, status = ? WHERE id_task = ?',
+      [title, description, due_date, status, id_task]
+    ).then(res => {
+      this.listTasks();
+    }).catch(e => {
+      this.showAlert('Update Task', 'Error: ' + JSON.stringify(e));
+    });
+  }
+
+  deleteTask(id_task: number) {
+    return this.database.executeSql('DELETE FROM Task WHERE id_task = ?', [id_task]).then(res => {
+      this.showAlert('Delete Task', 'Task deleted successfully');
+      this.listTasks();
+    }).catch(e => {
+      this.showAlert('Delete Task', 'Error: ' + JSON.stringify(e));
     });
   }
 }
