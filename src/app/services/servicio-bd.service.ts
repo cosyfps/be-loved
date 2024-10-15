@@ -320,10 +320,10 @@ export class ServicioBDService {
       this.listadoUsuario.next(items as any);})
   }
 
-  ModificarUsuario(nombreusuario: String, nombrecompleto: String,  telefono: string, correo: String, fotousuario: any,id_usuario: number){
+  ModificarUsuario(nombreusuario: String, correo: String, fotousuario: any,id_usuario: number){
     return this.database.executeSql(
-      'UPDATE Usuario SET nombreusuario = ?, nombrecompleto = ?, telefono = ?, correo = ?, fotousuario = ? WHERE id_usuario = ?',
-      [nombreusuario, nombrecompleto, telefono, correo, fotousuario, id_usuario]
+      'UPDATE Usuario SET nombreusuario = ?, correo = ?, fotousuario = ? WHERE id_usuario = ?',
+      [nombreusuario, correo, fotousuario, id_usuario]
     ).then(res => {
       this.Alerta("Modificar", "Usuario modificado exitosamente.");
       this.listarUsuario();

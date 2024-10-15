@@ -30,18 +30,14 @@ export class EditarperfilPage implements OnInit {
   constructor(private menu:MenuController,private router: Router, private alertController: AlertController, private bd: ServicioBDService,private activedrouter: ActivatedRoute) {
     this.activedrouter.queryParams.subscribe(res=>{
       if(this.router.getCurrentNavigation()?.extras.state){
-        this.nombreNuevo = this.router.getCurrentNavigation()?.extras?.state?.['nom'];
         this.usuarioNuevo = this.router.getCurrentNavigation()?.extras?.state?.['us'];
-        this.telefonoNuevo = this.router.getCurrentNavigation()?.extras?.state?.['te'];
         this.id_usuario = this.router.getCurrentNavigation()?.extras?.state?.['id'];
         this.correoAntiguo = this.router.getCurrentNavigation()?.extras?.state?.['cor'];
         
         this.imagen = this.router.getCurrentNavigation()?.extras?.state?.['img'];
 
 
-        this.nombreAntiguo = this.nombreNuevo
         this.usuarioAntiguo =  this.usuarioNuevo
-        this.telefonoAntiguo = this.telefonoNuevo
       }
     })
   }
@@ -71,7 +67,7 @@ export class EditarperfilPage implements OnInit {
     }
     else{
 
-      this.bd.ModificarUsuario(this.usuarioNuevo,this.nombreNuevo, this.telefonoNuevo, this.correoAntiguo,this.imagen,this.id_usuario)       
+      this.bd.ModificarUsuario(this.usuarioNuevo, this.correoAntiguo,this.imagen,this.id_usuario)       
       this.router.navigate(['/miperfil']);
     } 
   }

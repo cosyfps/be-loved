@@ -11,9 +11,7 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 })
 export class MiperfilPage implements OnInit {
 
-  nombre: string = "";
   usuario: string = "";
-  telefono: string = "";
   correo: string = "";
   contrasenia: string = "";
   id_usuario!: number;
@@ -29,8 +27,8 @@ export class MiperfilPage implements OnInit {
   }
 
   ionViewWillEnter(){
-
-    this.storage.getItem('usuario').then(data=>{
+    
+    this.storage.getItem('username').then(data=>{
       this.id_usuario = data;
 
       // llama a la consulta solo cuando se haya obtenido el id
@@ -39,8 +37,6 @@ export class MiperfilPage implements OnInit {
     }).then(data => {
       if (data) {
         this.usuario = data.nombreusuario;
-        this.nombre = data.nombrecompleto;
-        this.telefono = data.telefono;
         this.correo = data.correo;
         this.contrasenia = data.contrasenia;
         this.imagen = data.fotousuario;
@@ -63,7 +59,7 @@ export class MiperfilPage implements OnInit {
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
     this.imagen = 'data:image/jpeg;base64,' + image.base64String;
 
-    this.bd.ModificarUsuario(this.usuario,this.nombre,this.telefono,this.correo,this.imagen,this.id_usuario);
+    this.bd.ModificarUsuario(this.usuario, this.correo, this.imagen, this.id_usuario);
 
     this.cdr.detectChanges();
   };
@@ -71,9 +67,7 @@ export class MiperfilPage implements OnInit {
   irEditarperfil(){
     let navigationExtras: NavigationExtras = {
       state: {
-        nom: this.nombre,
         us: this.usuario,
-        te: this.telefono,
         cor: this.correo,
         id: this.id_usuario,
         img : this.imagen
@@ -91,4 +85,9 @@ export class MiperfilPage implements OnInit {
     }
     this.router.navigate(['/cambiarcontra'], navigationExtras);
   }
+
+  goToHome(){
+    this.router.navigate(['/home']);
+  }
+  
 }
