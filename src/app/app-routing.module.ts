@@ -32,10 +32,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/nosotros/nosotros.module').then( m => m.NosotrosPageModule)
   },
   {
-    path: 'miperfil',
-    loadChildren: () => import('./pages/miperfil/miperfil.module').then( m => m.MiperfilPageModule)
-  },
-  {
     path: 'rcontrasenia',
     loadChildren: () => import('./pages/rcontrasenia/rcontrasenia.module').then( m => m.RcontraseniaPageModule)
   },
@@ -96,9 +92,15 @@ const routes: Routes = [
     loadChildren: () => import('./pagesadm/editarmesa/editarmesa.module').then( m => m.EditarmesaPageModule)
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+  
+
   
 
 ];

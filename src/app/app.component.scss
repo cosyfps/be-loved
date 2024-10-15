@@ -1,53 +1,59 @@
 ion-menu::part(backdrop) {
-    background-color: #4e3725;
-  }
-  
-  ion-menu::part(container) {
-    border-radius: 0 20px 20px 0;
-  
-    box-shadow: 4px 0px 16px #4e3725;
+  background-color: #e3d7f0;
+  /* Fondo lila suave */
 }
 
-.menu-toolbar{
-  --background: #4e3725;
+ion-menu::part(container) {
+  border-radius: 0 20px 20px 0;
+  box-shadow: 4px 0px 16px #b399d4;
+  /* Sombra en tono morado suave */
 }
 
-.cuerpo-menu{
-  --background: white;
+.menu-toolbar {
+  --background: #8522b3;
+  /* Morado oscuro para la barra del menú */
+}
 
-  ion-list{
+.menu-body {
+  --background: #f8f3ff;
+  /* Fondo claro para el cuerpo del menú */
+
+  ion-list {
     margin-top: 20px;
     padding: 0;
-
   }
 
-  ion-item{
-    color: #4e3725;
+  ion-item {
+    color: #6a1b9a;
+    /* Morado oscuro para el texto de los items */
     --background: white;
     font-weight: bold;
 
-    ion-icon{
-      color: #4e3725;
-      
+    ion-icon {
+      color: #6a1b9a;
+      /* Morado oscuro para los iconos */
     }
   }
 }
-.menu-footer{
-  --background: #4e3725;
-  color: white;
-  
 
-  ion-item{
+.menu-footer {
+  --background: #6a1b9a;
+  /* Morado oscuro para el pie del menú */
+  color: white;
+
+  ion-item {
     color: white;
-    --background: #4e3725;
+    --background: #8522b3;
     font-weight: bold;
     text-align: center;
 
-    ion-label{
+    ion-label {
       margin-right: 35px;
     }
   }
 }
-.color{
-  color:white;
+
+.color {
+  color: white;
+  /* Texto en blanco para elementos destacados */
 }

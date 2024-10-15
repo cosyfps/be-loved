@@ -1,15 +1,16 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { Camera, CameraResultType } from '@capacitor/camera';
 import { MenuController } from '@ionic/angular';
 import { ServicioBDService } from 'src/app/services/servicio-bd.service';
-import { Camera, CameraResultType } from '@capacitor/camera';
+
 @Component({
-  selector: 'app-miperfil',
-  templateUrl: './miperfil.page.html',
-  styleUrls: ['./miperfil.page.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
 })
-export class MiperfilPage implements OnInit {
+export class ProfilePage implements OnInit {
 
   usuario: string = "";
   correo: string = "";
@@ -89,5 +90,5 @@ export class MiperfilPage implements OnInit {
   goToHome(){
     this.router.navigate(['/home']);
   }
-  
+
 }
