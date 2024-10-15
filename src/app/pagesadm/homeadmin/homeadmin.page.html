@@ -1,49 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="fondo">
-    <ion-title class="btn-center">Sazon y Arte</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="background">
 
-<ion-content [fullscreen]="true" class="fondo">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <h1 class="titulo">Hola,</h1>
-        <h1 class="nombre">Admin</h1>
-      </ion-col>
-      <ion-col>
-        <img class="logo" src="../../assets/icon/ChefPerfil.png" alt="LogoSazon"> 
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-text>
-    <h3 class="ion-text-center">Que deseas hacer hoy?</h3>
-  </ion-text>
-
-  <div class="btn-center">
-    <button mat-fab extended class="btn-usuario" [routerLink]="['/usuarios']">
-      <mat-icon>person</mat-icon>
-      Usuarios
-    </button>
-    <button mat-fab extended class="btn-reservas" [routerLink]="['/reservas']">
-      <mat-icon>calendar_today</mat-icon>
-      Reservas
-    </button>
-    <button mat-fab extended class="btn-mesas" [routerLink]="['/mesas']">
-      <mat-icon>table_restaurant</mat-icon>
-      Mesas
-    </button>
-    <button mat-fab extended class="btn-mesas" [routerLink]="['/contactocli']">
-      <mat-icon>contact_support</mat-icon>
-      Contacto Clientes
-    </button>
+  <div class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToLogin()"></ion-icon>
+    <h2>Administration Panel</h2>
   </div>
-</ion-content>
 
-<ion-footer>
-  <button mat-fab extended class="btn-salida" [routerLink]="['/login']">
-    <mat-icon>logout</mat-icon>
-    Cerrar Sesion
-  </button>
-</ion-footer>
+  <ion-card (click)="goToUser()" class="ourList-card">
+    <ion-card-content>
+      <ion-icon class="iconoTask" name="person"></ion-icon>
+      Users
+    </ion-card-content>
+  </ion-card>
+</ion-content>
