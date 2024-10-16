@@ -187,7 +187,7 @@ export class DatabaseService {
 
   updateUser(username: string, email: string, user_photo: any, id_user: number) {
     return this.database.executeSql(
-      'UPDATE Usuario SET User = ?, email = ?, user_photo = ? WHERE id_user = ?',
+      'UPDATE User SET username = ?, email = ?, user_photo = ? WHERE id_user = ?',
       [username, email, user_photo, id_user]
     ).then(res => {
       this.showAlert("Update", "User updated successfully");

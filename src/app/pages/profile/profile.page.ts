@@ -15,7 +15,7 @@ export class ProfilePage implements OnInit {
   username: string = "";
   email: string = "";
   password: string = "";
-  userId!: number;
+  id_user!: number;
   image: any;
 
   constructor(private menu: MenuController, private router: Router, private storage: NativeStorage, private db: DatabaseService, private cdr: ChangeDetectorRef) {}
@@ -26,10 +26,10 @@ export class ProfilePage implements OnInit {
 
   ionViewWillEnter() {
     this.storage.getItem('username').then(data => {
-      this.userId = data;
+      this.id_user = data;
 
       // Call the query only when the ID has been obtained
-      return this.db.getUserProfile(this.userId);
+      return this.db.getUserProfile(this.id_user);
     }).then(data => {
       if (data) {
         this.username = data.username;
@@ -46,13 +46,13 @@ export class ProfilePage implements OnInit {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
-      resultType: CameraResultType.Base64
+      resultType: CameraResultType.Uri
     });
   
     // Set image as Base64
-    this.image = 'data:image/jpeg;base64,' + image.base64String;
+    this.image = image.webPath;
 
-    this.db.updateUser(this.username, this.email, this.image, this.userId);
+    this.db.updateUser(this.username, this.email, this.image, this.id_user);
     this.cdr.detectChanges();
   };
 
@@ -61,7 +61,7 @@ export class ProfilePage implements OnInit {
       state: {
         us: this.username,
         cor: this.email,
-        id: this.userId,
+        id: this.id_user,
         img: this.image
       }
     }
@@ -71,7 +71,7 @@ export class ProfilePage implements OnInit {
   changePassword() {
     let navigationExtras: NavigationExtras = {
       state: {
-        id: this.userId,
+        id: this.id_user,
         con: this.password
       }
     }
