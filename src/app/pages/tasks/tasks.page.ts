@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class TasksPage implements OnInit {
 
-  hasTasks: boolean = true; // Cambia esto a 'true' si hay tareas disponibles
+  hasTasks: boolean = false; // Cambia esto a 'true' si hay tareas disponibles
 
   constructor(private router: Router) { }
 

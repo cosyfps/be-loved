@@ -5,7 +5,7 @@
   </ion-text>
 
   <!-- Mostrar las tarjetas si hay tareas -->
-  <ion-card class="ourList-card" *ngIf="hasTasks">
+  <ion-card class="ourList-card" *ngIf="hasTasksCompleted">
     <ion-card-content>
       <ion-icon class="iconoTask" name="bookmark"></ion-icon>
       Finish prog. mobile app
@@ -14,9 +14,9 @@
   </ion-card>
 
   <!-- Mostrar imagen y mensaje si no hay tareas -->
-  <div *ngIf="!hasTasks" class="no-tasks-message">
+  <div *ngIf="!hasTasksCompleted" class="no-tasks-message">
     <img src="../../../assets/img/error.png" alt=" No tasks available" class="no-tasks-image">
-    <p>No tasks available. Please add some tasks!</p>
+    <p>No completed tasks!</p>
   </div>
 
 </ion-content>
