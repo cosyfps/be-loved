@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
-import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +14,7 @@ export class LoginPage implements OnInit {
   username: string = "";
   password: string = "";
 
-  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: DatabaseService, private authFirebase: AuthfireBaseService) {}
+  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: DatabaseService) {}
 
   ngOnInit() {
     this.menu.enable(false);
@@ -40,6 +39,7 @@ export class LoginPage implements OnInit {
   
           if (validatedUser) {
             this.dbService.updatePassword(this.password, validatedUser.id_user);
+            this.dbService.loginUser(this.username, this.password);
 
             // Save user data in NativeStorage
             await this.storage.setItem('username', validatedUser.id_user);

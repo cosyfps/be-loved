@@ -213,7 +213,6 @@ export class DatabaseService {
       'INSERT INTO User (username, email, password, user_photo, id_role_fk) VALUES (?, ?, ?, ?, ?)', 
       [username, email, password, user_photo, id_role_fk]
     ).then(res => {
-      this.showAlert('Registrado','DB mensanje')
       this.listUsers();
     }).catch(e => {
       this.showAlert('Insert User', 'Error: ' + JSON.stringify(e));

@@ -19,14 +19,11 @@
     <!-- List users using *ngFor -->
 
     <mat-card *ngFor="let user of users" class="user-container">
-      <mat-card-header>
-        <mat-card-title>{{ user.fullName }}</mat-card-title>
-      </mat-card-header>
       <mat-card-content>
-        <p>ID: {{user.userId}}</p>
+        <p>ID: {{user.id_user}}</p>
         <p>Username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
-        <p>Role: {{user.roleId}}</p>
+        <p>Role: {{user.id_role_fk}}</p>
       </mat-card-content>
       <mat-card-actions class="action-buttons">
         <button mat-button class="action-button-delete" (click)="deleteUser(user)">

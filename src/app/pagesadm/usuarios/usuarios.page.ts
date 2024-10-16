@@ -13,10 +13,10 @@ export class UsuariosPage implements OnInit {
 
   users: any = [
     {
-      userId: '',
+      id_user: '',
       username: '',
       email: '',
-      roleId: ''
+      id_role_fk: ''
     },
   ];
 
@@ -40,7 +40,7 @@ export class UsuariosPage implements OnInit {
   }
 
   deleteUser(user: any) {
-    this.db.deleteUser(user.userId);
+    this.db.deleteUser(user.id_user);
   }
 
   searchUser(searchUsername: any) {
