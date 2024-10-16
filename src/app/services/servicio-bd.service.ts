@@ -17,17 +17,17 @@ export class DatabaseService {
   // Table creation variable
   // Role table
 
-  roleTable: string = "CREATE TABLE IF NOT EXISTS rol (id_rol INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, nombre VARCHAR NOT NULL);";
+  roleTable: string = "CREATE TABLE IF NOT EXISTS Role (id_role INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, namerole VARCHAR NOT NULL);";
 
-  insertRoleAdmin: string = "INSERT or IGNORE INTO rol(id_rol, nombre) VALUES (1, 'Administrator')";
-  insertRoleUser: string = "INSERT or IGNORE INTO rol(id_rol, nombre) VALUES (2, 'User')";
+  insertRoleAdmin: string = "INSERT or IGNORE INTO Role(id_role, namerole) VALUES (1, 'Administrator')";
+  insertRoleUser: string = "INSERT or IGNORE INTO Role(id_role, namerole) VALUES (2, 'User')";
 
   // User table
-  userTable: string = "CREATE TABLE IF NOT EXISTS Usuario (id_user INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username VARCHAR NOT NULL UNIQUE, password VARCHAR NOT NULL, email VARCHAR NOT NULL, user_photo TEXT, id_role_fk INTEGER NOT NULL, FOREIGN KEY (id_role_fk) REFERENCES rol (id_rol));";
+  userTable: string = "CREATE TABLE IF NOT EXISTS User (id_user INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username VARCHAR NOT NULL UNIQUE, password VARCHAR NOT NULL, email VARCHAR NOT NULL, user_photo TEXT, id_role_fk INTEGER NOT NULL, FOREIGN KEY (id_role_fk) REFERENCES rol (id_rol));";
 
-  insertAdmin: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (1, 'admin', 'admin', 'admin@duocuc.cl', '', 1)";
-  insertUser1: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (2, 'cosyfps', 'KM_2024*Cl', 'kel.moreno@duocuc.cl', '', 2)";
-  insertUser2: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (3, 'b3hidalgo', 'b3njA*2024', 'be.hidalgog@duocuc.cl', '', 2)";
+  insertAdmin: string = "INSERT or IGNORE INTO User(id_user, username, password, email, user_photo, id_role_fk) VALUES (1, 'admin', 'admin', 'admin@duocuc.cl', '', 1)";
+  insertUser1: string = "INSERT or IGNORE INTO User(id_user, username, password, email, user_photo, id_role_fk) VALUES (2, 'cosyfps', 'KM_2024*Cl', 'kel.moreno@duocuc.cl', '', 2)";
+  insertUser2: string = "INSERT or IGNORE INTO User(id_user, username, password, email, user_photo, id_role_fk) VALUES (3, 'b3hidalgo', 'b3njA*2024', 'be.hidalgog@duocuc.cl', '', 2)";
 
   // Task table
   taskTable: string = "CREATE TABLE IF NOT EXISTS Task (id_task INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, description TEXT, due_date TEXT, status VARCHAR NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (user_id) REFERENCES Usuario (id_user));";
@@ -120,7 +120,7 @@ export class DatabaseService {
   // User functions
 
   listUsers() {
-    return this.database.executeSql('SELECT u.id_user, u.username, u.email, u.user_photo, r.nombre AS id_role_fk FROM Usuario u INNER JOIN rol r ON u.id_role_fk = r.id_rol', []).then(res => {
+    return this.database.executeSql('SELECT * FROM User', []).then(res => {
       // Variable to store query result
       let items: User[] = [];
       // Check if at least one record is returned
@@ -132,9 +132,9 @@ export class DatabaseService {
             id_user: res.rows.item(i).id_user,
             username: res.rows.item(i).username,
             email: res.rows.item(i).email,
+            password: res.rows.item(i).password,
             user_photo: res.rows.item(i).user_photo,
             id_role_fk: res.rows.item(i).id_role_fk,
-            password: ''
           })
         }
       }
@@ -144,7 +144,7 @@ export class DatabaseService {
   }
 
   changeUserRole(id_user: string, id_role_fk: string) {
-    return this.database.executeSql('UPDATE Usuario SET id_role_fk = ? WHERE id_user = ?', [id_role_fk, id_user]).then(res => {
+    return this.database.executeSql('UPDATE User SET id_role_fk = ? WHERE id_user = ?', [id_role_fk, id_user]).then(res => {
       this.showAlert("Role", "Role changed successfully");
       this.listUsers();
     }).catch(e => {
@@ -153,7 +153,7 @@ export class DatabaseService {
   }
 
   deleteUser(id_user: string) {
-    return this.database.executeSql('DELETE FROM Usuario WHERE id_user = ?', [id_user]).then(res => {
+    return this.database.executeSql('DELETE FROM User WHERE id_user = ?', [id_user]).then(res => {
       this.showAlert("Delete", "User deleted successfully");
       this.listUsers();
     }).catch(e => {
@@ -162,7 +162,7 @@ export class DatabaseService {
   }
 
   searchUser(username: string) {
-    return this.database.executeSql('SELECT id_user, username, email, user_photo, id_role_fk FROM Usuario WHERE username = ?', [username]).then(res => {
+    return this.database.executeSql('SELECT id_user, username, email, user_photo, id_role_fk FROM User WHERE username = ?', [username]).then(res => {
       // Variable to store query result
       let items: User[] = [];
       // Check if at least one record is returned
@@ -185,9 +185,9 @@ export class DatabaseService {
     })
   }
 
-  updateUser(username: String, email: String, user_photo: any, id_user: number) {
+  updateUser(username: string, email: string, user_photo: any, id_user: number) {
     return this.database.executeSql(
-      'UPDATE Usuario SET username = ?, email = ?, user_photo = ? WHERE id_user = ?',
+      'UPDATE Usuario SET User = ?, email = ?, user_photo = ? WHERE id_user = ?',
       [username, email, user_photo, id_user]
     ).then(res => {
       this.showAlert("Update", "User updated successfully");
@@ -199,7 +199,7 @@ export class DatabaseService {
 
   updatePassword(password: string, id_user: number) {
     return this.database.executeSql(
-      'UPDATE Usuario SET password = ? WHERE id_user = ?',
+      'UPDATE User SET password = ? WHERE id_user = ?',
       [password, id_user]
     ).then(res => {
       this.listUsers();
@@ -208,11 +208,12 @@ export class DatabaseService {
     });
   }
 
-  insertUser(username: String, email: String, password: String, user_photo: string, id_role_fk: number) {
+  insertUser(username: string, email: string, password: string, user_photo: string, id_role_fk: number) {
     return this.database.executeSql(
-      'INSERT INTO Usuario (username, email, password, user_photo, id_role_fk) VALUES (?, ?, ?, ?, ?)', 
+      'INSERT INTO User (username, email, password, user_photo, id_role_fk) VALUES (?, ?, ?, ?, ?)', 
       [username, email, password, user_photo, id_role_fk]
     ).then(res => {
+      this.showAlert('Registrado','DB mensanje')
       this.listUsers();
     }).catch(e => {
       this.showAlert('Insert User', 'Error: ' + JSON.stringify(e));
@@ -221,7 +222,7 @@ export class DatabaseService {
 
   loginUser(username: string, password: string) {
     return this.database.executeSql(
-      'SELECT * FROM Usuario WHERE username = ? AND password = ?', [username, password]
+      'SELECT * FROM User WHERE username = ? AND password = ?', [username, password]
     ).then(res => {
       if (res.rows.length > 0) {
         // If credentials are correct, return the found user
@@ -238,7 +239,7 @@ export class DatabaseService {
 
   searchUserEmail(username: string) {
     return this.database.executeSql(
-      'SELECT id_user, email FROM Usuario WHERE username = ?', [username]
+      'SELECT id_user, email FROM User WHERE username = ?', [username]
     ).then(res => {
       if (res.rows.length > 0) {
         // If the credentials are correct, return the found user
@@ -258,7 +259,7 @@ export class DatabaseService {
 
   getUserProfile(id_user: number) {
     return this.database.executeSql(
-      'SELECT * FROM Usuario WHERE id_user = ?', [id_user]
+      'SELECT * FROM User WHERE id_user = ?', [id_user]
     ).then(res => {
       if (res.rows.length > 0) {
         // If the credentials are correct, return the found user

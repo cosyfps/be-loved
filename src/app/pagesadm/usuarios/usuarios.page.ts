@@ -40,7 +40,6 @@ export class UsuariosPage implements OnInit {
   }
 
   deleteUser(user: any) {
-    this.authFireBase.deleteUser(user.userId);
     this.db.deleteUser(user.userId);
   }
 

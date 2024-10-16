@@ -36,14 +36,10 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/home']);
     }else {
       try {
-        let firebaseCredential = await this.authFirebase.login(this.username, this.password);
-        
-        if (firebaseCredential) {
-          // Verify user in the database
           let validatedUser = await this.dbService.searchUserEmail(this.username);
   
           if (validatedUser) {
-            await this.dbService.updatePassword(this.password, validatedUser.id_user);
+            this.dbService.updatePassword(this.password, validatedUser.id_user);
 
             // Save user data in NativeStorage
             await this.storage.setItem('username', validatedUser.id_user);
@@ -59,15 +55,6 @@ export class LoginPage implements OnInit {
             });
             await alert.present();
           }
-        } else {
-          const alert = await this.alertController.create({
-            header: 'Login Error',
-            message: 'Incorrect username or password, please try again.',
-            buttons: ['OK'],
-            cssClass: 'alert-style'
-          });
-          await alert.present();
-        }
       } catch (error) {
         // Handle any errors (in Firebase or database)
         const alert = await this.alertController.create({

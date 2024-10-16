@@ -116,7 +116,6 @@ export class RegisterPage implements OnInit {
     } 
     else {
       try {
-        await this.authService.register(this.email, this.password);
         this.bd.insertUser(this.username, this.email, this.password, '', Number(this.id_rol));
         const alert = await this.alertController.create({
           header: 'Registered',
