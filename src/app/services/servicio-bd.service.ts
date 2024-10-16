@@ -25,7 +25,7 @@ export class DatabaseService {
   // User table
   userTable: string = "CREATE TABLE IF NOT EXISTS Usuario (id_user INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username VARCHAR NOT NULL UNIQUE, password VARCHAR NOT NULL, email VARCHAR NOT NULL, user_photo TEXT, id_role_fk INTEGER NOT NULL, FOREIGN KEY (id_role_fk) REFERENCES rol (id_rol));";
 
-  insertAdmin: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (1, 'admin', 'admin', 'admin@duocuc.cl', '', 2)";
+  insertAdmin: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (1, 'admin', 'admin', 'admin@duocuc.cl', '', 1)";
   insertUser1: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (2, 'cosyfps', 'KM_2024*Cl', 'kel.moreno@duocuc.cl', '', 2)";
   insertUser2: string = "INSERT or IGNORE INTO Usuario(id_user, username, password, email, user_photo, id_role_fk) VALUES (3, 'b3hidalgo', 'b3njA*2024', 'be.hidalgog@duocuc.cl', '', 2)";
 

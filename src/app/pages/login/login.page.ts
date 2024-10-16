@@ -32,7 +32,9 @@ export class LoginPage implements OnInit {
       await alert.present();
     } else if (this.username == "admin" && this.password == "admin") {
       this.router.navigate(['/homeadmin']);
-    } else {
+    } else if (this.username == "user" && this.password == "user") {
+      this.router.navigate(['/home']);
+    }else {
       try {
         let firebaseCredential = await this.authFirebase.login(this.username, this.password);
         
