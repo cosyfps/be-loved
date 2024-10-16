@@ -48,9 +48,25 @@ const routes: Routes = [
     loadChildren: () => import('./pages/change-username/change-username.module').then( m => m.ChangeUsernamePageModule)
   },
   {
+    path: 'add-task',
+    loadChildren: () => import('./pages/add-task/add-task.module').then( m => m.AddTaskPageModule)
+  },
+  {
+    path: 'tasks',
+    loadChildren: () => import('./pages/tasks/tasks.module').then( m => m.TasksPageModule)
+  },
+  {
+    path: 'completed-tasks',
+    loadChildren: () => import('./pages/completed-tasks/completed-tasks.module').then( m => m.CompletedTasksPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+  
+
+  
+
  
 
   

@@ -15,7 +15,7 @@ export class HomePage implements OnInit {
   id_user! : number;
   username : string = "";
 
-  constructor(private menu:MenuController, private storage: NativeStorage, private bd: DatabaseService) { 
+  constructor(private menu:MenuController, private storage: NativeStorage, private bd: DatabaseService, private router:Router) { 
 
   }
 
@@ -38,6 +38,10 @@ export class HomePage implements OnInit {
         this.username = data.username;
       }
     });
+  }
+
+  goToAddTask(){
+    this.router.navigate(['/add-task']);
   }
 
 }

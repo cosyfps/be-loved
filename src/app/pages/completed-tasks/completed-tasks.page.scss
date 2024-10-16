@@ -1,0 +1,86 @@
+.background {
+    --background: linear-gradient(to right, #b39ddb, #9575cd);
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 30px;
+    left: 20px;
+}
+
+.header-title h2 {
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 32px;
+    text-align: left;
+}
+
+.header-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 32px;
+}
+
+.ourList-card {
+    margin-top: 100px;
+    position: relative;
+    border-left: 8px solid #00897B;
+    border-radius: 8px;
+    background-color: #e0e0e0;
+    color: #616161;
+}
+
+.iconoTask {
+    font-size: 24px;
+    font-weight: 500;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+ion-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.arrowOurList {
+    font-size: 24px;
+    margin-left: auto;
+}
+
+.no-tasks-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    /* Para ocupar todo el espacio del contenedor */
+    text-align: center;
+    /* Centrar el texto */
+}
+
+.no-tasks-image {
+    max-width: 220px;
+    /* Ajusta el tamaño de la imagen según lo que necesites */
+    margin-bottom: 16px;
+    /* Espacio debajo de la imagen */
+}
+
+.no-tasks-message p {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Para ocupar todo el espacio del contenedor */
+    text-align: center;
+    /* Centrar el texto */
+}

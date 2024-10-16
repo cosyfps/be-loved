@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
-import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +22,7 @@ export class UsuariosPage implements OnInit {
   searchUsername: string = "";
   errorUsername: boolean = false;
 
-  constructor(private menu: MenuController, private router:Router, private db: DatabaseService, private authFireBase: AuthfireBaseService) { }
+  constructor(private menu: MenuController, private router:Router, private db: DatabaseService) { }
 
   ngOnInit() {
     this.menu.enable(false);

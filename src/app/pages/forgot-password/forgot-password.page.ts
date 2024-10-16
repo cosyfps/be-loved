@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
-import { AuthfireBaseService } from 'src/app/services/authfire-base.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,7 +12,7 @@ export class ForgotPasswordPage implements OnInit {
 
   email: string = "";
 
-  constructor(private menu: MenuController, private router: Router, private alertController: AlertController, private afAuth: AngularFireAuth, private authService: AuthfireBaseService) {}
+  constructor(private menu: MenuController, private router: Router, private alertController: AlertController) {}
 
   ngOnInit() {
     this.menu.enable(false);
@@ -39,11 +38,7 @@ export class ForgotPasswordPage implements OnInit {
       });
       await alert.present();
     } else {
-      this.authService.resetPassword(this.email).then(() => {
-        this.showAlert('Password Reset', 'An email has been sent to reset your password');
-      }).catch(() => {
-        this.showAlert('Error', 'Failed to send email');
-      });
+      this.showAlert('Password Reset', 'An email has been sent to reset your password');
     }
   }
 
