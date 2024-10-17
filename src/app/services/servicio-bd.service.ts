@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Role } from './role';
-import { User } from './user';
-import { Task } from './task';
+import { Role } from '../services/models/role';
+import { User } from '../services/models/user';
+import { Task } from '../services/models/task';
 
 @Injectable({
   providedIn: 'root'
