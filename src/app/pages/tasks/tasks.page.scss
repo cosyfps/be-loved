@@ -8,7 +8,7 @@
     justify-content: flex-start;
     margin-bottom: 20px;
     position: absolute;
-    top: 30px;
+    top: 70px;
     left: 20px;
 }
 
@@ -20,11 +20,13 @@
     text-align: left;
 }
 
-.header-icon {
-    margin-right: 10px;
-    cursor: pointer;
-    flex-shrink: 0;
-    font-size: 32px;
+.ourList-card {
+    margin-top: 80px;
+    position: relative;
+    border-left: 8px solid #ff6d00;
+    border-radius: 8px;
+    background-color: #e0e0e0;
+    color: #616161;
 }
 
 .ourList-card {

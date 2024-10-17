@@ -21,7 +21,7 @@ export class ProfilePage implements OnInit {
   constructor(private menu: MenuController, private router: Router, private storage: NativeStorage, private db: DatabaseService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.menu.enable(false);
+    this.menu.enable(true);
   }
 
   ionViewWillEnter() {
