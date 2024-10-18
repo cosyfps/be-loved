@@ -20,6 +20,18 @@
     text-align: left;
 }
 
+.settings-icon {
+    margin-top: 15px;
+    margin-left: 300px;
+    color: white;
+    font-size: 32px;
+    /* Aumenta el tamaño del icono */
+    font-weight: 800;
+    z-index: 10;
+    /* Asegura que esté por encima de otros elementos */
+}
+
+
 .img-logo {
     text-align: center;
     position: relative;

@@ -16,6 +16,7 @@ export class ProfilePage implements OnInit {
   email: string = "";
   password: string = "";
   id_user!: number;
+  id_role_fk!: number;
   image: any;
 
   constructor(private menu: MenuController, private router: Router, private storage: NativeStorage, private db: DatabaseService, private cdr: ChangeDetectorRef, private alertController: AlertController) {}
@@ -35,6 +36,7 @@ export class ProfilePage implements OnInit {
         this.username = data.username;
         this.email = data.email;
         this.password = data.password;
+        this.id_role_fk = data.id_role_fk;
         this.image = data.user_photo;
 
         this.cdr.detectChanges();
@@ -98,5 +100,9 @@ export class ProfilePage implements OnInit {
 
   goToHome() {
     this.router.navigate(['/home']);
+  }
+
+  openSettings(){
+    this.router.navigate(['/adminhome']);
   }
 }

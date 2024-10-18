@@ -13,11 +13,11 @@ export class AdminhomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.menu.enable(false);
+    this.menu.enable(true);
   }
   
-  goToHome(){
-    this.router.navigate(['/home']);
+  goToProfile(){
+    this.router.navigate(['/profile']);
   }
 
   // TODO: crear metodo isAdmin()

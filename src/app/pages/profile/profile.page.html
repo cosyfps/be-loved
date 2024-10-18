@@ -9,9 +9,14 @@
 
 <ion-content [fullscreen]="true" class="background">
 
-  <ion-text class="header-title">
-    <h2>Profile</h2>
-  </ion-text>
+  <div class="header-container">
+    <ion-text class="header-title">
+      <h2>Profile</h2>
+    </ion-text>
+    <ion-button fill="clear" *ngIf="id_role_fk === 1" class="settings-icon" (click)="openSettings()">
+      <ion-icon name="settings-outline" size="large"></ion-icon>
+    </ion-button>
+  </div>
 
   <div class="ion-no-margin">
     <div class="img-logo" style="position: relative;">

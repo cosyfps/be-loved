@@ -25,7 +25,7 @@ export class UsersPage implements OnInit {
   constructor(private menu: MenuController, private router: Router, private db: DatabaseService, private alertController: AlertController) { }
 
   ngOnInit() {
-    this.menu.enable(false);
+    this.menu.enable(true);
 
     this.db.dbState().subscribe(data => {
       // Validate if the database is ready
