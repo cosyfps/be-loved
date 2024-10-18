@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.page.html',
-  styleUrls: ['./usuarios.page.scss'],
+  selector: 'app-users',
+  templateUrl: './users.page.html',
+  styleUrls: ['./users.page.scss'],
 })
-export class UsuariosPage implements OnInit {
+export class UsersPage implements OnInit {
 
   users: any = [
     {
@@ -59,6 +59,7 @@ export class UsuariosPage implements OnInit {
   }
 
   goToAdmin() {
-    this.router.navigate(['/homeadmin']);
+    this.router.navigate(['/adminhome']);
   }
+
 }

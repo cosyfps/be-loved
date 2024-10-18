@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
 
           // Redirect to home
           if (user.id_role_fk == 1) {
-            this.router.navigate(['/homeadmin']);
+            this.router.navigate(['/adminhome']);
           } else {
             this.router.navigate(['/home']);
           }

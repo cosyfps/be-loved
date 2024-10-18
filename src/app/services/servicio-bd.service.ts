@@ -18,7 +18,7 @@ export class DatabaseService {
   // Role table
   roleTable: string = "CREATE TABLE IF NOT EXISTS Role (id_role INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, namerole VARCHAR NOT NULL);";
 
-  insertRoleAdmin: string = "INSERT or IGNORE INTO Role(id_role, namerole) VALUES (1, 'Administrator')";
+  insertRoleAdmin: string = "INSERT or IGNORE INTO Role(id_role, namerole) VALUES (1, 'Admin')";
   insertRoleUser: string = "INSERT or IGNORE INTO Role(id_role, namerole) VALUES (2, 'User')";
 
   // User table

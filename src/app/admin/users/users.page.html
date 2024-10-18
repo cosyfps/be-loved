@@ -16,15 +16,17 @@
 
   <div class="users-container">
     <ion-text *ngIf="errorUsername" class="ion-text-center">NO RESULTS</ion-text>
-    <!-- List users using *ngFor -->
 
+    <!-- Lista de usuarios usando *ngFor -->
     <mat-card *ngFor="let user of users" class="user-container">
       <mat-card-content>
-        <p>ID: {{user.id_user}}</p>
+        <p>ID: {{ user.id_user }}</p>
         <p>Username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
-        <p>Role: {{user.id_role_fk}}</p>
+        <p>Password: {{ user.password && user.password.length > 0 ? '*'.repeat(user.password.length) : '' }}</p>
+        <p>Role: {{ user.id_role_fk === 1 ? 'Admin' : user.id_role_fk === 2 ? 'User' : '' }}</p>
       </mat-card-content>
     </mat-card>
   </div>
+
 </ion-content>

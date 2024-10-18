@@ -24,14 +24,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'usuarios',
-    loadChildren: () => import('./pagesadm/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
-  },
-  {
-    path: 'homeadmin',
-    loadChildren: () => import('./pagesadm/homeadmin/homeadmin.module').then( m => m.HomeadminPageModule)
-  },
-  {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
@@ -60,21 +52,25 @@ const routes: Routes = [
     loadChildren: () => import('./pages/completed-tasks/completed-tasks.module').then( m => m.CompletedTasksPageModule)
   },
   {
+    path: 'detail-tasks',
+    loadChildren: () => import('./pages/detail-tasks/detail-tasks.module').then( m => m.DetailTasksPageModule)
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./admin/users/users.module').then( m => m.UsersPageModule)
+  },
+  {
+    path: 'detail-users',
+    loadChildren: () => import('./admin/detail-users/detail-users.module').then( m => m.DetailUsersPageModule)
+  },
+  {
+    path: 'adminhome',
+    loadChildren: () => import('./admin/adminhome/adminhome.module').then( m => m.AdminhomePageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
-  
-
-  
-
- 
-
-  
-
-  
-
-  
-
   
 
 ];

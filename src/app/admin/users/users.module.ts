@@ -4,25 +4,26 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomeadminPageRoutingModule } from './homeadmin-routing.module';
-
-import { HomeadminPage } from './homeadmin.page';
+import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+import { UsersPageRoutingModule } from './users-routing.module';
+
+import { UsersPage } from './users.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomeadminPageRoutingModule,
+    UsersPageRoutingModule,
+    MatCardModule,
+    MatButtonModule,
     MatIconModule,
-    MatDividerModule,
-    MatButtonModule
+    MatDividerModule
   ],
-  declarations: [HomeadminPage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [UsersPage]
 })
-export class HomeadminPageModule {}
+export class UsersPageModule {}
