@@ -115,15 +115,38 @@ export class RegisterPage implements OnInit {
     } 
     else {
       try {
-        this.bd.insertUser(this.username, this.email, this.password, '', Number(this.id_rol));
-        const alert = await this.alertController.create({
-          header: 'Registered',
-          message: 'Successfully registered.',
-          buttons: ['OK'],
-          cssClass: 'alert-style'
-        });
-        await alert.present();
-        this.router.navigate(['/login']);
+        // Check if username or email already exists
+        const userByUsername = await this.bd.searchUserByUsername(this.username);
+        const userByEmail = await this.bd.searchUserByEmail(this.email);
+
+        if (userByUsername) {
+          const alert = await this.alertController.create({
+            header: 'Registration Error',
+            message: 'Username already exists. Please choose a different username.',
+            buttons: ['OK'],
+            cssClass: 'alert-style'
+          });
+          await alert.present();
+        } else if (userByEmail) {
+          const alert = await this.alertController.create({
+            header: 'Registration Error',
+            message: 'Email already exists. Please use a different email address.',
+            buttons: ['OK'],
+            cssClass: 'alert-style'
+          });
+          await alert.present();
+        } else {
+          // Register the user
+          await this.bd.insertUser(this.username, this.email, this.password, '', Number(this.id_rol));
+          const alert = await this.alertController.create({
+            header: 'Registered',
+            message: 'Successfully registered.',
+            buttons: ['OK'],
+            cssClass: 'alert-style'
+          });
+          await alert.present();
+          this.router.navigate(['/login']);
+        }
       } 
       catch (error) {
         const alert = await this.alertController.create({

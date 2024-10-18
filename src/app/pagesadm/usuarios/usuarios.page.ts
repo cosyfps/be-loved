@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
-import { DatabaseService } from 'src/app/services/servicio-bd.service';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -22,7 +22,7 @@ export class UsuariosPage implements OnInit {
   searchUsername: string = "";
   errorUsername: boolean = false;
 
-  constructor(private menu: MenuController, private router:Router, private db: DatabaseService) { }
+  constructor(private menu: MenuController, private router: Router, private db: DatabaseService, private alertController: AlertController) { }
 
   ngOnInit() {
     this.menu.enable(false);
@@ -38,34 +38,27 @@ export class UsuariosPage implements OnInit {
     });
   }
 
-  deleteUser(user: any) {
-    this.db.deleteUser(user.id_user);
-  }
-
   searchUser(searchUsername: any) {
     if (searchUsername == "") {
       this.db.listUsers();
       this.errorUsername = false;
     } else {
-      // Search the user by Rut
-      this.db.searchUser(searchUsername).then(() => {
-        // If no results, activate the ngIf
-        if (this.users.length == 0) {
+      // Search the user by username
+      this.db.searchUserByUsername(searchUsername).then((user) => {
+        if (user) {
+          this.users = [user];
+          this.errorUsername = false;
+        } else {
+          this.users = [];
           this.errorUsername = true;
         }
+      }).catch(error => {
+        console.error('Error searching for user', error);
       });
     }
   }
 
-  changeUserRole(user: any) {
-    if (user.roleId == "User") {
-      this.db.changeUserRole(user.userId, "1");
-    } else {
-      this.db.changeUserRole(user.userId, "2");
-    }
-  }
-
-  goToAdmin(){
+  goToAdmin() {
     this.router.navigate(['/homeadmin']);
   }
 }

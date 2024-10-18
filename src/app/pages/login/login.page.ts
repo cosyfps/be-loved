@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ export class LoginPage implements OnInit {
 
   constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: DatabaseService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.menu.enable(false);
   }
 
@@ -26,53 +28,49 @@ export class LoginPage implements OnInit {
         header: 'Empty Fields',
         message: 'Please try again',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
-    } else if (this.username == "admin" && this.password == "admin") {
-      this.router.navigate(['/homeadmin']);
-    } else if (this.username == "user" && this.password == "user") {
-      this.router.navigate(['/home']);
-    }else {
+    } else {
       try {
-          let validatedUser = await this.dbService.searchUserEmail(this.username);
-  
-          if (validatedUser) {
-            this.dbService.updatePassword(this.password, validatedUser.id_user);
-            this.dbService.loginUser(this.username, this.password);
+        let user = await this.dbService.loginUser(this.username, this.password);
 
-            // Save user data in NativeStorage
-            await this.storage.setItem('username', validatedUser.id_user);
-  
-            // Redirect to home
+        if (user) {
+          // Generate a session token
+          const token = uuidv4();
+          // Save token in NativeStorage
+          await this.storage.setItem('session_token', token);
+          await this.storage.setItem('id', user.id_user);
+
+          // Redirect to home
+          if (user.id_role_fk == 1) {
+            this.router.navigate(['/homeadmin']);
+          } else {
             this.router.navigate(['/home']);
-          } else { 
-            const alert = await this.alertController.create({
-              header: 'Login Error',
-              message: 'Incorrect username or password, please try again.',
-              buttons: ['OK'],
-              cssClass: 'alert-style'
-            });
-            await alert.present();
           }
+        } else {
+          const alert = await this.alertController.create({
+            header: 'Login Error',
+            message: 'Incorrect username or password, please try again.',
+            buttons: ['OK'],
+          });
+          await alert.present();
+        }
       } catch (error) {
-        // Handle any errors (in Firebase or database)
         const alert = await this.alertController.create({
           header: 'Login Error',
           message: 'An error occurred, please try again.',
           buttons: ['OK'],
-          cssClass: 'alert-style'
         });
         await alert.present();
       }
     }
   }
 
-  goToForgotPassword(){
+  goToForgotPassword() {
     this.router.navigate(['/forgot-password']);
   }
 
-  goToStart(){
+  goToStart() {
     this.router.navigate(['/start']);
   }
 }
