@@ -21,7 +21,8 @@
           <ion-icon slot="end" name="trash-outline"></ion-icon>
         </ion-button>
 
-        <ion-button *ngIf="id_category > 2" class="boton-inicio txt-marcado" style="width: 45%;">
+        <ion-button *ngIf="id_category > 2" class="boton-inicio txt-marcado" style="width: 45%;"
+          (click)="goToEditCategory(category.id_category)">
           Edit Category
           <ion-icon slot="end" name="pencil-outline"></ion-icon>
         </ion-button>

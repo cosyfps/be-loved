@@ -80,6 +80,10 @@ const routes: Routes = [
     loadChildren: () => import('./admin/detail-category/detail-category.module').then( m => m.DetailCategoryPageModule)
   },
   {
+    path: 'edit-category/:id',
+    loadChildren: () => import('./admin/edit-category/edit-category.module').then( m => m.EditCategoryPageModule)
+  },
+  {
     path: 'add-category',
     loadChildren: () => import('./admin/add-category/add-category.module').then( m => m.AddCategoryPageModule)
   },
@@ -91,6 +95,7 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+  
   
 
   

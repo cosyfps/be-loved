@@ -1,0 +1,27 @@
+<ion-content [fullscreen]="true" class="background">
+
+  <div class="header-container">
+    <ion-text class="header-title">
+      <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToCategory()"></ion-icon>
+      <h2>Edit Category</h2>
+    </ion-text>
+  </div>
+
+  <div class="seccion-form">
+    <form (ngSubmit)="validateAndSaveCategory()">
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label>Category: </ion-label>
+        <ion-input [(ngModel)]="name" name="name" fill="clear" color="dark" required></ion-input>
+      </ion-item>
+
+      <div class="ion-text-center ion-margin">
+        <ion-button type="submit" expand="block" class="boton-inicio txt-marcado">
+          Save Changes
+          <ion-icon slot="end" name="save-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </form>
+  </div>
+
+</ion-content>

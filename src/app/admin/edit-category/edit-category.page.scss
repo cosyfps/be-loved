@@ -1,0 +1,39 @@
+.background {
+    --background: linear-gradient(to right, #b39ddb, #9575cd);
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.header-title h2 {
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 32px;
+    text-align: left;
+}
+
+.header-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 32px;
+}
+
+
+.boton-inicio {
+    --ion-color-primary: #009688;
+    color: #fff;
+    margin: 5px;
+}
+
+.seccion-form {
+    margin-top: 100px;
+}
