@@ -69,10 +69,10 @@ export class DatabaseService {
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
-        // this.deleteDatabase().then(() => {
-        //   this.createTables();
-        // });
-        this.createTables();
+        this.deleteDatabase().then(() => {
+          this.createTables();
+        });
+        // this.createTables();
       }).catch(e => {
         this.showAlert('Database', 'Error creating the database: ' + JSON.stringify(e));
       });
@@ -249,6 +249,18 @@ export class DatabaseService {
       [newUsername, id_user]
     ).then(res => {
       this.showAlert('Update Username', 'Username updated successfully');
+      this.listUsers();
+    }).catch(e => {
+      this.showAlert('Update Username', 'Error: ' + JSON.stringify(e));
+    });
+  }
+
+  async updateEmail(newEmail: string, id_user: number) {
+    return this.database.executeSql(
+      'UPDATE User SET email = ? WHERE id_user = ?',
+      [newEmail, id_user]
+    ).then(res => {
+      this.showAlert('Update Username', 'Email updated successfully');
       this.listUsers();
     }).catch(e => {
       this.showAlert('Update Username', 'Error: ' + JSON.stringify(e));

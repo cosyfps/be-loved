@@ -64,6 +64,12 @@ export class EditUsersPage implements OnInit {
     const emailValidation = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordValidation = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
 
+    // Validación del username para tener al menos 4 caracteres
+    if (this.username.length < 4) {
+      await this.showAlert('Error', 'Username must be at least 4 characters long.');
+      return;
+    }
+
     const userByUsername = await this.db.searchUserByUsername(this.username);
     const userByEmail = await this.db.searchUserByEmail(this.email);
 
@@ -108,7 +114,7 @@ export class EditUsersPage implements OnInit {
     await alert.present();
   }
 
-  goToDetailUsers(id_user: number){
-    this.router.navigate(['/detail-users', id_user]); 
+  goToDetailUsers(id_user: number) {
+    this.router.navigate(['/detail-users', id_user]);
   }
 }

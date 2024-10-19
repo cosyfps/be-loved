@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
-import { Browser } from '@capacitor/browser';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
 @Component({
@@ -14,6 +13,7 @@ export class ChangeUsernamePage implements OnInit {
 
   // New Modification
   newUsername: string = "";
+  newEmail: string = "";
 
   // Old Data
   oldUsername: string = "";
@@ -33,7 +33,7 @@ export class ChangeUsernamePage implements OnInit {
 
         this.oldUsername = this.newUsername;
       }
-    })
+    });
   }
 
   ngOnInit() {
@@ -58,15 +58,19 @@ export class ChangeUsernamePage implements OnInit {
   }
 
   async successfulEdit() {
-    if (this.newUsername == "") {
+    // Validación del email y username
+    const emailValidation = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const usernameMinLength = 4;
+
+    if (this.newUsername == "" || this.newEmail == "") {
       const alert = await this.alertController.create({
         header: 'Empty Fields',
-        message: 'Please try again',
+        message: 'Please fill in all fields',
         buttons: ['OK'],
         cssClass: 'alert-style'
       });
       await alert.present();
-    } else if (this.newUsername == this.oldUsername) {
+    } else if (this.newUsername == this.oldUsername && this.newEmail == this.oldEmail) {
       const alert = await this.alertController.create({
         header: 'Data cannot be the same as the previous',
         message: 'Please try again',
@@ -74,12 +78,57 @@ export class ChangeUsernamePage implements OnInit {
         cssClass: 'alert-style'
       });
       await alert.present();
+    } else if (this.newUsername.length < usernameMinLength) {
+      const alert = await this.alertController.create({
+        header: 'Username Error',
+        message: `Username must be at least ${usernameMinLength} characters long.`,
+        buttons: ['OK'],
+        cssClass: 'alert-style'
+      });
+      await alert.present();
+    } else if (!emailValidation.test(this.newEmail)) {
+      const alert = await this.alertController.create({
+        header: 'Email Error',
+        message: 'Please enter a valid email address.',
+        buttons: ['OK'],
+        cssClass: 'alert-style'
+      });
+      await alert.present();
     } else {
       try {
+        // Validaciones para comprobar si el username o email ya existen
+        const userByUsername = await this.db.searchUserByUsername(this.newUsername);
+        const userByEmail = await this.db.searchUserByEmail(this.newEmail);
+
+        if (userByUsername && userByUsername.id_user !== this.id_user) {
+          const alert = await this.alertController.create({
+            header: 'Username Error',
+            message: 'Username already exists. Please choose a different one.',
+            buttons: ['OK'],
+            cssClass: 'alert-style'
+          });
+          await alert.present();
+          return;
+        }
+
+        if (userByEmail && userByEmail.id_user !== this.id_user) {
+          const alert = await this.alertController.create({
+            header: 'Email Error',
+            message: 'Email already exists. Please choose a different one.',
+            buttons: ['OK'],
+            cssClass: 'alert-style'
+          });
+          await alert.present();
+          return;
+        }
+
+        // Actualiza el nombre de usuario y el correo electrónico
         await this.db.updateUsername(this.newUsername, this.id_user);
+        await this.db.updateEmail(this.newEmail, this.id_user);
+
         const alert = await this.alertController.create({
           header: 'Success',
-          message: 'Username updated successfully',
+          message: 'Username and Email updated successfully',
           buttons: ['OK'],
           cssClass: 'alert-style'
         });
@@ -88,7 +137,7 @@ export class ChangeUsernamePage implements OnInit {
       } catch (error) {
         const alert = await this.alertController.create({
           header: 'Error',
-          message: 'An error occurred while updating the username. Please try again.',
+          message: 'An error occurred while updating. Please try again.',
           buttons: ['OK'],
           cssClass: 'alert-style'
         });

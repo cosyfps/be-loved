@@ -2,16 +2,24 @@
 
   <ion-text class="header-title">
     <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToProfile()"></ion-icon>
-    <h2>Edit Username</h2>
+    <h2>Edit Username & Email</h2>
   </ion-text>
 
   <div class="section-form">
     <form class="my-profile">
 
+      <!-- Campo para editar el Username -->
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="people-outline" slot="start"></ion-icon>
         <ion-input placeholder="Maximum 15 characters" label="Username" label-placement="floating" maxlength="15"
           color="dark" name="newUsername" [(ngModel)]="newUsername"></ion-input>
+      </ion-item>
+
+      <!-- Campo para editar el Email -->
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="mail-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Email" label="Email" label-placement="floating" color="dark" name="newEmail"
+          [(ngModel)]="newEmail" type="email"></ion-input>
       </ion-item>
 
       <div class="ion-text-center ion-margin">
