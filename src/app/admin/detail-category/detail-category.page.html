@@ -1,13 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>detail-category</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="background">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">detail-category</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="header-container">
+    <ion-text class="header-title">
+      <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToAdminCategory()"></ion-icon>
+      <h2>Category Details</h2>
+    </ion-text>
+  </div>
+
+  <div class="seccion-form">
+    <form action="">
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label>Category: </ion-label>
+        <ion-input fill="clear" color="dark" value="{{ category.name }}" readonly></ion-input>
+      </ion-item>
+
+      <div class="ion-text-center ion-margin">
+        <ion-button class="boton-delete txt-marcado" style="width: 45%;" (click)="confirmDeleteCategory()">
+          Delete Category
+          <ion-icon slot="end" name="trash-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button *ngIf="id_category > 2" class="boton-inicio txt-marcado" style="width: 45%;">
+          Edit Category
+          <ion-icon slot="end" name="pencil-outline"></ion-icon>
+        </ion-button>
+
+      </div>
+    </form>
+  </div>
+
 </ion-content>

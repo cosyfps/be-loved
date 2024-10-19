@@ -34,6 +34,7 @@ export class DatabaseService {
 
   insertCategory1: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (1, 'Work')";
   insertCategory2: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (2, 'Personal')";
+  insertCategory3: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (3, 'Others')";
 
   // Task table
   // priority -- 1 = Alta, 2 = Media, 3 = Baja
@@ -129,6 +130,7 @@ export class DatabaseService {
 
       await this.database.executeSql(this.insertCategory1, []);
       await this.database.executeSql(this.insertCategory2, []);
+      await this.database.executeSql(this.insertCategory3, []);
 
       this.listUsers();
       this.isDBReady.next(true);
@@ -352,6 +354,25 @@ export class DatabaseService {
         return null;
       });
   }
+
+  async searchCategoryById(id: number) {
+    return this.database.executeSql('SELECT * FROM Category WHERE id_category = ?', [id])
+      .then(res => {
+        if (res.rows.length > 0) {
+          return {
+            id_category: res.rows.item(0).id_category,
+            name: res.rows.item(0).name,
+          };
+        } else {
+          return null;
+        }
+      })
+      .catch(e => {
+        this.showAlert('Search Category by ID', 'Error: ' + JSON.stringify(e));
+        return null;
+      });
+  }
+  
   
 
   // Task functions

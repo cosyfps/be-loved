@@ -20,7 +20,7 @@
     <mat-card *ngFor="let x of category" class="user-container" (click)="goToDetailCategory(x.id_category)">
       <mat-card-content>
         <p>ID: {{ x.id_category }}</p>
-        <p>Category Name: {{ x.name }}</p>
+        <p>Category: {{ x.name }}</p>
       </mat-card-content>
     </mat-card>
   </div>
