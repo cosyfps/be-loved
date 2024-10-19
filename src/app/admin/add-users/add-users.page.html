@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true" class="background">
+
+  <div class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToUsers()"></ion-icon>
+    <h2>Add User</h2>
+  </div>
+
+  <div class="form-section">
+    <form action="" #form="ngForm">
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="people-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Max 15 characters" label="Username" label-placement="floating" maxlength="15"
+          color="dark" name="username" [(ngModel)]="username" required></ion-input>
+        <ion-note *ngIf="username.length > 0 && username.length < 4" color="danger">Username must be at least 4
+          characters long.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="mail-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Enter valid email" label="Email" label-placement="floating" class="remove-line"
+          name="email" [(ngModel)]="email" required email></ion-input>
+        <ion-note *ngIf="email.length > 0 && !form.controls['email']?.valid" color="danger">Invalid email
+          address.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input type="password" placeholder="Password (MAX 12 C.)" label="Password" label-placement="floating"
+          color="dark" name="password" maxlength="12" [(ngModel)]="password" required></ion-input>
+        <ion-note *ngIf="password.length > 0 && password.length < 8" color="danger">Password must be at least 8
+          characters long.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input type="password" placeholder="Confirm Password" label="Confirm Password" label-placement="floating"
+          color="dark" name="confirmPassword" maxlength="12" [(ngModel)]="confirmPassword" required></ion-input>
+        <ion-note *ngIf="confirmPassword.length > 0 && confirmPassword !== password" color="danger">Passwords do not
+          match.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="id-card-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Role</ion-label>
+        <ion-select [(ngModel)]="id_rol" name="role" fill="outline" style="margin-top: 5px;">
+          <ion-select-option value="1">Admin</ion-select-option>
+          <ion-select-option value="2">User</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <div class="ion-text-center">
+        <ion-button class="ion-margin-top ion-margin-bottom start-button text-highlight" shape="block"
+          (click)="register()">Add User</ion-button>
+      </div>
+
+    </form>
+  </div>
+</ion-content>

@@ -69,4 +69,8 @@ export class UsersPage implements OnInit {
     this.router.navigate(['/detail-users', id_user]);
   }
 
+  goToAddUsers(){
+    this.router.navigate(['/add-users']);
+  }
+
 }

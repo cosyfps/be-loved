@@ -60,6 +60,10 @@ const routes: Routes = [
     loadChildren: () => import('./admin/users/users.module').then( m => m.UsersPageModule)
   },
   {
+    path: 'add-users',
+    loadChildren: () => import('./admin/add-users/add-users.module').then( m => m.AddUsersPageModule)
+  },
+  {
     path: 'detail-users/:id',
     loadChildren: () => import('./admin/detail-users/detail-users.module').then( m => m.DetailUsersPageModule)
   },
@@ -75,9 +79,6 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
-  
-
-  
 
 ];
 
