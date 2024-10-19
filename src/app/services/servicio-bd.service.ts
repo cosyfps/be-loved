@@ -4,6 +4,7 @@ import { AlertController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Role } from '../services/models/role';
 import { User } from '../services/models/user';
+import { Category } from '../services/models/category';
 import { Task } from '../services/models/task';
 
 @Injectable({
@@ -28,9 +29,25 @@ export class DatabaseService {
   insertUser1: string = "INSERT or IGNORE INTO User(id_user, username, password, email, user_photo, id_role_fk) VALUES (2, 'cosyfps', 'KM_2024*Cl', 'kel.moreno@duocuc.cl', '', 2)";
   insertUser2: string = "INSERT or IGNORE INTO User(id_user, username, password, email, user_photo, id_role_fk) VALUES (3, 'b3hidalgo', 'b3njA*2024', 'be.hidalgog@duocuc.cl', '', 2)";
 
+  // Category table
+  categoryTable: string = "CREATE TABLE IF NOT EXISTS Category (id_category INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL UNIQUE);";
+
+  insertCategory1: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (1, 'Work')";
+  insertCategory2: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (2, 'Personal')";
+  insertCategory3: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (3, 'Uni')";
+  insertCategory4: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (4, 'Others')";
+
+  // Task table
+  // priority -- 1 = Alta, 2 = Media, 3 = Baja
+  // status -- 1 = Pendiente, 2 = En Progreso, 3 = Finalizada, 4 = Cancelada
+  taskTable: string = "CREATE TABLE IF NOT EXISTS Task (id_task INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, description TEXT, priority INTEGER NOT NULL, due_date TEXT NOT NULL, creation_date TEXT NOT NULL, completion_date TEXT, status INTEGER NOT NULL, category_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (category_id) REFERENCES Category (id_category), FOREIGN KEY (user_id) REFERENCES User (id_user));";
+
+
   // Variables to store query data from tables
   roleList = new BehaviorSubject([]);
   userList = new BehaviorSubject([]);
+  categoryList = new BehaviorSubject([]);
+  taskList = new BehaviorSubject([]);
 
   // Database status variable
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -55,6 +72,14 @@ export class DatabaseService {
 
   fetchUser(): Observable<User[]> {
     return this.userList.asObservable();
+  }
+
+  fetchCategory(): Observable<Category[]> {
+    return this.categoryList.asObservable();
+  }
+
+  fetchTask(): Observable<Task[]> {
+    return this.taskList.asObservable();
   }
 
   dbState() {
@@ -93,13 +118,21 @@ export class DatabaseService {
     try {
       await this.database.executeSql(this.roleTable, []);
       await this.database.executeSql(this.userTable, []);
+      await this.database.executeSql(this.categoryTable, []);
+      await this.database.executeSql(this.taskTable, []);
 
       // Execute default inserts if they exist
       await this.database.executeSql(this.insertRoleAdmin, []);
       await this.database.executeSql(this.insertRoleUser, []);
+
       await this.database.executeSql(this.insertAdmin, []);
       await this.database.executeSql(this.insertUser1, []);
       await this.database.executeSql(this.insertUser2, []);
+
+      await this.database.executeSql(this.insertCategory1, []);
+      await this.database.executeSql(this.insertCategory2, []);
+      await this.database.executeSql(this.insertCategory3, []);
+      await this.database.executeSql(this.insertCategory4, []);
 
       this.listUsers();
       this.isDBReady.next(true);
@@ -266,4 +299,89 @@ export class DatabaseService {
       this.showAlert('Update Username', 'Error: ' + JSON.stringify(e));
     });
   }
+
+
+  // Category functions
+  listCategories() {
+    return this.database.executeSql('SELECT * FROM Category', []).then(res => {
+      let items: Category[] = [];
+      for (let i = 0; i < res.rows.length; i++) {
+        items.push({ id_category: res.rows.item(i).id_category, name: res.rows.item(i).name });
+      }
+      this.categoryList.next(items);
+    }).catch(e => this.showAlert('Get Categories', 'Error: ' + JSON.stringify(e)));
+  }
+
+  async insertCategory(name: string) {
+    return this.database.executeSql('INSERT INTO Category (name) VALUES (?)', [name])
+      .then(() => this.listCategories())
+      .catch(e => this.showAlert('Insert Category', 'Error: ' + JSON.stringify(e)));
+  }
+
+  async updateCategory(id_category: number, name: string) {
+    return this.database.executeSql('UPDATE Category SET name = ? WHERE id_category = ?', [name, id_category])
+      .then(() => this.listCategories())
+      .catch(e => this.showAlert('Update Category', 'Error: ' + JSON.stringify(e)));
+  }
+
+  async deleteCategory(id_category: number) {
+    return this.database.executeSql('DELETE FROM Category WHERE id_category = ?', [id_category])
+      .then(() => this.listCategories())
+      .catch(e => this.showAlert('Delete Category', 'Error: ' + JSON.stringify(e)));
+  }
+
+
+  // Task functions
+  listTasks() {
+    return this.database.executeSql('SELECT * FROM Task', []).then(res => {
+      let tasks: Task[] = [];
+      for (let i = 0; i < res.rows.length; i++) {
+        tasks.push({
+          id_task: res.rows.item(i).id_task as number,
+          title: res.rows.item(i).title as string,
+          description: res.rows.item(i).description as string,
+          priority: res.rows.item(i).priority as number,
+          due_date: new Date(res.rows.item(i).due_date), // Convertir a Date
+          creation_date: new Date(res.rows.item(i).creation_date), // Convertir a Date
+          completion_date: res.rows.item(i).completion_date ? new Date(res.rows.item(i).completion_date) : null, // Manejar null
+          status: res.rows.item(i).status as number,
+          category_id: res.rows.item(i).category_id as number,
+          user_id: res.rows.item(i).user_id as number,
+        });
+      }
+      this.taskList.next(tasks);
+    }).catch(e => {
+      this.showAlert('Get Tasks', 'Error: ' + JSON.stringify(e));
+    });
+  }
+
+  async insertTask(task: Task) {
+    const { title, description, priority, due_date, creation_date, completion_date, status, category_id, user_id } = task;
+    return this.database.executeSql(
+      `INSERT INTO Task (title, description, priority, due_date, creation_date, completion_date, status, category_id, user_id) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [title, description, priority, due_date, creation_date, completion_date, status, category_id, user_id]
+    ).then(() => this.listTasks())
+      .catch(e => this.showAlert('Insert Task', 'Error: ' + JSON.stringify(e)));
+  }
+
+  async updateTask(task: Task) {
+    const { id_task, title, description, priority, due_date, completion_date, status, category_id, user_id } = task;
+    return this.database.executeSql(
+      `UPDATE Task SET title = ?, description = ?, priority = ?, due_date = ?, completion_date = ?, status = ?, category_id = ?, user_id = ? 
+       WHERE id_task = ?`,
+      [title, description, priority, due_date, completion_date, status, category_id, user_id, id_task]
+    ).then(() => this.listTasks())
+      .catch(e => this.showAlert('Update Task', 'Error: ' + JSON.stringify(e)));
+  }
+
+  async deleteTask(id_task: number) {
+    return this.database.executeSql('DELETE FROM Task WHERE id_task = ?', [id_task])
+      .then(() => this.listTasks())
+      .catch(e => this.showAlert('Delete Task', 'Error: ' + JSON.stringify(e)));
+  }
+
 }
+
+
+
