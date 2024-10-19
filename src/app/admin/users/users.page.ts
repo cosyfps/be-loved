@@ -62,4 +62,8 @@ export class UsersPage implements OnInit {
     this.router.navigate(['/adminhome']);
   }
 
+  goToDetail(id_user: string) {
+    this.router.navigate(['/detail-users', id_user]);
+  }
+
 }

@@ -1,13 +1,63 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>detail-users</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="background">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">detail-users</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="header-container">
+    <ion-text class="header-title">
+      <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToAdminUsers()"></ion-icon>
+      <h2>User Details</h2>
+    </ion-text>
+  </div>
+
+  <div class="ion-no-margin">
+    <div class="img-logo" style="position: relative; text-align: center;">
+      <img class="avatar-icon" *ngIf="image" [src]="image" alt="User Image">
+      <img class="avatar-icon" *ngIf="!image" src="../../../assets/img/avatar.jpg" alt="Avatar">
+      <ion-button fill="clear" class="editar-icon" (click)="takePhoto()">
+        <ion-icon name="camera" size="large"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="seccion-form">
+    <form action="">
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label>Username: </ion-label>
+        <ion-input fill="clear" color="dark" value="{{ user?.username }}" readonly></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-label>Email: </ion-label>
+        <ion-input fill="clear" color="dark" value="{{ user?.email }}" readonly></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="key-outline" slot="start"></ion-icon>
+        <ion-label>Password: </ion-label>
+        <ion-input fill="clear" color="dark" [value]="user?.password ? '*'.repeat(user.password.length) : ''" readonly>
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="id-card-outline" slot="start"></ion-icon>
+        <ion-label>Role: </ion-label>
+        <ion-input fill="clear" color="dark"
+          [value]="user?.id_role_fk === 1 ? 'Admin' : user?.id_role_fk === 2 ? 'User' : ''" readonly>
+        </ion-input>
+      </ion-item>
+
+      <div class="ion-text-center ion-margin" (click)="confirmDeleteUser()">
+        <ion-button class="boton-delete txt-marcado" style="width: 45%;">
+          Delete User
+          <ion-icon slot="end" name="trash-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button class="boton-inicio txt-marcado" style="width: 45%;">
+          Edit User
+          <ion-icon slot="end" name="pencil-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </form>
+  </div>
+
 </ion-content>

@@ -18,7 +18,7 @@
     <ion-text *ngIf="errorUsername" class="ion-text-center">NO RESULTS</ion-text>
 
     <!-- Lista de usuarios usando *ngFor -->
-    <mat-card *ngFor="let user of users" class="user-container">
+    <mat-card *ngFor="let user of users" class="user-container" (click)="goToDetail(user.id_user)">
       <mat-card-content>
         <p>ID: {{ user.id_user }}</p>
         <p>Username: {{ user.username }}</p>
