@@ -28,6 +28,7 @@ export class ChangeUsernamePage implements OnInit {
       if (this.router.getCurrentNavigation()?.extras.state) {
         this.newUsername = this.router.getCurrentNavigation()?.extras?.state?.['us'];
         this.id_user = this.router.getCurrentNavigation()?.extras?.state?.['id'];
+        this.newEmail = this.router.getCurrentNavigation()?.extras?.state?.['cor'];
         this.oldEmail = this.router.getCurrentNavigation()?.extras?.state?.['cor'];
         this.image = this.router.getCurrentNavigation()?.extras?.state?.['img'];
 
