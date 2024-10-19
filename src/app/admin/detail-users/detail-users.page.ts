@@ -124,4 +124,7 @@ export class DetailUsersPage implements OnInit {
     this.router.navigate(['/users']);
   }
 
+  goToEditUser(id_user: number){
+    this.router.navigate(['/edit-users', id_user]);
+  }
 }

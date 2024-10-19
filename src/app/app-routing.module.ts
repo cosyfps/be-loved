@@ -64,6 +64,10 @@ const routes: Routes = [
     loadChildren: () => import('./admin/detail-users/detail-users.module').then( m => m.DetailUsersPageModule)
   },
   {
+    path: 'edit-users/:id',
+    loadChildren: () => import('./admin/edit-users/edit-users.module').then( m => m.EditUsersPageModule)
+  },
+  {
     path: 'adminhome',
     loadChildren: () => import('./admin/adminhome/adminhome.module').then( m => m.AdminhomePageModule)
   },
@@ -71,10 +75,7 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
-  {
-    path: 'edit-users',
-    loadChildren: () => import('./admin/edit-users/edit-users.module').then( m => m.EditUsersPageModule)
-  },
+  
 
   
 

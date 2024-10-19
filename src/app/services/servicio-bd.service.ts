@@ -154,6 +154,18 @@ export class DatabaseService {
     });
   }
 
+  async adminUpdateUser(username: string, email: string, password: string, id_role_fk: number,user_photo: string, id_user: number) {
+    return this.database.executeSql(
+      'UPDATE User SET username = ?, email = ?, password = ?, id_role_fk = ?, user_photo = ? WHERE id_user = ?',
+      [username, email, password, id_role_fk, user_photo, id_user]
+    ).then(res => {
+      this.showAlert("Update", "Admin updated User successfully");
+      this.listUsers();
+    }).catch(e => {
+      this.showAlert('Update User', 'Error: ' + JSON.stringify(e));
+    });
+  }
+
   async deleteUser(id_user: number) {
     return this.database.executeSql('DELETE FROM User WHERE id_user = ?', [id_user]).then(res => {
       this.showAlert("Delete", "User deleted successfully");

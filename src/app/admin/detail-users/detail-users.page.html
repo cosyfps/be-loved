@@ -11,9 +11,6 @@
     <div class="img-logo" style="position: relative; text-align: center;">
       <img class="avatar-icon" *ngIf="image" [src]="image" alt="User Image">
       <img class="avatar-icon" *ngIf="!image" src="../../../assets/img/avatar.jpg" alt="Avatar">
-      <ion-button fill="clear" class="editar-icon" (click)="takePhoto()">
-        <ion-icon name="camera" size="large"></ion-icon>
-      </ion-button>
     </div>
   </div>
 
@@ -46,16 +43,18 @@
         </ion-input>
       </ion-item>
 
-      <div class="ion-text-center ion-margin" (click)="confirmDeleteUser()">
-        <ion-button class="boton-delete txt-marcado" style="width: 45%;">
+      <div class="ion-text-center ion-margin">
+        <ion-button class="boton-delete txt-marcado" style="width: 45%;" (click)="confirmDeleteUser()">
           Delete User
           <ion-icon slot="end" name="trash-outline"></ion-icon>
         </ion-button>
 
-        <ion-button class="boton-inicio txt-marcado" style="width: 45%;">
+        <ion-button *ngIf="user?.id_user" class="boton-inicio txt-marcado" style="width: 45%;"
+          (click)="goToEditUser(user.id_user)">
           Edit User
           <ion-icon slot="end" name="pencil-outline"></ion-icon>
         </ion-button>
+
       </div>
     </form>
   </div>
