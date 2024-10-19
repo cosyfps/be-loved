@@ -1,0 +1,103 @@
+.background {
+    --background: linear-gradient(to right, #b39ddb, #9575cd);
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.header-title h2 {
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 32px;
+    text-align: left;
+}
+
+.header-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 32px;
+}
+
+.btn-home {
+    background-color: white;
+    color: #9575cd;
+    width: 60px;
+    margin-left: 15px;
+    margin: 10px;
+}
+
+.search-bar {
+    color: white;
+    margin-top: 100px;
+    width: calc(90% - 40px);
+    border-radius: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 2px solid #ffffff;
+}
+
+.search-icon {
+    color: white;
+    position: absolute;
+    font-size: 24px;
+}
+
+.users-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.user-container {
+    background-color: white;
+    color: #2b2b2b;
+    margin-bottom: 30px;
+    width: 90%;
+}
+
+.action-button-edit {
+    width: 150px;
+    margin: 5px;
+    background-color: #9575cd;
+    color: white !important;
+
+    .icon-edit {
+        color: white;
+        margin: 0px;
+        margin-right: 5px;
+    }
+}
+
+.action-button-delete {
+    margin-top: 5px;
+    width: 150px;
+    background-color: #9575cd;
+    margin-left: 10px;
+    color: white !important;
+
+    .icon-delete {
+        color: white;
+        margin: 0px;
+        margin-right: 5px;
+    }
+}
+
+.fab-button {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    --background: #9575cd;
+    --color: #fff;
+}

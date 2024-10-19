@@ -34,6 +34,7 @@ export class UsersPage implements OnInit {
       // Validate if the database is ready
       if (data) {
         // Subscribe to the users observable
+        this.db.listUsers();
         this.db.fetchUser().subscribe(res => {
           this.users = res;
         });

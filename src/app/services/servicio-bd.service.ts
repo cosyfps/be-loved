@@ -34,8 +34,6 @@ export class DatabaseService {
 
   insertCategory1: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (1, 'Work')";
   insertCategory2: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (2, 'Personal')";
-  insertCategory3: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (3, 'Uni')";
-  insertCategory4: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (4, 'Others')";
 
   // Task table
   // priority -- 1 = Alta, 2 = Media, 3 = Baja
@@ -94,10 +92,10 @@ export class DatabaseService {
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
-        // this.deleteDatabase().then(() => {
-        //   this.createTables();
-        // });
-        this.createTables();
+        this.deleteDatabase().then(() => {
+          this.createTables();
+        });
+        // this.createTables();
       }).catch(e => {
         this.showAlert('Database', 'Error creating the database: ' + JSON.stringify(e));
       });
@@ -131,8 +129,6 @@ export class DatabaseService {
 
       await this.database.executeSql(this.insertCategory1, []);
       await this.database.executeSql(this.insertCategory2, []);
-      await this.database.executeSql(this.insertCategory3, []);
-      await this.database.executeSql(this.insertCategory4, []);
 
       this.listUsers();
       this.isDBReady.next(true);
@@ -305,12 +301,21 @@ export class DatabaseService {
   listCategories() {
     return this.database.executeSql('SELECT * FROM Category', []).then(res => {
       let items: Category[] = [];
-      for (let i = 0; i < res.rows.length; i++) {
-        items.push({ id_category: res.rows.item(i).id_category, name: res.rows.item(i).name });
+      if (res.rows.length > 0) {
+        for (let i = 0; i < res.rows.length; i++) {
+          items.push({
+            id_category: res.rows.item(i).id_category,
+            name: res.rows.item(i).name,
+          });
+        }
       }
-      this.categoryList.next(items);
-    }).catch(e => this.showAlert('Get Categories', 'Error: ' + JSON.stringify(e)));
+      this.categoryList.next(items); // Actualiza el observable con las categorías obtenidas
+    }).catch(e => {
+      this.showAlert('Get Categories', 'Error: ' + JSON.stringify(e));
+    });
   }
+  
+  
 
   async insertCategory(name: string) {
     return this.database.executeSql('INSERT INTO Category (name) VALUES (?)', [name])
@@ -330,6 +335,24 @@ export class DatabaseService {
       .catch(e => this.showAlert('Delete Category', 'Error: ' + JSON.stringify(e)));
   }
 
+  async searchCategoryByName(name: string) {
+    return this.database.executeSql('SELECT * FROM Category WHERE name = ?', [name])
+      .then(res => {
+        if (res.rows.length > 0) {
+          return {
+            id_category: res.rows.item(0).id_category,
+            name: res.rows.item(0).name
+          };
+        } else {
+          return null; // No se encontró la categoría
+        }
+      })
+      .catch(e => {
+        this.showAlert('Search Category', 'Error: ' + JSON.stringify(e));
+        return null;
+      });
+  }
+  
 
   // Task functions
   listTasks() {

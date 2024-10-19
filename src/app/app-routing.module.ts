@@ -72,6 +72,18 @@ const routes: Routes = [
     loadChildren: () => import('./admin/edit-users/edit-users.module').then( m => m.EditUsersPageModule)
   },
   {
+    path: 'category',
+    loadChildren: () => import('./admin/category/category.module').then( m => m.CategoryPageModule)
+  },
+  {
+    path: 'detail-category/:id',
+    loadChildren: () => import('./admin/detail-category/detail-category.module').then( m => m.DetailCategoryPageModule)
+  },
+  {
+    path: 'add-category',
+    loadChildren: () => import('./admin/add-category/add-category.module').then( m => m.AddCategoryPageModule)
+  },
+  {
     path: 'adminhome',
     loadChildren: () => import('./admin/adminhome/adminhome.module').then( m => m.AdminhomePageModule)
   },
@@ -79,6 +91,11 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+  
+
+  
+
+
 
 ];
 

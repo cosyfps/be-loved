@@ -28,5 +28,8 @@ export class AdminhomePage implements OnInit {
   goToUser(){
     this.router.navigate(['/users']);
   }
+  goToCategory(){
+    this.router.navigate(['/category']);
+  }
 
 }

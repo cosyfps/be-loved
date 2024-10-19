@@ -1,0 +1,33 @@
+<ion-content class="background">
+  <div class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToAdmin()"></ion-icon>
+    <h2>Category List</h2>
+  </div>
+
+  <div class="search-container">
+    <ion-input animated="true" placeholder="Enter Category" class="ion-margin-top search-bar" type="text"
+      [(ngModel)]="searchCategory">
+      <ion-button fill="clear" slot="end" (click)="searchCategorys(searchCategory)">
+        <ion-icon name="search" class="search-icon"></ion-icon>
+      </ion-button>
+    </ion-input>
+  </div>
+
+  <div class="users-container">
+    <ion-text *ngIf="errorCategory" class="ion-text-center">NO RESULTS</ion-text>
+
+    <!-- Lista de categorías usando *ngFor -->
+    <mat-card *ngFor="let x of category" class="user-container" (click)="goToDetailCategory(x.id_category)">
+      <mat-card-content>
+        <p>ID: {{ x.id_category }}</p>
+        <p>Category Name: {{ x.name }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="fab-button" (click)="goToAddCategory()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
