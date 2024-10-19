@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-change-username',
@@ -23,7 +24,7 @@ export class ChangeUsernamePage implements OnInit {
   id_user!: number;
   image!: any;
 
-  constructor(private menu: MenuController, private router: Router, private alertController: AlertController, private db: DatabaseService, private activatedRoute: ActivatedRoute, private storage: NativeStorage) {
+  constructor(private menu: MenuController, private router: Router, private alertController: AlertController, private db: DatabaseService, private activatedRoute: ActivatedRoute, private storage: NativeStorage, private screenOrientation: ScreenOrientation) {
     this.activatedRoute.queryParams.subscribe(res => {
       if (this.router.getCurrentNavigation()?.extras.state) {
         this.newUsername = this.router.getCurrentNavigation()?.extras?.state?.['us'];
@@ -38,6 +39,8 @@ export class ChangeUsernamePage implements OnInit {
   }
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     this.menu.enable(true);
   }
 

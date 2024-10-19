@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-detail-tasks',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailTasksPage implements OnInit {
 
-  constructor() { }
+  constructor(private screenOrientation: ScreenOrientation) { }
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
   }
 
 }

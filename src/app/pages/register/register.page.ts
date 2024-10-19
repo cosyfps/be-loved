@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-register',
@@ -17,9 +18,11 @@ export class RegisterPage implements OnInit {
   confirmPassword: string = '';
   id_rol: string = '2';
 
-  constructor(private menu: MenuController, private alertController: AlertController, private router: Router, private bd: DatabaseService) { }
+  constructor(private menu: MenuController, private alertController: AlertController, private router: Router, private bd: DatabaseService, private screenOrientation: ScreenOrientation) { }
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     this.menu.enable(false);
   }
 

@@ -4,6 +4,7 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { MenuController } from '@ionic/angular';
 import { DatabaseService } from '../services/servicio-bd.service';
 import { Browser } from '@capacitor/browser';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +16,11 @@ export class HomePage implements OnInit {
   id_user!: number;
   username: string = "";
 
-  constructor(private menu: MenuController, private storage: NativeStorage, private bd: DatabaseService, private router: Router) {}
+  constructor(private menu: MenuController, private storage: NativeStorage, private bd: DatabaseService, private router: Router, private screenOrientation: ScreenOrientation) {}
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     this.menu.enable(true);
   }
 

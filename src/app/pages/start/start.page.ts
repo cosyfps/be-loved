@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-start',
@@ -9,9 +10,11 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 })
 export class StartPage implements OnInit {
 
-  constructor(private router:Router, private storage: NativeStorage) { }
+  constructor(private router:Router, private storage: NativeStorage, private screenOrientation: ScreenOrientation) { }
 
   async ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     // Check if the session token exists to keep the user logged in
     try {
       const token = await this.storage.getItem('session_token');

@@ -5,6 +5,7 @@ import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { v4 as uuidv4 } from 'uuid';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,11 @@ export class LoginPage implements OnInit {
   username: string = "";
   password: string = "";
 
-  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: DatabaseService) {}
+  constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: DatabaseService, private screenOrientation: ScreenOrientation) {}
 
   async ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     this.menu.enable(false);
   }
 

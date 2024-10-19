@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
@@ -18,7 +19,7 @@ export class ChangePasswordPage implements OnInit {
 
   id_user!: number;
 
-  constructor(private menu: MenuController, private storage: NativeStorage, private router: Router, private alertController: AlertController, private toastController: ToastController, private activatedRoute: ActivatedRoute, private db: DatabaseService) {
+  constructor(private menu: MenuController, private storage: NativeStorage, private router: Router, private alertController: AlertController, private toastController: ToastController, private activatedRoute: ActivatedRoute, private db: DatabaseService, private screenOrientation: ScreenOrientation) {
     this.activatedRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation()?.extras.state) {
         this.id_user = this.router.getCurrentNavigation()?.extras?.state?.['id'];
@@ -28,6 +29,8 @@ export class ChangePasswordPage implements OnInit {
   }
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     this.menu.enable(true);
   }
 

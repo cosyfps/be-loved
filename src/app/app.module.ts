@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx'; 
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 // Firebase
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -22,7 +23,7 @@ import { firebaseConfig } from 'src/environments/environment';
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule,
     AngularFireAuthModule, AngularFireModule.initializeApp(firebaseConfig)],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync(), NativeStorage, SQLite,],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync(), NativeStorage, SQLite, ScreenOrientation],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
@@ -12,9 +13,11 @@ export class ForgotPasswordPage implements OnInit {
 
   email: string = "";
 
-  constructor(private menu: MenuController, private router: Router, private alertController: AlertController) {}
+  constructor(private menu: MenuController, private router: Router, private alertController: AlertController, private screenOrientation: ScreenOrientation) {}
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     this.menu.enable(false);
   }
 

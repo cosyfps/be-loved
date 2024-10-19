@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-detail-users',
@@ -24,9 +25,12 @@ export class DetailUsersPage implements OnInit {
     private db: DatabaseService,
     private cdr: ChangeDetectorRef, // Inyección del ChangeDetectorRef
     private alertController: AlertController,
+    private screenOrientation: ScreenOrientation  // Inyección del ScreenOrientationService
   ) {}
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     const id_user = this.route.snapshot.paramMap.get('id');
     if (id_user) {
       this.getUserDetails(parseInt(id_user, 10));

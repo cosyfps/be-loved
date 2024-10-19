@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-edit-users',
@@ -22,10 +23,13 @@ export class EditUsersPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private db: DatabaseService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private screenOrientation: ScreenOrientation,
   ) {}
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.id_user = parseInt(id, 10);

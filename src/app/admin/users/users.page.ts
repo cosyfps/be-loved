@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
@@ -22,9 +23,11 @@ export class UsersPage implements OnInit {
   searchUsername: string = "";
   errorUsername: boolean = false;
 
-  constructor(private menu: MenuController, private router: Router, private db: DatabaseService, private alertController: AlertController) { }
+  constructor(private menu: MenuController, private router: Router, private db: DatabaseService, private alertController: AlertController, private screenOrientation: ScreenOrientation) { }
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     this.menu.enable(true);
 
     this.db.dbState().subscribe(data => {

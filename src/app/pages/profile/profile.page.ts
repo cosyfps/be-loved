@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { MenuController, AlertController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
@@ -19,9 +20,11 @@ export class ProfilePage implements OnInit {
   id_role_fk!: number;
   image: any;
 
-  constructor(private menu: MenuController, private router: Router, private storage: NativeStorage, private db: DatabaseService, private cdr: ChangeDetectorRef, private alertController: AlertController) {}
+  constructor(private menu: MenuController, private router: Router, private storage: NativeStorage, private db: DatabaseService, private cdr: ChangeDetectorRef, private alertController: AlertController, private screenOrientation: ScreenOrientation) {}
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
     this.menu.enable(true);
   }
 
