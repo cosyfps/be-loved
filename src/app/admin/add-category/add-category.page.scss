@@ -1,0 +1,99 @@
+.background {
+    --background: linear-gradient(to bottom, #b39ddb, #9575cd);
+}
+
+.img-logo {
+    text-align: center;
+}
+
+.img-logo img {
+    width: 150px;
+    margin-right: 18px;
+    margin-top: 10px;
+}
+
+.form-section {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: 68vh;
+}
+
+.registration {
+    background: rgb(211, 210, 210);
+    color: #ffffff;
+    border-radius: 50px 50px 0px 0px;
+    padding: 10px;
+    text-align: center;
+    height: 100%;
+}
+
+.remove-line {
+    --border-width: 0;
+}
+
+.ion-color {
+    color: white;
+}
+
+.start-button {
+    margin-top: auto;
+    margin-bottom: 40px;
+    --ion-color-primary: #9575cd;
+    color: #fff;
+    max-width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    bottom: -120px;
+    left: 0;
+    right: 0;
+}
+
+.anchor-login {
+    color: #ffffff;
+    text-align: center;
+    display: block;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    bottom: -120px;
+    left: 0;
+    right: 0;
+}
+
+.text-highlight {
+    font-weight: bold;
+}
+
+ion-note[color="danger"] {
+    color: red;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.header-title h2 {
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 32px;
+    text-align: left;
+}
+
+.header-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 32px;
+}

@@ -76,16 +76,16 @@ const routes: Routes = [
     loadChildren: () => import('./admin/category/category.module').then( m => m.CategoryPageModule)
   },
   {
+    path: 'add-category',
+    loadChildren: () => import('./admin/add-category/add-category.module').then( m => m.AddCategoryPageModule)
+  },
+  {
     path: 'detail-category/:id',
     loadChildren: () => import('./admin/detail-category/detail-category.module').then( m => m.DetailCategoryPageModule)
   },
   {
     path: 'edit-category/:id',
     loadChildren: () => import('./admin/edit-category/edit-category.module').then( m => m.EditCategoryPageModule)
-  },
-  {
-    path: 'add-category',
-    loadChildren: () => import('./admin/add-category/add-category.module').then( m => m.AddCategoryPageModule)
   },
   {
     path: 'adminhome',

@@ -1,13 +1,29 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>add-category</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="background">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">add-category</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToCategories()"></ion-icon>
+    <h2>Add Category</h2>
+  </div>
+
+  <div class="form-section">
+    <form #form="ngForm">
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Enter category name" label="Category Name" label-placement="floating" maxlength="15"
+          color="dark" name="categoryName" [(ngModel)]="categoryName" required>
+        </ion-input>
+        <ion-note *ngIf="categoryName.length > 0 && categoryName.length < 3" color="danger">
+          Category name must be at least 3 characters long.
+        </ion-note>
+      </ion-item>
+
+      <div class="ion-text-center">
+        <ion-button class="ion-margin-top ion-margin-bottom start-button text-highlight" shape="block"
+          [disabled]="categoryName.length < 3" (click)="addCategory()">
+          Add Category
+        </ion-button>
+      </div>
+    </form>
+  </div>
+
 </ion-content>
