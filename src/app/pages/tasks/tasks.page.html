@@ -28,17 +28,24 @@
     <h3>{{ date | date: 'yyyy-MM-dd' }}</h3> <!-- Encabezado con la fecha -->
 
     <div class="tasks-container">
-      <!-- Tarjetas de tareas con estilo condicional -->
-      <mat-card class="ourList-card" *ngFor="let task of groupedTasks[date]" (click)="goToDetailTask(task.id_task)"
-        [ngStyle]="{
-                  'border-left': task.status === 2 ? '8px solid #00897B' : '8px solid #ff6d00'
-                }">
-        <mat-card-content>
+      <ion-item-sliding *ngFor="let task of groupedTasks[date]" class="ourList-sliding">
+        <ion-item (click)="goToDetailTask(task.id_task)" class="ourList-card"
+          [ngStyle]="{ 'border-left': task.status === 2 ? '8px solid #00897B' : '8px solid #ff6d00' }">
           <ion-icon class="iconoTask" name="bookmark"></ion-icon>
-          <span>{{ task.title }}</span>
+          <span class="task-title">{{ task.title }}</span>
           <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
-        </mat-card-content>
-      </mat-card>
+        </ion-item>
+
+        <!-- Opciones de deslizamiento -->
+        <ion-item-options side="end" class="item-options-custom">
+          <ion-item-option class="item-option-custom edit-button" (click)="goToEditTask(task.id_task)">
+            Edit
+          </ion-item-option>
+          <ion-item-option class="item-option-custom delete-button" (click)="deleteTask(task.id_task)">
+            Delete
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </div>
   </ng-container>
 

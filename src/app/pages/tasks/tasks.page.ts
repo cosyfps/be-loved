@@ -106,6 +106,12 @@ export class TasksPage implements OnInit {
   goToDetailTask(id_task: string) {
     this.router.navigate(['/detail-tasks', id_task]);
   }
+  goToEditTask(id_task: string) {
+    this.router.navigate(['/edit-tasks', id_task]);
+  }
+  deleteTask(id_task: string) {
+    this.router.navigate(['/edit-tasks', id_task]);
+  }
 
   // Navegar a la vista para agregar tareas
   goToAddTask() {
