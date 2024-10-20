@@ -116,7 +116,7 @@ export class DetailUsersPage implements OnInit {
   deleteUser() {
     this.db.deleteUser(this.id_user)
       .then(() => {
-        console.log(`User with ID ${this.id_user} deleted successfully.`);
+        console.log(`User ${this.username} deleted successfully.`);
         this.router.navigate(['/users']); // Redirige a la lista de usuarios
       })
       .catch((error) => {

@@ -102,14 +102,63 @@ export class TasksPage implements OnInit {
     }
   }
 
+  // Obtener los detalles de una tarea específica
+  getTaskDetails(id_task: number) {
+    this.db.searchTaskById(id_task)
+      .then((task) => {
+        if (task) {
+          this.confirmDeleteTask(task); // Llamar a la confirmación con todos los detalles de la tarea
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving task data', error);
+      });
+  }
+
+  // Confirmar eliminación de tarea
+  async confirmDeleteTask(task: any) {
+    const alert = await this.alertController.create({
+      header: 'Confirm Deletion',
+      message: `Are you sure you want to delete the task: ${task.title}?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Deletion cancelled');
+          },
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.deleteTask(task.id_task, task.title);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  // Eliminar la tarea
+  deleteTask(id_task: number, task_title: string) {
+    this.db.deleteTask(id_task)
+      .then(() => {
+        console.log(`Task "${task_title}" deleted successfully.`);
+        this.loadUserTasks(); // Recargar la lista de tareas
+      })
+      .catch((error) => {
+        console.error('Error deleting task', error);
+      });
+  }
+
   // Navegar a los detalles de la tarea
-  goToDetailTask(id_task: string) {
+  goToDetailTask(id_task: number) {
     this.router.navigate(['/detail-tasks', id_task]);
   }
-  goToEditTask(id_task: string) {
-    this.router.navigate(['/edit-tasks', id_task]);
-  }
-  deleteTask(id_task: string) {
+
+  // Navegar a la vista de edición de la tarea
+  goToEditTask(id_task: number) {
     this.router.navigate(['/edit-tasks', id_task]);
   }
 
