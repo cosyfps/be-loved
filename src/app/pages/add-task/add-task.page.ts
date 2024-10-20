@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { Location } from '@angular/common';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
-import { MenuController, Platform } from '@ionic/angular';
+import { MenuController, Platform, AlertController } from '@ionic/angular';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
@@ -29,7 +29,8 @@ export class AddTaskPage implements OnInit {
     private storage: NativeStorage,
     private menu: MenuController,
     private screenOrientation: ScreenOrientation,
-    private platform: Platform
+    private platform: Platform,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -73,9 +74,9 @@ export class AddTaskPage implements OnInit {
     });
   }
 
-  addTask() {
+  async addTask() {
     if (!this.title || !this.description || !this.category_id) {
-      console.error('All fields are required');
+      await this.showAlert('Error', 'All fields are required. Please fill in all fields before adding a task.');
       return;
     }
 
@@ -91,12 +92,22 @@ export class AddTaskPage implements OnInit {
     ).then(() => {
       console.log('Task added successfully');
       this.location.back();
-    }).catch((error) => {
+    }).catch(async (error) => {
       console.error('Error adding task:', error);
+      await this.showAlert('Error', 'Failed to add task. Please try again.');
     });
   }
 
+  async showAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
   goBack() {
-    this.location.back();
+    this.router.navigate(['/tasks']);
   }
 }
