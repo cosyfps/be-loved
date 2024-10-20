@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
 @Component({
   selector: 'app-tasks',
@@ -15,33 +16,41 @@ export class TasksPage implements OnInit {
   searchTask: string = '';
   errorTask: boolean = false;
   hasTask: boolean = true;
+  id_user: number; // ID del usuario de la sesión
 
   constructor(
     private menu: MenuController,
     private router: Router,
     private db: DatabaseService,
     private alertController: AlertController,
-    private screenOrientation: ScreenOrientation
+    private screenOrientation: ScreenOrientation,
+    private storage: NativeStorage // Añadido para obtener el ID del usuario
   ) {}
 
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     this.menu.enable(true);
+  }
 
-    // Suscribirse al estado de la base de datos y cargar tareas
-    this.db.dbState().subscribe((data) => {
-      if (data) {
-        this.loadTasks(); // Cargar todas las tareas al iniciar
-      } else {
-        this.hasTask = false;
-      }
+  ionViewWillEnter() {
+    // Obtener el ID del usuario desde el almacenamiento
+    this.storage.getItem('id').then((data) => {
+      this.id_user = data;
+      console.log('Usuario en sesión con ID:', this.id_user);
+
+      // Cargar solo las tareas asociadas al usuario
+      this.loadUserTasks();
+    }).catch(error => {
+      console.error('Error retrieving user ID:', error);
+      this.router.navigate(['/login']); // Redirigir si no hay usuario en sesión
     });
   }
 
-  // Cargar todas las tareas y agruparlas por fecha
-  loadTasks() {
+  // Cargar todas las tareas del usuario
+  loadUserTasks() {
     this.db.fetchTask().subscribe((res) => {
-      this.tasks = res;
+      // Filtrar las tareas solo para el usuario actual
+      this.tasks = res.filter(task => task.user_id === this.id_user);
       this.hasTask = this.tasks.length > 0;
       this.groupTasksByDate(); // Agrupar por fecha
     }, (error) => {
@@ -50,9 +59,8 @@ export class TasksPage implements OnInit {
       this.hasTask = false;
     });
   }
-  
 
-  // Agrupa las tareas por la fecha de creación (sin la hora)
+  // Agrupar las tareas por la fecha de creación
   groupTasksByDate() {
     this.groupedTasks = this.tasks.reduce((groups, task) => {
       const date = task.creation_date.split('T')[0]; // Usar solo la fecha
@@ -74,17 +82,15 @@ export class TasksPage implements OnInit {
   // Buscar tareas por título
   searchTasks(query: string) {
     if (query.trim() === '') {
-      // Si no hay búsqueda, cargar todas las tareas
-      this.loadTasks();
+      this.loadUserTasks(); // Recargar tareas del usuario si no hay búsqueda
       this.errorTask = false;
     } else {
-      // Realizar la búsqueda con Promises
       this.db.searchTaskByTitle(query).then((task) => {
-        if (task) {
-          this.tasks = [task]; // Mostrar la tarea encontrada
+        if (task && task.user_id === this.id_user) {
+          this.tasks = [task]; // Mostrar la tarea si pertenece al usuario
           this.errorTask = false;
         } else {
-          this.tasks = []; // No se encontró la tarea
+          this.tasks = [];
           this.errorTask = true;
         }
         this.groupTasksByDate(); // Agrupar después de buscar
@@ -95,7 +101,6 @@ export class TasksPage implements OnInit {
       });
     }
   }
-  
 
   // Navegar a los detalles de la tarea
   goToDetailTask(id_task: string) {

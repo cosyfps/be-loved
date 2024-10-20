@@ -26,7 +26,7 @@
   <!-- Mostrar tareas agrupadas por fecha -->
   <div *ngFor="let date of taskDates" class="date-group">
     <h3>{{ date }}</h3> <!-- Encabezado con la fecha en formato yyyy-MM-dd -->
-  
+
     <div class="tasks-container">
       <ng-container *ngIf="groupedTasks[date] && groupedTasks[date].length > 0">
         <!-- Tarjetas de tareas con estilo condicional -->
@@ -43,7 +43,7 @@
       </ng-container>
     </div>
   </div>
-  
+
 
   <!-- Mensaje si no hay tareas completadas -->
   <div *ngIf="!hasTasksCompleted" class="no-tasks-message">

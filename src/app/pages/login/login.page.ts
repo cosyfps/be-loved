@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
   async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
-    this.menu.enable(false);
+    this.menu.enable(true);
   }
 
   async goToPage() {
