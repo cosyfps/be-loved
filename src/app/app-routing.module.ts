@@ -56,6 +56,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/detail-tasks/detail-tasks.module').then( m => m.DetailTasksPageModule)
   },
   {
+    path: 'edit-tasks/:id',
+    loadChildren: () => import('./pages/edit-tasks/edit-tasks.module').then( m => m.EditTasksPageModule)
+  },
+  {
     path: 'users',
     loadChildren: () => import('./admin/users/users.module').then( m => m.UsersPageModule)
   },
@@ -96,11 +100,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
   
-  
-
-  
-
-
 
 ];
 

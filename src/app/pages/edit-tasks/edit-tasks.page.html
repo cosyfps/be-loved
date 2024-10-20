@@ -1,0 +1,45 @@
+<ion-content [fullscreen]="true" class="background">
+  <div class="header-title">
+    <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goBack()"></ion-icon>
+    <h2>Edit Task</h2>
+  </div>
+
+  <div class="form-section">
+    <form #form="ngForm">
+      <!-- Título -->
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="bookmark-outline" slot="start"></ion-icon>
+        <ion-input id="taskTitle" name="title" placeholder="Enter task title" label="Title" label-placement="floating"
+          maxlength="50" color="dark" [(ngModel)]="title" required>
+        </ion-input>
+      </ion-item>
+
+      <!-- Descripción -->
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="reader-outline" slot="start"></ion-icon>
+        <ion-input id="taskDescription" name="description" placeholder="Enter task description" label="Description"
+          label-placement="floating" color="dark" [(ngModel)]="description">
+        </ion-input>
+      </ion-item>
+
+      <!-- Categoría -->
+      <ion-item class="ion-margin-horizontal ion-color">
+        <ion-icon name="albums-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Category</ion-label>
+        <ion-select id="taskCategory" name="category" fill="outline" [(ngModel)]="category_id"
+          style="margin-top: 10px;">
+          <ion-select-option *ngFor="let category of categories" [value]="category.id_category">
+            {{ category.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Botón para Guardar Cambios -->
+      <div class="ion-text-center">
+        <ion-button class="ion-margin-top start-button" shape="block" (click)="updateTask()">
+          Save Changes
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

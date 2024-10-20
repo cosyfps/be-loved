@@ -466,6 +466,17 @@ export class DatabaseService {
       .catch(e => this.showAlert('Update Task', 'Error: ' + JSON.stringify(e)));
   }
 
+  async updateEditTask(id_task: number, title: string, description: string, category_id: number) {
+    return this.database.executeSql(
+      `UPDATE Task 
+       SET title = ?, description = ?, category_id = ? 
+       WHERE id_task = ?`,
+      [title, description, category_id, id_task]
+    ).then(() => this.listTasks())
+      .catch(e => this.showAlert('Update Task', 'Error: ' + JSON.stringify(e)));
+  }
+  
+
   async deleteTask(id_task: number) {
     return this.database.executeSql('DELETE FROM Task WHERE id_task = ?', [id_task])
       .then(() => this.listTasks())
