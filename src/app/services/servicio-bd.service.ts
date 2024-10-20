@@ -96,10 +96,10 @@ export class DatabaseService {
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
-        this.deleteDatabase().then(() => {
-          this.createTables();
-        });
-        // this.createTables();
+        // this.deleteDatabase().then(() => {
+        //   this.createTables();
+        // });
+        this.createTables();
       }).catch(e => {
         this.showAlert('Database', 'Error creating the database: ' + JSON.stringify(e));
       });
@@ -139,7 +139,7 @@ export class DatabaseService {
       await this.database.executeSql(this.insertCategory3, []);
 
       await this.database.executeSql(this.insertTask1, []);
-      await this.database.executeSql(this.insertTask2, []);
+      // await this.database.executeSql(this.insertTask2, []);
 
       this.listUsers();
       this.listCategories();
