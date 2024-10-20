@@ -40,7 +40,7 @@ export class DatabaseService {
   // status -- 1 = Pendiente, 2 = Completada
   taskTable: string = "CREATE TABLE IF NOT EXISTS Task (id_task INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, description TEXT, due_date TEXT NOT NULL, creation_date TEXT NOT NULL, completion_date TEXT, status INTEGER NOT NULL, category_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (category_id) REFERENCES Category (id_category), FOREIGN KEY (user_id) REFERENCES User (id_user));";
 
-  insertTask1: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (1, 'Limpiar patios', 'Limpiar zona de perros y darle a la kiba', '2024-10-21', '2024-10-19', NULL, 2, 2, 1);";
+  insertTask1: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (1, 'Limpiar patios', 'Limpiar zona de perros y darle amor a la kiba', '2024-10-20', '2024-10-19', NULL, 2, 2, 1);";
   insertTask2: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (2, 'Develop Mobile App Completed', 'Complete the mobile application in only three days', '2024-10-21', '2024-10-21', NULL, 1, 1, 1);";
 
 
@@ -384,7 +384,24 @@ export class DatabaseService {
         return null;
       });
   }
-  
+
+  getCategories(): any {
+    return this.database.executeSql('SELECT * FROM Category', [])
+      .then((res) => {
+        let categories: Category[] = [];
+        for (let i = 0; i < res.rows.length; i++) {
+          categories.push({
+            id_category: res.rows.item(i).id_category,
+            name: res.rows.item(i).name,
+          });
+        }
+        return categories;
+      }).catch((error) => {
+        console.error('Error al obtener categorías:', error);
+        return [];
+      });
+  }
+
   
 
   // Task functions
@@ -413,11 +430,10 @@ export class DatabaseService {
   }
   
 
-  async insertTask(task: Task) {
-    const { title, description, due_date, creation_date, completion_date, status, category_id, user_id } = task;
+  async insertTask(title: string, description: string, due_date: string, creation_date: string, completion_date: string, status: number, category_id: number, user_id: number) {
     return this.database.executeSql(
       `INSERT INTO Task (title, description, due_date, creation_date, completion_date, status, category_id, user_id) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [title, description, due_date, creation_date, completion_date, status, category_id, user_id]
     ).then(() => this.listTasks())
       .catch(e => this.showAlert('Insert Task', 'Error: ' + JSON.stringify(e)));
