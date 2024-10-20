@@ -40,8 +40,8 @@ export class DatabaseService {
   // status -- 1 = Pendiente, 2 = Completada
   taskTable: string = "CREATE TABLE IF NOT EXISTS Task (id_task INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, description TEXT, due_date TEXT NOT NULL, creation_date TEXT NOT NULL, completion_date TEXT, status INTEGER NOT NULL, category_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (category_id) REFERENCES Category (id_category), FOREIGN KEY (user_id) REFERENCES User (id_user));";
 
-  insertTask1: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (1, 'Develop Mobile App', 'Complete the mobile application', '2024-10-21', '2024-10-19', NULL, 1, 1, 1);";
-  insertTask2: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (2, 'Develop Mobile App Completed', 'Complete the mobile application', '2024-10-21', '2024-10-21', NULL, 2, 1, 1);";
+  insertTask1: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (1, 'Limpiar patios', 'Limpiar zona de perros y darle a la kiba', '2024-10-21', '2024-10-19', NULL, 2, 2, 1);";
+  insertTask2: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (2, 'Develop Mobile App Completed', 'Complete the mobile application in only three days', '2024-10-21', '2024-10-21', NULL, 1, 1, 1);";
 
 
   // Variables to store query data from tables
@@ -460,6 +460,32 @@ export class DatabaseService {
       })
       .catch((e) => {
         console.error('Error buscando tarea por título:', e);
+        return null;
+      });
+  }
+  
+  searchTaskById(id: number): any {
+    return this.database.executeSql('SELECT * FROM Task WHERE id_task = ?', [id])
+      .then((res) => {
+        if (res.rows.length > 0) {
+          const task = res.rows.item(0);
+          return {
+            id_task: task.id_task,
+            title: task.title,
+            description: task.description,
+            due_date: task.due_date,
+            creation_date: task.creation_date,
+            completion_date: task.completion_date,
+            status: task.status,
+            category_id: task.category_id,
+            user_id: task.user_id,
+          };
+        } else {
+          console.error('Tarea no encontrada');
+          return null;
+        }
+      }).catch((error) => {
+        console.error('Error al buscar tarea por ID:', error);
         return null;
       });
   }
