@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="background">
-  <!-- Header con botón de retroceso -->
+  <!-- Header -->
   <div class="header-title">
     <h2>My Tasks</h2>
   </div>
@@ -23,21 +23,23 @@
     </ion-input>
   </div>
 
-  <!-- Contenedor de tarjetas de tareas -->
-  <div class="tasks-container">
-    <ion-text *ngIf="errorTask" class="ion-text-center errortask">NO RESULTS</ion-text>
+  <!-- Mostrar tareas agrupadas por fecha -->
+  <div *ngFor="let date of taskDates" class="date-group">
+    <h3>{{ date }}</h3> <!-- Mostrar la fecha tal cual viene de la base de datos -->
 
-    <!-- Tarjetas de tareas con mat-card -->
-    <mat-card class="ourList-card" *ngFor="let task of tasks" (click)="goToDetailTask(task.id_task)">
-      <mat-card-content>
-        <ion-icon class="iconoTask" name="bookmark"></ion-icon>
-        <span>{{ task.title }}</span>
-        <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
-      </mat-card-content>
-    </mat-card>
+    <div class="tasks-container">
+      <!-- Tarjetas de tareas -->
+      <mat-card class="ourList-card" *ngFor="let task of groupedTasks[date]" (click)="goToDetailTask(task.id_task)">
+        <mat-card-content>
+          <ion-icon class="iconoTask" name="bookmark"></ion-icon>
+          <span>{{ task.title }}</span>
+          <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 
-  <!-- Mostrar mensaje si no hay tareas -->
+  <!-- Mensaje si no hay tareas -->
   <div *ngIf="!hasTask" class="no-tasks-message">
     <img src="../../../assets/img/error.png" alt="No tasks available" class="no-tasks-image">
     <p>No tasks available. Please add some tasks!</p>

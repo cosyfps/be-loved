@@ -20,15 +20,23 @@
     text-align: left;
 }
 
+.date-group h3 {
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
 .ourList-card {
-    margin: 10px auto;
+    margin: -10px auto;
     /* Centra la tarjeta horizontalmente */
     max-width: 90%;
     max-height: 55px;
     position: relative;
     border-left: 8px solid #00897B;
     border-radius: 8px;
-    background-color: #e0e0e0;
+    background-color: #ffffff;
     color: #616161;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     /* Sombra ligera */
@@ -107,7 +115,7 @@ mat-card-content {
 .search-bar {
     color: white;
     margin-top: 70px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     width: calc(90% - 40px);
     border-radius: 0;
     display: block;
