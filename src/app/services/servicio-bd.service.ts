@@ -385,6 +385,23 @@ export class DatabaseService {
       });
   }
 
+  async getCategoryNameById(id_category: number) {
+    return this.database.executeSql('SELECT name FROM Category WHERE id_category = ?', [id_category])
+      .then(res => {
+        if (res.rows.length > 0) {
+          return {
+            name: res.rows.item(0).name,
+          };
+        } else {
+          return null;
+        }
+      })
+      .catch(e => {
+        this.showAlert('Search Category Name by ID', 'Error: ' + JSON.stringify(e));
+        return null;
+      });
+  }
+  
   getCategories(): any {
     return this.database.executeSql('SELECT * FROM Category', [])
       .then((res) => {

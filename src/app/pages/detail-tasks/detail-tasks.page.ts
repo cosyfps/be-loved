@@ -13,6 +13,8 @@ export class DetailTasksPage implements OnInit {
   task: any = {}; // Objeto para almacenar la tarea seleccionada
   id_task: number;
 
+  name: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,6 +37,12 @@ export class DetailTasksPage implements OnInit {
       if (task) {
         this.task = task;
         this.id_task = task.id_task;
+
+        // Llamar a getCategoryName() con el id_category de la tarea cargada
+        if (task.category_id) {
+          this.getCategoryName(task.category_id);
+        }
+
         this.cdr.detectChanges(); // Forzar la detección de cambios
       } else {
         console.error('Tarea no encontrada');
@@ -48,8 +56,6 @@ export class DetailTasksPage implements OnInit {
   // Alternar el estado de la tarea entre completada y pendiente
   toggleTaskStatus() {
     const newStatus = this.task.status === 2 ? 1 : 2;
-    const statusMessage = newStatus === 2 ? 'Mark as Complete' : 'Mark as Pending';
-
     this.task.status = newStatus; // Cambiar estado
 
     this.db.updateTask(this.task).then(() => {
@@ -59,21 +65,22 @@ export class DetailTasksPage implements OnInit {
       console.error('Error al actualizar estado:', error);
     });
   }
-  
 
-  getCategoryName(category_id: number): string {
-    switch (category_id) {
-      case 1:
-        return 'Work';
-      case 2:
-        return 'Personal';
-      default:
-        return '';
+  async getCategoryName(category_id: number) {
+    try {
+      const data = await this.db.getCategoryNameById(category_id);
+      if (data) {
+        this.name = data.name; // Actualiza el nombre de la categoría
+        this.cdr.detectChanges(); // Forzar la detección de cambios
+      } else {
+        console.error('Categoria no encontrada');
+      }
+    } catch (error) {
+      console.error('Error al cargar categoria:', error);
     }
   }
 
   goBack() {
     this.location.back();
   }
-
 }
