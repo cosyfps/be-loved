@@ -40,8 +40,7 @@ export class DatabaseService {
   // status -- 1 = Pendiente, 2 = Completada
   taskTable: string = "CREATE TABLE IF NOT EXISTS Task (id_task INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, description TEXT, due_date TEXT NOT NULL, creation_date TEXT NOT NULL, completion_date TEXT, status INTEGER NOT NULL, category_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (category_id) REFERENCES Category (id_category), FOREIGN KEY (user_id) REFERENCES User (id_user));";
 
-  insertTask1: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (1, 'Limpiar patios', 'Limpiar zona de perros y darle amor a la kiba', '', '2024-10-19', NULL, 1, 2, 1);";
-  insertTask2: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (2, 'Develop Mobile App Completed', 'Complete the mobile application in only three days', '', '2024-10-20', NULL, 2, 1, 1);";
+  insertTask1: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (1, 'Develop Mobile App Completed', 'Complete the mobile application in only three days', '', '2024-10-20', NULL, 2, 1, 1);";
 
 
   // Variables to store query data from tables
@@ -139,7 +138,6 @@ export class DatabaseService {
       await this.database.executeSql(this.insertCategory3, []);
 
       await this.database.executeSql(this.insertTask1, []);
-      // await this.database.executeSql(this.insertTask2, []);
 
       this.listUsers();
       this.listCategories();
