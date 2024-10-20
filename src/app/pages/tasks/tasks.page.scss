@@ -20,7 +20,7 @@
     text-align: left;
 }
 
-.date-group h3 {
+h3 {
     margin-top: 15px;
     margin-left: 20px;
     font-size: 18px;
@@ -29,8 +29,8 @@
 }
 
 .ourList-card {
-    margin: -10px auto;
-    /* Centra la tarjeta horizontalmente */
+    margin: 8px auto;
+    /* Espacio entre tarjetas */
     max-width: 90%;
     max-height: 55px;
     position: relative;
@@ -43,6 +43,13 @@
     align-items: center;
     /* Centra verticalmente el contenido */
 }
+
+/* Espacio adicional entre tarjetas dentro del mismo grupo */
+.tasks-container mat-card+mat-card {
+    margin-top: 12px;
+    /* Margen superior entre tarjetas */
+}
+
 
 mat-card-content {
     display: flex;

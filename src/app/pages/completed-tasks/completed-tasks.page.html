@@ -25,24 +25,27 @@
 
   <!-- Mostrar tareas agrupadas por fecha -->
   <div *ngFor="let date of taskDates" class="date-group">
-    <h3>{{ date }}</h3> <!-- Mostrar la fecha -->
-
+    <h3>{{ date }}</h3> <!-- Encabezado con la fecha en formato yyyy-MM-dd -->
+  
     <div class="tasks-container">
-      <!-- Tarjetas de tareas con estilo condicional -->
-      <mat-card class="ourList-card" *ngFor="let task of groupedTasks[date]" (click)="goToDetailTask(task.id_task)"
-        [ngStyle]="{
-          'border-left': task.status === 2 ? '8px solid #00897B' : '8px solid #ff6d00'
-        }">
-        <mat-card-content>
-          <ion-icon class="iconoTask" name="bookmark"></ion-icon>
-          <span>{{ task.title }}</span>
-          <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
-        </mat-card-content>
-      </mat-card>
+      <ng-container *ngIf="groupedTasks[date] && groupedTasks[date].length > 0">
+        <!-- Tarjetas de tareas con estilo condicional -->
+        <mat-card class="ourList-card" *ngFor="let task of groupedTasks[date]" (click)="goToDetailTask(task.id_task)"
+          [ngStyle]="{
+            'border-left': task.status === 2 ? '8px solid #00897B' : '8px solid #ff6d00'
+          }">
+          <mat-card-content>
+            <ion-icon class="iconoTask" name="bookmark"></ion-icon>
+            <span>{{ task.title }}</span>
+            <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
     </div>
   </div>
+  
 
-  <!-- Mensaje si no hay tareas -->
+  <!-- Mensaje si no hay tareas completadas -->
   <div *ngIf="!hasTasksCompleted" class="no-tasks-message">
     <img src="../../../assets/img/error.png" alt="No completed tasks available" class="no-tasks-image">
     <p>No completed tasks available. Please complete some tasks!</p>
@@ -53,5 +56,4 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
 </ion-content>

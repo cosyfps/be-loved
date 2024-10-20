@@ -46,8 +46,8 @@ export class CompletedTasksPage implements OnInit {
   // Agrupar las tareas completadas por fecha de creación
   groupTasksByDate() {
     this.groupedTasks = this.tasks.reduce((groups, task) => {
-      const date = task.creation_date; // Usar la fecha directamente de la base de datos
-
+      const date = task.creation_date.split('T')[0]; // Asegurarse de usar solo la fecha, sin la hora.
+      
       if (!groups[date]) {
         groups[date] = [];
       }

@@ -24,15 +24,15 @@
   </div>
 
   <!-- Mostrar tareas agrupadas por fecha -->
-  <div *ngFor="let date of taskDates" class="date-group">
-    <h3>{{ date }}</h3> <!-- Mostrar la fecha -->
+  <ng-container *ngFor="let date of taskDates">
+    <h3>{{ date | date: 'yyyy-MM-dd' }}</h3> <!-- Encabezado con la fecha -->
 
     <div class="tasks-container">
       <!-- Tarjetas de tareas con estilo condicional -->
       <mat-card class="ourList-card" *ngFor="let task of groupedTasks[date]" (click)="goToDetailTask(task.id_task)"
         [ngStyle]="{
-          'border-left': task.status === 2 ? '8px solid #00897B' : '8px solid #ff6d00'
-        }">
+                  'border-left': task.status === 2 ? '8px solid #00897B' : '8px solid #ff6d00'
+                }">
         <mat-card-content>
           <ion-icon class="iconoTask" name="bookmark"></ion-icon>
           <span>{{ task.title }}</span>
@@ -40,7 +40,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-  </div>
+  </ng-container>
 
   <!-- Mensaje si no hay tareas -->
   <div *ngIf="!hasTask" class="no-tasks-message">

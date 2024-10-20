@@ -45,8 +45,8 @@ export class TasksPage implements OnInit {
   // Agrupa las tareas por la fecha de creación (creation_date)
   groupTasksByDate() {
     this.groupedTasks = this.tasks.reduce((groups, task) => {
-      const date = task.creation_date; // Usar la fecha directamente de la base de datos
-
+      const date = task.creation_date.split('T')[0]; // Asegurarse de usar solo la fecha, sin la hora.
+      
       if (!groups[date]) {
         groups[date] = [];
       }
@@ -54,6 +54,8 @@ export class TasksPage implements OnInit {
       return groups;
     }, {});
   }
+  
+  
 
   // Getter para obtener las fechas de las tareas agrupadas en orden descendente
   get taskDates(): string[] {
