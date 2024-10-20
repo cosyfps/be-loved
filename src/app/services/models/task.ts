@@ -2,7 +2,6 @@ export class Task {
     id_task!: number;                  // Identificador único de la tarea
     title!: string;                    // Título descriptivo de la tarea
     description!: string;              // Descripción detallada
-    priority!: number;                 // Prioridad: 1 = Alta, 2 = Media, 3 = Baja
     due_date!: Date;                   // Fecha de vencimiento
     creation_date!: Date;              // Fecha de creación
     completion_date?: Date;            // Fecha de finalización (opcional)

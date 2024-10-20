@@ -37,9 +37,11 @@ export class DatabaseService {
   insertCategory3: string = "INSERT or IGNORE INTO Category(id_category, name) VALUES (3, 'Others')";
 
   // Task table
-  // priority -- 1 = Alta, 2 = Media, 3 = Baja
-  // status -- 1 = Pendiente, 2 = En Progreso, 3 = Finalizada, 4 = Cancelada
-  taskTable: string = "CREATE TABLE IF NOT EXISTS Task (id_task INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, description TEXT, priority INTEGER NOT NULL, due_date TEXT NOT NULL, creation_date TEXT NOT NULL, completion_date TEXT, status INTEGER NOT NULL, category_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (category_id) REFERENCES Category (id_category), FOREIGN KEY (user_id) REFERENCES User (id_user));";
+  // status -- 1 = Pendiente, 2 = Completada
+  taskTable: string = "CREATE TABLE IF NOT EXISTS Task (id_task INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, description TEXT, due_date TEXT NOT NULL, creation_date TEXT NOT NULL, completion_date TEXT, status INTEGER NOT NULL, category_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (category_id) REFERENCES Category (id_category), FOREIGN KEY (user_id) REFERENCES User (id_user));";
+
+  insertTask1: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (1, 'Develop Mobile App', 'Complete the mobile application', '2024-10-21', '2024-10-19', NULL, 1, 1, 1);";
+  insertTask2: string = "INSERT OR IGNORE INTO Task (id_task, title, description, due_date, creation_date, completion_date, status, category_id, user_id) VALUES (2, 'Develop Mobile App Completed', 'Complete the mobile application', '2024-10-21', '2024-10-21', NULL, 2, 1, 1);";
 
 
   // Variables to store query data from tables
@@ -62,6 +64,7 @@ export class DatabaseService {
       buttons: ['OK'],
     });
     await alert.present();
+
   }
 
   // Methods to manipulate observables
@@ -108,10 +111,13 @@ export class DatabaseService {
     try {
       await this.database.executeSql('DROP TABLE IF EXISTS User', []);
       await this.database.executeSql('DROP TABLE IF EXISTS Role', []);
+      await this.database.executeSql('DROP TABLE IF EXISTS Category', []);
+      await this.database.executeSql('DROP TABLE IF EXISTS Task', []);
     } catch (e) {
       this.showAlert('Database Deletion', 'Error deleting the database: ' + JSON.stringify(e));
     }
   }
+  
 
   async createTables() {
     try {
@@ -132,7 +138,13 @@ export class DatabaseService {
       await this.database.executeSql(this.insertCategory2, []);
       await this.database.executeSql(this.insertCategory3, []);
 
+      await this.database.executeSql(this.insertTask1, []);
+      await this.database.executeSql(this.insertTask2, []);
+
       this.listUsers();
+      this.listCategories();
+      this.listTasks();
+
       this.isDBReady.next(true);
     } catch (e) {
       this.showAlert('Table Creation', 'Error creating tables: ' + JSON.stringify(e));
@@ -377,44 +389,46 @@ export class DatabaseService {
 
   // Task functions
   listTasks() {
-    return this.database.executeSql('SELECT * FROM Task', []).then(res => {
+    this.database.executeSql('SELECT * FROM Task', []).then(res => {
       let tasks: Task[] = [];
       for (let i = 0; i < res.rows.length; i++) {
         tasks.push({
-          id_task: res.rows.item(i).id_task as number,
-          title: res.rows.item(i).title as string,
-          description: res.rows.item(i).description as string,
-          priority: res.rows.item(i).priority as number,
-          due_date: new Date(res.rows.item(i).due_date), // Convertir a Date
-          creation_date: new Date(res.rows.item(i).creation_date), // Convertir a Date
-          completion_date: res.rows.item(i).completion_date ? new Date(res.rows.item(i).completion_date) : null, // Manejar null
-          status: res.rows.item(i).status as number,
-          category_id: res.rows.item(i).category_id as number,
-          user_id: res.rows.item(i).user_id as number,
+          id_task: res.rows.item(i).id_task,
+          title: res.rows.item(i).title,
+          description: res.rows.item(i).description,
+          due_date: res.rows.item(i).due_date,
+          creation_date: res.rows.item(i).creation_date,
+          completion_date: res.rows.item(i).completion_date,
+          status: res.rows.item(i).status,
+          category_id: res.rows.item(i).category_id,
+          user_id: res.rows.item(i).user_id,
         });
       }
-      this.taskList.next(tasks);
+      console.log('Tareas obtenidas:', tasks); // Verificar en consola
+      this.taskList.next(tasks); // Actualiza el observable
     }).catch(e => {
+      console.error('Error al obtener tareas:', e);
       this.showAlert('Get Tasks', 'Error: ' + JSON.stringify(e));
     });
   }
+  
 
   async insertTask(task: Task) {
-    const { title, description, priority, due_date, creation_date, completion_date, status, category_id, user_id } = task;
+    const { title, description, due_date, creation_date, completion_date, status, category_id, user_id } = task;
     return this.database.executeSql(
-      `INSERT INTO Task (title, description, priority, due_date, creation_date, completion_date, status, category_id, user_id) 
+      `INSERT INTO Task (title, description, due_date, creation_date, completion_date, status, category_id, user_id) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [title, description, priority, due_date, creation_date, completion_date, status, category_id, user_id]
+      [title, description, due_date, creation_date, completion_date, status, category_id, user_id]
     ).then(() => this.listTasks())
       .catch(e => this.showAlert('Insert Task', 'Error: ' + JSON.stringify(e)));
   }
 
   async updateTask(task: Task) {
-    const { id_task, title, description, priority, due_date, completion_date, status, category_id, user_id } = task;
+    const { id_task, title, description, due_date, completion_date, status, category_id, user_id } = task;
     return this.database.executeSql(
-      `UPDATE Task SET title = ?, description = ?, priority = ?, due_date = ?, completion_date = ?, status = ?, category_id = ?, user_id = ? 
+      `UPDATE Task SET title = ?, description = ?, due_date = ?, completion_date = ?, status = ?, category_id = ?, user_id = ? 
        WHERE id_task = ?`,
-      [title, description, priority, due_date, completion_date, status, category_id, user_id, id_task]
+      [title, description, due_date, completion_date, status, category_id, user_id, id_task]
     ).then(() => this.listTasks())
       .catch(e => this.showAlert('Update Task', 'Error: ' + JSON.stringify(e)));
   }
@@ -425,6 +439,31 @@ export class DatabaseService {
       .catch(e => this.showAlert('Delete Task', 'Error: ' + JSON.stringify(e)));
   }
 
+  async searchTaskByTitle(title: string) {
+    return this.database.executeSql('SELECT * FROM Task WHERE title LIKE ?', [`%${title}%`])
+      .then((res) => {
+        if (res.rows.length > 0) {
+          return {
+            id_task: res.rows.item(0).id_task,
+            title: res.rows.item(0).title,
+            description: res.rows.item(0).description,
+            due_date: res.rows.item(0).due_date,
+            creation_date: res.rows.item(0).creation_date,
+            completion_date: res.rows.item(0).completion_date,
+            status: res.rows.item(0).status,
+            category_id: res.rows.item(0).category_id,
+            user_id: res.rows.item(0).user_id,
+          };
+        } else {
+          return null;
+        }
+      })
+      .catch((e) => {
+        console.error('Error buscando tarea por título:', e);
+        return null;
+      });
+  }
+  
 }
 
 

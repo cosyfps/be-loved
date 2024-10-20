@@ -21,31 +21,47 @@
 }
 
 .ourList-card {
-    margin-top: 80px;
+    margin: 80px auto;
+    /* Centra la tarjeta horizontalmente */
+    max-width: 90%;
+    max-height: 55px;
     position: relative;
     border-left: 8px solid #ff6d00;
     border-radius: 8px;
     background-color: #e0e0e0;
     color: #616161;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera */
+    display: flex;
+    align-items: center;
+    /* Centra verticalmente el contenido */
+}
+
+mat-card-content {
+    display: flex;
+    align-items: center;
+    /* Centrar verticalmente el contenido */
+    justify-content: space-between;
+    /* Separar elementos con espacio entre ellos */
+    width: 100%;
+    /* Asegura que el contenido ocupe todo el ancho */
 }
 
 .iconoTask {
     font-size: 24px;
     font-weight: 500;
-    margin-right: 5px;
-    margin-bottom: 5px;
-}
-
-ion-card-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    margin-right: 10px;
+    /* Espacio entre el ícono y el texto */
+    margin-bottom: 0;
+    /* Ajusta el margen inferior */
 }
 
 .arrowOurList {
     font-size: 24px;
     margin-left: auto;
+    /* Empuja el ícono al extremo derecho */
 }
+
 
 .motivational-quote {
     position: fixed;

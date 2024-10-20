@@ -52,7 +52,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/completed-tasks/completed-tasks.module').then( m => m.CompletedTasksPageModule)
   },
   {
-    path: 'detail-tasks',
+    path: 'detail-tasks/:id',
     loadChildren: () => import('./pages/detail-tasks/detail-tasks.module').then( m => m.DetailTasksPageModule)
   },
   {

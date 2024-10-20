@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     HomePageRoutingModule,
     MatIconModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
   ],
   declarations: [HomePage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

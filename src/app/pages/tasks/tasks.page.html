@@ -8,23 +8,45 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="background">
-  <ion-text class="header-title">
+  <!-- Header con botón de retroceso -->
+  <div class="header-title">
     <h2>My Tasks</h2>
-  </ion-text>
+  </div>
 
-  <!-- Mostrar las tarjetas si hay tareas -->
-  <ion-card class="ourList-card" *ngIf="hasTasks">
-    <ion-card-content>
-      <ion-icon class="iconoTask" name="bookmark"></ion-icon>
-      Finish prog. mobile app
-      <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
-    </ion-card-content>
-  </ion-card>
+  <!-- Barra de búsqueda -->
+  <div class="search-container">
+    <ion-input animated="true" placeholder="Enter Task Title" class="ion-margin-top search-bar" type="text"
+      [(ngModel)]="searchTask">
+      <ion-button fill="clear" slot="end" (click)="searchTasks(searchTask)">
+        <ion-icon name="search" class="search-icon"></ion-icon>
+      </ion-button>
+    </ion-input>
+  </div>
 
-  <!-- Mostrar imagen y mensaje si no hay tareas -->
-  <div *ngIf="!hasTasks" class="no-tasks-message">
-    <img src="../../../assets/img/error.png" alt=" No tasks available" class="no-tasks-image">
+  <!-- Contenedor de tarjetas de tareas -->
+  <div class="tasks-container">
+    <ion-text *ngIf="errorTask" class="ion-text-center errortask">NO RESULTS</ion-text>
+
+    <!-- Tarjetas de tareas con mat-card -->
+    <mat-card class="ourList-card" *ngFor="let task of tasks" (click)="goToDetailTask(task.id_task)">
+      <mat-card-content>
+        <ion-icon class="iconoTask" name="bookmark"></ion-icon>
+        <span>{{ task.title }}</span>
+        <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Mostrar mensaje si no hay tareas -->
+  <div *ngIf="!hasTask" class="no-tasks-message">
+    <img src="../../../assets/img/error.png" alt="No tasks available" class="no-tasks-image">
     <p>No tasks available. Please add some tasks!</p>
   </div>
 
+  <!-- Botón flotante para añadir tareas -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="fab-button" (click)="goToAddTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

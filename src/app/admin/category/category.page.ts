@@ -38,11 +38,11 @@ export class CategoryPage implements OnInit {
     if (data) {
       this.db.listCategories();
       this.db.fetchCategory().subscribe((res) => {
-        console.log('Categorías obtenidas:', res); // Verificar los datos
-        this.category = res;
-      });
-    }
-  });
+          console.log('Categorías obtenidas:', res); // Verificar los datos
+          this.category = res;
+        });
+      }
+    });
   }
 
   searchCategorys(searchCategory: string) {
