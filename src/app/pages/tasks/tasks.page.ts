@@ -55,9 +55,11 @@ export class TasksPage implements OnInit {
     }, {});
   }
 
-  // Getter para obtener las fechas de las tareas agrupadas
+  // Getter para obtener las fechas de las tareas agrupadas en orden descendente
   get taskDates(): string[] {
-    return Object.keys(this.groupedTasks).sort(); // Ordenar las fechas
+    return Object.keys(this.groupedTasks).sort((a, b) => {
+      return new Date(b).getTime() - new Date(a).getTime(); // Ordenar de más reciente a más antigua
+    });
   }
 
   // Buscar tareas por título
@@ -81,7 +83,7 @@ export class TasksPage implements OnInit {
 
   // Navegar a los detalles de la tarea
   goToDetailTask(id_task: string) {
-    this.router.navigate(['/detail-task', id_task]);
+    this.router.navigate(['/detail-tasks', id_task]);
   }
 
   // Navegar a la vista para agregar tareas

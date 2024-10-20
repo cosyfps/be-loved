@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
           if (user.id_role_fk == 1) {
             this.router.navigate(['/adminhome']);
           } else {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/tasks']);
           }
         } else {
           const alert = await this.alertController.create({

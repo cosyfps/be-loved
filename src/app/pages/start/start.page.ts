@@ -20,7 +20,7 @@ export class StartPage implements OnInit {
       const token = await this.storage.getItem('session_token');
       if (token) {
         // If token exists, navigate to home
-        this.router.navigate(['/home']);
+        this.router.navigate(['/tasks']);
       }
     } catch (error) {
       // No token found, user needs to log in
