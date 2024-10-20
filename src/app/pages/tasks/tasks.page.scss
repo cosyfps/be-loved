@@ -101,6 +101,7 @@ ion-item {
 
 /* Asegurar que el título sea visible y mantenga un formato adecuado */
 .task-title {
+    max-width: 250px;
     font-size: 16px;
     white-space: nowrap;
     /* Evita que el título se corte en varias líneas */
@@ -120,12 +121,14 @@ ion-item {
 }
 
 .iconoTask {
+    height: 25px;
     font-size: 24px;
     margin-right: 10px;
     /* Espacio entre el ícono y el texto */
 }
 
 .arrowOurList {
+    height: 25px;
     font-size: 24px;
     margin-left: auto;
     /* Empuja el ícono al extremo derecho */
