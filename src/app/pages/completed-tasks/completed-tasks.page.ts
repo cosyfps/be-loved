@@ -27,27 +27,28 @@ export class CompletedTasksPage implements OnInit {
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     this.menu.enable(true);
+    this.loadCompletedTasks(); // Cargar solo tareas completadas al iniciar
+  }
 
-    this.db.dbState().subscribe((data) => {
-      if (data) {
-        this.db.fetchTask().subscribe((res) => {
-          // Filtrar solo las tareas con status 2 (completada)
-          this.tasks = res.filter(task => task.status === 2);
-          console.log('Tareas completadas:', this.tasks);
-          this.hasTasksCompleted = this.tasks.length > 0; // Verificar si hay tareas
-          this.groupTasksByDate(); // Agrupar por fecha
-        });
-      } else {
-        this.hasTasksCompleted = false;
-      }
+  // Cargar todas las tareas completadas
+  loadCompletedTasks() {
+    this.db.fetchTask().subscribe((res) => {
+      // Filtrar solo las tareas con status 2 (completada)
+      this.tasks = res.filter(task => task.status === 2);
+      console.log('Tareas completadas:', this.tasks);
+      this.hasTasksCompleted = this.tasks.length > 0;
+      this.groupTasksByDate(); // Agrupar por fecha
+    }, (error) => {
+      console.error('Error al cargar tareas:', error);
+      this.tasks = [];
+      this.hasTasksCompleted = false;
     });
   }
 
   // Agrupar las tareas completadas por fecha de creación
   groupTasksByDate() {
     this.groupedTasks = this.tasks.reduce((groups, task) => {
-      const date = task.creation_date.split('T')[0]; // Asegurarse de usar solo la fecha, sin la hora.
-      
+      const date = task.creation_date.split('T')[0]; // Usar solo la fecha
       if (!groups[date]) {
         groups[date] = [];
       }
@@ -63,18 +64,28 @@ export class CompletedTasksPage implements OnInit {
     });
   }
 
-  // Buscar tareas por título dentro de las completadas
-  searchTasks(query: string) {
-    if (query.trim() === '') {
-      this.groupTasksByDate();
+  // Buscar tareas completadas por título
+  searchTasks(searchTask: string) {
+    if (searchTask.trim() === '') {
+      // Si no hay búsqueda, recargar las tareas completadas
+      this.loadCompletedTasks();
       this.errorTask = false;
     } else {
-      const filteredTasks = this.tasks.filter(task =>
-        task.title.toLowerCase().includes(query.toLowerCase())
-      );
-      this.tasks = filteredTasks;
-      this.groupTasksByDate();
-      this.errorTask = filteredTasks.length === 0;
+      // Buscar tareas completadas por título
+      this.db.searchTaskByTitle(searchTask).then((task) => {
+        if (task && task.status === 2) {
+          this.tasks = [task]; // Mostrar solo si está completada
+          this.errorTask = false;
+        } else {
+          this.tasks = [];
+          this.errorTask = true;
+        }
+        this.groupTasksByDate(); // Agrupar después de buscar
+      }).catch((error) => {
+        console.error('Error buscando tarea:', error);
+        this.tasks = [];
+        this.errorTask = true;
+      });
     }
   }
 
@@ -93,7 +104,8 @@ export class CompletedTasksPage implements OnInit {
     await alert.present();
   }
 
-  goToAddTask(){
+  // Navegar a la vista para agregar tareas
+  goToAddTask() {
     this.router.navigate(['/add-task']);
   }
 }
