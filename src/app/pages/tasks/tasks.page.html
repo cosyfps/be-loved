@@ -15,7 +15,7 @@
 
   <!-- Barra de búsqueda -->
   <div class="search-container">
-    <ion-input animated="true" placeholder="Enter Task Title" class="ion-margin-top search-bar" type="text"
+    <ion-input animated="true" placeholder="Search Task Title" class="ion-margin-top search-bar" type="text"
       [(ngModel)]="searchTask">
       <ion-button fill="clear" slot="end" (click)="searchTasks(searchTask)">
         <ion-icon name="search" class="search-icon"></ion-icon>
@@ -25,11 +25,14 @@
 
   <!-- Mostrar tareas agrupadas por fecha -->
   <div *ngFor="let date of taskDates" class="date-group">
-    <h3>{{ date }}</h3> <!-- Mostrar la fecha tal cual viene de la base de datos -->
+    <h3>{{ date }}</h3> <!-- Mostrar la fecha -->
 
     <div class="tasks-container">
-      <!-- Tarjetas de tareas -->
-      <mat-card class="ourList-card" *ngFor="let task of groupedTasks[date]" (click)="goToDetailTask(task.id_task)">
+      <!-- Tarjetas de tareas con estilo condicional -->
+      <mat-card class="ourList-card" *ngFor="let task of groupedTasks[date]" (click)="goToDetailTask(task.id_task)"
+        [ngStyle]="{
+          'border-left': task.status === 2 ? '8px solid #00897B' : '8px solid #ff6d00'
+        }">
         <mat-card-content>
           <ion-icon class="iconoTask" name="bookmark"></ion-icon>
           <span>{{ task.title }}</span>
@@ -41,11 +44,10 @@
 
   <!-- Mensaje si no hay tareas -->
   <div *ngIf="!hasTask" class="no-tasks-message">
-    <img src="../../../assets/img/error.png" alt="No tasks available" class="no-tasks-image">
-    <p>No tasks available. Please add some tasks!</p>
+    <img src="../../../assets/img/error.png" alt="No completed tasks available" class="no-tasks-image">
+    <p>No completed tasks available. Please complete some tasks!</p>
   </div>
 
-  <!-- Botón flotante para añadir tareas -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button class="fab-button" (click)="goToAddTask()">
       <ion-icon name="add"></ion-icon>

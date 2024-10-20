@@ -8,23 +8,50 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="background">
-  <ion-text class="header-title">
-    <h2>Complete Tasks</h2>
-  </ion-text>
-
-  <!-- Mostrar las tarjetas si hay tareas -->
-  <ion-card class="ourList-card" *ngIf="hasTasksCompleted">
-    <ion-card-content>
-      <ion-icon class="iconoTask" name="bookmark"></ion-icon>
-      Finish prog. mobile app
-      <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Mostrar imagen y mensaje si no hay tareas -->
-  <div *ngIf="!hasTasksCompleted" class="no-tasks-message">
-    <img src="../../../assets/img/error.png" alt=" No tasks available" class="no-tasks-image">
-    <p>No completed tasks!</p>
+  <!-- Header -->
+  <div class="header-title">
+    <h2>Completed Tasks</h2>
   </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-container">
+    <ion-input animated="true" placeholder="Search Completed Task Title" class="ion-margin-top search-bar" type="text"
+      [(ngModel)]="searchTask">
+      <ion-button fill="clear" slot="end" (click)="searchTasks(searchTask)">
+        <ion-icon name="search" class="search-icon"></ion-icon>
+      </ion-button>
+    </ion-input>
+  </div>
+
+  <!-- Mostrar tareas agrupadas por fecha -->
+  <div *ngFor="let date of taskDates" class="date-group">
+    <h3>{{ date }}</h3> <!-- Mostrar la fecha -->
+
+    <div class="tasks-container">
+      <!-- Tarjetas de tareas con estilo condicional -->
+      <mat-card class="ourList-card" *ngFor="let task of groupedTasks[date]" (click)="goToDetailTask(task.id_task)"
+        [ngStyle]="{
+          'border-left': task.status === 2 ? '8px solid #00897B' : '8px solid #ff6d00'
+        }">
+        <mat-card-content>
+          <ion-icon class="iconoTask" name="bookmark"></ion-icon>
+          <span>{{ task.title }}</span>
+          <ion-icon class="arrowOurList" name="caret-forward-sharp"></ion-icon>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Mensaje si no hay tareas -->
+  <div *ngIf="!hasTasksCompleted" class="no-tasks-message">
+    <img src="../../../assets/img/error.png" alt="No completed tasks available" class="no-tasks-image">
+    <p>No completed tasks available. Please complete some tasks!</p>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="fab-button" (click)="goToAddTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>
