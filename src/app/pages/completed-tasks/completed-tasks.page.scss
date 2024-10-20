@@ -21,19 +21,25 @@
 }
 
 h3 {
-    margin-top: 15px;
+    margin-top: 10px;
+    margin-bottom: -5px;
     margin-left: 20px;
     font-size: 18px;
     color: #ffffff;
     font-weight: bold;
 }
 
-.ourList-card {
-    margin: 8px auto;
-    /* Espacio entre tarjetas */
+.ourList-sliding {
     max-width: 90%;
-    max-height: 55px;
-    position: relative;
+    margin: 2px auto;
+}
+
+/* Ajustar el estilo del contenedor de la tarjeta */
+.ourList-card {
+    margin: 5px auto;
+    margin-bottom: 0px;
+    max-width: 100%;
+    /* Asegura que la tarjeta ocupe el ancho completo del contenedor */
     border-radius: 8px;
     background-color: #ffffff;
     color: #616161;
@@ -42,12 +48,90 @@ h3 {
     display: flex;
     align-items: center;
     /* Centra verticalmente el contenido */
+    // padding: 6px 10px;
+    /* Añade algo de padding para mejorar la visualización */
 }
 
-/* Espacio adicional entre tarjetas dentro del mismo grupo */
-.tasks-container mat-card+mat-card {
-    margin-top: 12px;
-    /* Margen superior entre tarjetas */
+/* Opciones personalizadas */
+.item-options-custom {
+    max-width: 90%;
+    max-height: 55px;
+    /* Ancho del 90% para que coincida con la tarjeta */
+    margin: 5px auto;
+    border-radius: 8px;
+}
+
+ion-item-option {
+    max-height: 48px;
+    /* Igualar la altura de la tarjeta */
+    display: flex;
+    align-items: center;
+    /* Centrar el contenido verticalmente */
+    border-radius: 8px;
+    // padding: 10px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra para hacer que el estilo sea consistente */
+}
+
+/* Remover borde inferior de ion-item */
+ion-item {
+    --inner-border-width: 0px;
+    /* Elimina el borde predeterminado de ion-item */
+    border-bottom: none;
+    /* Asegura que no haya borde inferior */
+}
+
+/* Cambiar el color de los botones */
+.edit-button {
+    width: 75px;
+    --background: #009688;
+    /* Verde para Editar */
+    --color: white;
+    /* Color del texto */
+}
+
+.delete-button {
+    width: 75px;
+    --background: red;
+    /* Rojo para Eliminar */
+    --color: white;
+    /* Color del texto */
+}
+
+/* Asegurar que el título sea visible y mantenga un formato adecuado */
+.task-title {
+    max-width: 250px;
+    font-size: 16px;
+    white-space: nowrap;
+    /* Evita que el título se corte en varias líneas */
+    overflow: hidden;
+    /* Oculta el desbordamiento */
+    text-overflow: ellipsis;
+    /* Añade puntos suspensivos al final si el texto es muy largo */
+    text-decoration: none;
+    /* Elimina el subrayado si existiera */
+
+}
+
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    /* Asegura que las cartas se dispongan una debajo de otra */
+}
+
+.iconoTask {
+    height: 25px;
+    font-size: 24px;
+    margin-right: 10px;
+    /* Espacio entre el ícono y el texto */
+}
+
+.arrowOurList {
+    height: 25px;
+    font-size: 24px;
+    margin-left: auto;
+    /* Empuja el ícono al extremo derecho */
 }
 
 mat-card-content {
@@ -58,21 +142,6 @@ mat-card-content {
     /* Separar elementos con espacio entre ellos */
     width: 100%;
     /* Asegura que el contenido ocupe todo el ancho */
-}
-
-.iconoTask {
-    font-size: 24px;
-    font-weight: 500;
-    margin-right: 10px;
-    /* Espacio entre el ícono y el texto */
-    margin-bottom: 0;
-    /* Ajusta el margen inferior */
-}
-
-.arrowOurList {
-    font-size: 24px;
-    margin-left: auto;
-    /* Empuja el ícono al extremo derecho */
 }
 
 .errortask {
@@ -115,6 +184,10 @@ mat-card-content {
     /* Para ocupar todo el espacio del contenedor */
     text-align: center;
     /* Centrar el texto */
+}
+
+.search-container {
+    margin-bottom: 15px;
 }
 
 .search-bar {

@@ -110,6 +110,13 @@ export class CompletedTasksPage implements OnInit {
     this.router.navigate(['/detail-tasks', id_task]);
   }
 
+  goToEditTask(id_task: string) {
+    this.router.navigate(['/edit-tasks', id_task]);
+  }
+  deleteTask(id_task: string) {
+    this.router.navigate(['/edit-tasks', id_task]);
+  }
+  
   // Mostrar alerta
   async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
