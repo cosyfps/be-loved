@@ -16,14 +16,17 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { firebaseConfig } from 'src/environments/environment';
 
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule,
+  imports: [HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule,
     AngularFireAuthModule, AngularFireModule.initializeApp(firebaseConfig)],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync(), NativeStorage, SQLite, ScreenOrientation],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, EmailComposer, provideAnimationsAsync(), NativeStorage, SQLite, ScreenOrientation],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
