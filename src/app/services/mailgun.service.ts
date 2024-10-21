@@ -5,8 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class MailgunService {
-  private domain = 'sandboxb136c0c08fdf4b63ad761cd0c9926409.mailgun.org'; // Reemplaza con tu dominio
-  private apiKey = 'a910ac431eee6850c7f597f2639d1954-784975b6-2d86fb72'; // Reemplaza con tu API Key de Mailgun
+  private domain = ''; // Reemplaza con tu dominio
+  private apiKey = ''; // Reemplaza con tu API Key de Mailgun
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +20,7 @@ export class MailgunService {
 
     // Creación del cuerpo del mensaje en formato URL encoded
     const body = new URLSearchParams();
-    body.set('from', 'beLoved <mailgun@sandboxb136c0c08fdf4b63ad761cd0c9926409.mailgun.org>');
+    body.set('from', 'beLoved <mailgun@>');
     body.set('to', to);
     body.set('subject', subject);
     body.set('text', text);
