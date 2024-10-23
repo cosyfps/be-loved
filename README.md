@@ -9,6 +9,3 @@ Este repositorio se ha creado con el propósito de proporcionar un espacio centr
 ## Contacto
 - Email: kelvin.morenog28@gmail.com
 - LinkedIn: [Kelvin A. Moreno](https://www.linkedin.com/in/kelvin-a-moreno/)
-
-- Email: ..
-- LinkedIn: [Benjamin Hidalgo](https://www.linkedin.com/in/benjamin-hidalgo-gomez-35141b251/)
