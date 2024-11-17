@@ -11,9 +11,6 @@
     <div class="img-logo" style="position: relative; text-align: center;">
       <img class="avatar-icon" *ngIf="image" [src]="image" alt="User Image">
       <img class="avatar-icon" *ngIf="!image" src="../../../assets/img/avatar.jpg" alt="Avatar">
-      <ion-button fill="clear" class="editar-icon" (click)="takePhoto()">
-        <ion-icon name="camera" size="large"></ion-icon>
-      </ion-button>
     </div>
   </div>
 
@@ -22,20 +19,19 @@
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon name="person-outline" slot="start"></ion-icon>
         <ion-label position="stacked">Username</ion-label>
-        <ion-input [(ngModel)]="username" name="username" fill="clear" color="dark" required></ion-input>
+        <ion-input [(ngModel)]="username" name="username" fill="clear" color="dark" readonly></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon name="mail-outline" slot="start"></ion-icon>
         <ion-label position="stacked">Email</ion-label>
-        <ion-input [(ngModel)]="email" name="email" fill="clear" color="dark" type="email" required></ion-input>
+        <ion-input [(ngModel)]="email" name="email" fill="clear" color="dark" type="email" readonly></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon name="key-outline" slot="start"></ion-icon>
         <ion-label position="stacked">Password</ion-label>
-        <ion-input [(ngModel)]="password" name="password" fill="clear" color="dark" type="password"
-          required></ion-input>
+        <ion-input [(ngModel)]="password" name="password" fill="clear" color="dark" type="password" readonly></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
