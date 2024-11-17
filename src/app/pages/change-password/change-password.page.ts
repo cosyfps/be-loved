@@ -28,8 +28,19 @@ export class ChangePasswordPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (!token) {
+        // Si no hay token, redirigir al login
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      // Si hay un error al obtener el token, redirigir al login
+      this.router.navigate(['/login']);
+    }
 
   }
 

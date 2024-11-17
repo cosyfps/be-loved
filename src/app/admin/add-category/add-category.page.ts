@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { AlertController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 
@@ -14,9 +15,23 @@ export class AddCategoryPage {
   constructor(
     private router: Router,
     private db: DatabaseService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage: NativeStorage
   ) {}
 
+  async ngOnInit() {
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (!token) {
+        // Si no hay token, redirigir al login
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      // Si hay un error al obtener el token, redirigir al login
+      this.router.navigate(['/login']);
+    }
+  }
+  
   async addCategory() {
     if (this.categoryName.trim().length < 3) {
       await this.showAlert('Error', 'Category name must be at least 3 characters long.');

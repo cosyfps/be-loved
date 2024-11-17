@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AlertController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
@@ -21,15 +22,27 @@ export class DetailCategoryPage implements OnInit {
     private db: DatabaseService,
     private cdr: ChangeDetectorRef, // Inyección de ChangeDetectorRef
     private alertController: AlertController,
-    private screenOrientation: ScreenOrientation // Inyección del ScreenOrientationService
+    private screenOrientation: ScreenOrientation, // Inyección del ScreenOrientationService
+    private storage: NativeStorage
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
     const id_category = this.route.snapshot.paramMap.get('id');
     if (id_category) {
       this.getCategoryDetails(parseInt(id_category, 10));
+    }
+
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (!token) {
+        // Si no hay token, redirigir al login
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      // Si hay un error al obtener el token, redirigir al login
+      this.router.navigate(['/login']);
     }
   }
 

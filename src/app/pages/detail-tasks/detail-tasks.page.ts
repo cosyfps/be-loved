@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
 @Component({
   selector: 'app-detail-tasks',
@@ -21,13 +22,25 @@ export class DetailTasksPage implements OnInit {
     private db: DatabaseService,
     private cdr: ChangeDetectorRef, // Detección manual de cambios
     private alertController: AlertController, // AlertController para confirmaciones
-    private location: Location // Inyección del servicio Location
+    private location: Location, // Inyección del servicio Location
+    private storage: NativeStorage, // Inyección del NativeStorage
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     const id_task = this.route.snapshot.paramMap.get('id');
     if (id_task) {
       this.loadTask(Number(id_task));
+    }
+
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (!token) {
+        // Si no hay token, redirigir al login
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      // Si hay un error al obtener el token, redirigir al login
+      this.router.navigate(['/login']);
     }
   }
 

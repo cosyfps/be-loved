@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
 @Component({
   selector: 'app-edit-users',
@@ -25,9 +26,10 @@ export class EditUsersPage implements OnInit {
     private db: DatabaseService,
     private alertController: AlertController,
     private screenOrientation: ScreenOrientation,
+    private storage: NativeStorage,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
     const id = this.route.snapshot.paramMap.get('id');
@@ -35,6 +37,17 @@ export class EditUsersPage implements OnInit {
       this.id_user = parseInt(id, 10);
       this.loadUserDetails();
       this.loadRoles();
+    }
+
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (!token) {
+        // Si no hay token, redirigir al login
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      // Si hay un error al obtener el token, redirigir al login
+      this.router.navigate(['/login']);
     }
   }
 

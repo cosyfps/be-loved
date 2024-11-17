@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { MenuController } from '@ionic/angular';
 
@@ -10,12 +11,22 @@ import { MenuController } from '@ionic/angular';
 })
 export class AdminhomePage implements OnInit {
 
-  constructor(private router: Router, private activedrouter: ActivatedRoute, private menu: MenuController, private screenOrientation: ScreenOrientation) { 
+  constructor(private storage: NativeStorage, private router: Router, private activedrouter: ActivatedRoute, private menu: MenuController, private screenOrientation: ScreenOrientation) { 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (!token) {
+        // Si no hay token, redirigir al login
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      // Si hay un error al obtener el token, redirigir al login
+      this.router.navigate(['/login']);
+    }
   }
   
   goToProfile(){

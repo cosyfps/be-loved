@@ -30,7 +30,7 @@ export class EditTasksPage implements OnInit {
     private alertController: AlertController
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.platform.is('cordova')) {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
         .catch((err) =>
@@ -40,6 +40,17 @@ export class EditTasksPage implements OnInit {
 
     this.loadCategories();
     this.loadTaskData(); // Cargar los datos de la tarea al iniciar
+
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (!token) {
+        // Si no hay token, redirigir al login
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      // Si hay un error al obtener el token, redirigir al login
+      this.router.navigate(['/login']);
+    }
   }
 
   ionViewWillEnter() {
