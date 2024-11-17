@@ -21,7 +21,6 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
-    this.menu.enable(true);
   }
 
   /*Antes de cargar la pagina, activa el menu*/

@@ -22,7 +22,6 @@ export class ForgotPasswordPage implements OnInit {
 
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-    this.menu.enable(true);
   }
 
   async sendEmail() {

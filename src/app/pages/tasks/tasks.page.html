@@ -1,22 +1,13 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="background">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title class="color">beLoved</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true" class="background">
   <!-- Header -->
   <div class="header-title">
-    <h2>My Tasks</h2>
+    <h2 style="margin-top: -30px;">My Tasks</h2>
   </div>
 
   <!-- Barra de búsqueda -->
   <div class="search-container">
-    <ion-input animated="true" placeholder="Search Task Title" class="ion-margin-top search-bar" type="text"
-      [(ngModel)]="searchTask">
+    <ion-input style="margin-top: 100px;" animated="true" placeholder="Search Task Title"
+      class="ion-margin-top search-bar" type="text" [(ngModel)]="searchTask">
       <ion-button fill="clear" slot="end" (click)="searchTasks(searchTask)">
         <ion-icon name="search" class="search-icon"></ion-icon>
       </ion-button>
@@ -61,3 +52,39 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="transparent-navbar">
+    <ion-buttons class="evenly-spaced-buttons" slot="start">
+
+      <ion-button [routerLink]="['/tasks']">
+        <div class="icon-text-container">
+          <ion-icon slot="icon-only" name="list-outline"></ion-icon>
+          <span class="button-text">Tasks</span>
+        </div>
+      </ion-button>
+
+      <ion-button [routerLink]="['/completed-tasks']">
+        <div class="icon-text-container">
+          <ion-icon slot="icon-only" name="checkmark-done-outline"></ion-icon>
+          <span class="button-text">Completed</span>
+        </div>
+      </ion-button>
+
+      <ion-button [routerLink]="['/add-task']">
+        <div class="icon-text-container">
+          <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+          <span class="button-text">Add Task</span>
+        </div>
+      </ion-button>
+
+      <ion-button [routerLink]="['/profile']">
+        <div class="icon-text-container">
+          <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+          <span class="button-text">Profile</span>
+        </div>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

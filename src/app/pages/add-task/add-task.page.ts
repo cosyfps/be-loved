@@ -41,7 +41,6 @@ export class AddTaskPage implements OnInit {
         );
     }
 
-    this.menu.enable(true);
     this.loadCategories(); // Cargar categorías al iniciar
   }
 

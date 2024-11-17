@@ -1,20 +1,11 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="background">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title class="color">beLoved</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true" class="background">
 
   <div class="header-container">
     <ion-text class="header-title">
-      <h2>Profile</h2>
+      <h2 style="margin-top: -30px;">Profile</h2>
     </ion-text>
     <ion-button fill="clear" *ngIf="id_role_fk === 1" class="settings-icon" (click)="openSettings()">
-      <ion-icon name="settings-outline" size="large"></ion-icon>
+      <ion-icon style="margin-top: 25px;" name="settings-outline" size="large"></ion-icon>
     </ion-button>
   </div>
 
@@ -41,7 +32,7 @@
       </ion-item>
 
       <!-- ? CONVERSAR CAMBIO EN LOS BOTONES -->
-       
+
       <div class="ion-text-center ion-margin">
         <ion-button class="boton-inicio txt-marcado" style="display: inline-block; width: 45%;"
           (click)="goToEditProfile()">
@@ -56,3 +47,39 @@
   </div>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="transparent-navbar">
+    <ion-buttons class="evenly-spaced-buttons" slot="start">
+
+      <ion-button [routerLink]="['/tasks']">
+        <div class="icon-text-container">
+          <ion-icon slot="icon-only" name="list-outline"></ion-icon>
+          <span class="button-text">Tasks</span>
+        </div>
+      </ion-button>
+
+      <ion-button [routerLink]="['/completed-tasks']">
+        <div class="icon-text-container">
+          <ion-icon slot="icon-only" name="checkmark-done-outline"></ion-icon>
+          <span class="button-text">Completed</span>
+        </div>
+      </ion-button>
+
+      <ion-button [routerLink]="['/add-task']">
+        <div class="icon-text-container">
+          <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+          <span class="button-text">Add Task</span>
+        </div>
+      </ion-button>
+
+      <ion-button [routerLink]="['/profile']">
+        <div class="icon-text-container">
+          <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+          <span class="button-text">Profile</span>
+        </div>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

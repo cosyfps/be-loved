@@ -38,7 +38,6 @@ export class EditTasksPage implements OnInit {
         );
     }
 
-    this.menu.enable(true);
     this.loadCategories();
     this.loadTaskData(); // Cargar los datos de la tarea al iniciar
   }

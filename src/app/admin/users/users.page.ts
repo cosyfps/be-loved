@@ -28,8 +28,6 @@ export class UsersPage implements OnInit {
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
-    this.menu.enable(true);
-
     this.db.dbState().subscribe(data => {
       // Validate if the database is ready
       if (data) {

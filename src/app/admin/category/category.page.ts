@@ -32,8 +32,6 @@ export class CategoryPage implements OnInit {
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
-    this.menu.enable(true);
-
     this.db.dbState().subscribe(data => {
     if (data) {
       this.db.listCategories();
