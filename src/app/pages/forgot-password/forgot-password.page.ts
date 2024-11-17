@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
 import { MailgunService } from 'src/app/services/mailgun.service';
@@ -17,11 +18,22 @@ export class ForgotPasswordPage implements OnInit {
     private menu: MenuController,
     private alertController: AlertController,
     private screenOrientation: ScreenOrientation,
-    private mailgunService: MailgunService
+    private mailgunService: MailgunService,
+    private storage: NativeStorage
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (token) {
+        // Redirigir al área protegida si el usuario ya está autenticado
+        this.router.navigate(['/tasks']);
+      }
+    } catch (error) {
+      // No hay token, permite acceso normal
+    }
   }
 
   async sendEmail() {

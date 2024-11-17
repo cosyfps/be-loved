@@ -21,7 +21,16 @@ export class LoginPage implements OnInit {
 
   async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-
+    
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (token) {
+        // Redirigir al área protegida si el usuario ya está autenticado
+        this.router.navigate(['/tasks']);
+      }
+    } catch (error) {
+      // No hay token, permite acceso normal
+    }
   }
 
   async goToPage() {

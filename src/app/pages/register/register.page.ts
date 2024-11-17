@@ -4,6 +4,7 @@ import { AlertController, MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
 @Component({
   selector: 'app-register',
@@ -18,11 +19,20 @@ export class RegisterPage implements OnInit {
   confirmPassword: string = '';
   id_rol: string = '2';
 
-  constructor(private menu: MenuController, private alertController: AlertController, private router: Router, private bd: DatabaseService, private screenOrientation: ScreenOrientation) { }
+  constructor(private storage: NativeStorage, private menu: MenuController, private alertController: AlertController, private router: Router, private bd: DatabaseService, private screenOrientation: ScreenOrientation) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
+    try {
+      const token = await this.storage.getItem('session_token');
+      if (token) {
+        // Redirigir al área protegida si el usuario ya está autenticado
+        this.router.navigate(['/tasks']);
+      }
+    } catch (error) {
+      // No hay token, permite acceso normal
+    }
   }
 
   async register() {
