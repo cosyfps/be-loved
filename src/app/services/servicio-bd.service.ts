@@ -188,7 +188,6 @@ export class DatabaseService {
       'UPDATE User SET username = ?, email = ?, user_photo = ? WHERE id_user = ?',
       [username, email, user_photo, id_user]
     ).then(res => {
-      this.showAlert("Update", "User updated successfully");
       this.listUsers();
     }).catch(e => {
       this.showAlert('Update User', 'Error: ' + JSON.stringify(e));
@@ -200,7 +199,6 @@ export class DatabaseService {
       'UPDATE User SET username = ?, email = ?, password = ?, id_role_fk = ?, user_photo = ? WHERE id_user = ?',
       [username, email, password, id_role_fk, user_photo, id_user]
     ).then(res => {
-      this.showAlert("Update", "Admin updated User successfully");
       this.listUsers();
     }).catch(e => {
       this.showAlert('Update User', 'Error: ' + JSON.stringify(e));
@@ -209,7 +207,6 @@ export class DatabaseService {
 
   async deleteUser(id_user: number) {
     return this.database.executeSql('DELETE FROM User WHERE id_user = ?', [id_user]).then(res => {
-      this.showAlert("Delete", "User deleted successfully");
       this.listUsers();
     }).catch(e => {
       this.showAlert('Delete User', 'Error: ' + JSON.stringify(e));
@@ -277,7 +274,6 @@ export class DatabaseService {
       'UPDATE User SET password = ? WHERE id_user = ?',
       [password, id_user]
     ).then(res => {
-      this.showAlert('Update Password', 'Password updated successfully');
       this.listUsers();
     }).catch(e => {
       this.showAlert('Update Password', 'Error: ' + JSON.stringify(e));
@@ -289,7 +285,6 @@ export class DatabaseService {
       'UPDATE User SET username = ? WHERE id_user = ?',
       [newUsername, id_user]
     ).then(res => {
-      this.showAlert('Update Username', 'Username updated successfully');
       this.listUsers();
     }).catch(e => {
       this.showAlert('Update Username', 'Error: ' + JSON.stringify(e));
@@ -301,7 +296,6 @@ export class DatabaseService {
       'UPDATE User SET email = ? WHERE id_user = ?',
       [newEmail, id_user]
     ).then(res => {
-      this.showAlert('Update Username', 'Email updated successfully');
       this.listUsers();
     }).catch(e => {
       this.showAlert('Update Username', 'Error: ' + JSON.stringify(e));
