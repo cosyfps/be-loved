@@ -80,6 +80,12 @@
     margin: 5px;
 }
 
+.boton-logout {
+    --ion-color-primary: red;
+    color: #fff;
+    margin: 5px;
+}
+
 .transparent-navbar {
     --background: white;
     box-shadow: none;

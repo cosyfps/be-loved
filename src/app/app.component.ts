@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
         header: 'Logout Error',
         message: 'An error occurred while logging out. Please try again.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     }

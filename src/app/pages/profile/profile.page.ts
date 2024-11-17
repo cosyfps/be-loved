@@ -107,4 +107,20 @@ export class ProfilePage implements OnInit {
   openSettings(){
     this.router.navigate(['/adminhome']);
   }
+
+  async logout() {
+    try {
+      await this.storage.clear(); // Limpia todos los datos de almacenamiento
+      this.router.navigate(['/login']);
+
+    } catch (error) {
+      const alert = await this.alertController.create({
+        header: 'Logout Error',
+        message: 'An error occurred while logging out. Please try again.',
+        buttons: ['OK'],
+      });
+      await alert.present();
+    }
+  }
+
 }

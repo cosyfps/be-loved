@@ -31,8 +31,6 @@
         <ion-input label="Email:" fill="clear" color="dark" value="{{email}}" readonly></ion-input>
       </ion-item>
 
-      <!-- ? CONVERSAR CAMBIO EN LOS BOTONES -->
-
       <div class="ion-text-center ion-margin">
         <ion-button class="boton-inicio txt-marcado" style="display: inline-block; width: 45%;"
           (click)="goToEditProfile()">
@@ -44,6 +42,13 @@
         </ion-button>
       </div>
     </form>
+  </div>
+
+  <!-- Logout button -->
+  <div class="ion-text-center ion-margin">
+    <ion-button style="margin-top: 300px;" class="boton-logout txt-marcado">
+      Logout
+    </ion-button>
   </div>
 
 </ion-content>
