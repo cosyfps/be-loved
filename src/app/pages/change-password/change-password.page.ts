@@ -62,7 +62,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Empty Fields',
         message: 'Please try again.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (this.oldPassword != this.validateOldPassword) {
@@ -70,7 +69,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Change Error',
         message: 'The password does not match the current one',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (this.newPassword != this.confirmPassword) {
@@ -78,7 +76,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Change Error',
         message: 'Passwords do not match',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (this.newPassword == this.oldPassword) {
@@ -86,7 +83,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Change Error',
         message: 'The new password is the same as the current one',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (!minLengthValidation.test(this.newPassword)) {
@@ -94,7 +90,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Password Error',
         message: 'Password must be at least 8 characters long.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (!validateUppercase.test(this.newPassword)) {
@@ -102,7 +97,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Password Error',
         message: 'The password must contain at least one uppercase letter',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (!validateLowercase.test(this.newPassword)) {
@@ -110,7 +104,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Password Error',
         message: 'The password must contain at least one lowercase letter',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (!validateNumber.test(this.newPassword)) {
@@ -118,7 +111,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Password Error',
         message: 'The password must contain at least one number',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (!validateSpecialChar.test(this.newPassword)) {
@@ -126,7 +118,6 @@ export class ChangePasswordPage implements OnInit {
         header: 'Password Error',
         message: 'The password must contain at least one special character',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else {
@@ -139,7 +130,6 @@ export class ChangePasswordPage implements OnInit {
           header: 'Error',
           message: 'An error occurred while updating the password. Please try again.',
           buttons: ['OK'],
-          cssClass: 'alert-style'
         });
         await alert.present();
       }
@@ -152,7 +142,6 @@ export class ChangePasswordPage implements OnInit {
       message: 'Password changed successfully!',
       duration: 2000,
       position: position,
-      cssClass: 'alert-style'
     });
     await toast.present();
   }

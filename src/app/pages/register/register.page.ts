@@ -40,7 +40,6 @@ export class RegisterPage implements OnInit {
         header: 'Empty Fields',
         message: 'Please fill in all fields.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } 
@@ -49,7 +48,6 @@ export class RegisterPage implements OnInit {
         header: 'Username Error',
         message: 'Username must be at least 4 characters long.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     }
@@ -58,7 +56,6 @@ export class RegisterPage implements OnInit {
         header: 'Email Error',
         message: 'Please enter a valid email address.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } 
@@ -67,7 +64,6 @@ export class RegisterPage implements OnInit {
         header: 'Password Error',
         message: 'Password must be at least 8 characters long.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } 
@@ -76,7 +72,6 @@ export class RegisterPage implements OnInit {
         header: 'Password Error',
         message: 'Password must contain at least one uppercase letter.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } 
@@ -85,7 +80,6 @@ export class RegisterPage implements OnInit {
         header: 'Password Error',
         message: 'Password must contain at least one lowercase letter.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } 
@@ -94,7 +88,6 @@ export class RegisterPage implements OnInit {
         header: 'Password Error',
         message: 'Password must contain at least one number.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } 
@@ -103,7 +96,6 @@ export class RegisterPage implements OnInit {
         header: 'Password Error',
         message: 'Password must contain at least one special character.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } 
@@ -112,7 +104,6 @@ export class RegisterPage implements OnInit {
         header: 'Password Error',
         message: 'Passwords do not match.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } 
@@ -127,7 +118,6 @@ export class RegisterPage implements OnInit {
             header: 'Registration Error',
             message: 'Username already exists. Please choose a different username.',
             buttons: ['OK'],
-            cssClass: 'alert-style'
           });
           await alert.present();
         } else if (userByEmail) {
@@ -135,7 +125,6 @@ export class RegisterPage implements OnInit {
             header: 'Registration Error',
             message: 'Email already exists. Please use a different email address.',
             buttons: ['OK'],
-            cssClass: 'alert-style'
           });
           await alert.present();
         } else {
@@ -145,7 +134,6 @@ export class RegisterPage implements OnInit {
             header: 'Registered',
             message: 'Successfully registered.',
             buttons: ['OK'],
-            cssClass: 'alert-style'
           });
           await alert.present();
           this.router.navigate(['/login']);
@@ -156,7 +144,6 @@ export class RegisterPage implements OnInit {
           header: 'Registration Error',
           message: 'An error occurred during registration. Please try again.',
           buttons: ['OK'],
-          cssClass: 'alert-style'
         });
         await alert.present();
       }

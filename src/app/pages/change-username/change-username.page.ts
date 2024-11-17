@@ -71,7 +71,6 @@ export class ChangeUsernamePage implements OnInit {
         header: 'Empty Fields',
         message: 'Please fill in all fields',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (this.newUsername == this.oldUsername && this.newEmail == this.oldEmail) {
@@ -79,7 +78,6 @@ export class ChangeUsernamePage implements OnInit {
         header: 'Data cannot be the same as the previous',
         message: 'Please try again',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (this.newUsername.length < usernameMinLength) {
@@ -87,7 +85,6 @@ export class ChangeUsernamePage implements OnInit {
         header: 'Username Error',
         message: `Username must be at least ${usernameMinLength} characters long.`,
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else if (!emailValidation.test(this.newEmail)) {
@@ -95,7 +92,6 @@ export class ChangeUsernamePage implements OnInit {
         header: 'Email Error',
         message: 'Please enter a valid email address.',
         buttons: ['OK'],
-        cssClass: 'alert-style'
       });
       await alert.present();
     } else {
@@ -109,7 +105,6 @@ export class ChangeUsernamePage implements OnInit {
             header: 'Username Error',
             message: 'Username already exists. Please choose a different one.',
             buttons: ['OK'],
-            cssClass: 'alert-style'
           });
           await alert.present();
           return;
@@ -120,7 +115,6 @@ export class ChangeUsernamePage implements OnInit {
             header: 'Email Error',
             message: 'Email already exists. Please choose a different one.',
             buttons: ['OK'],
-            cssClass: 'alert-style'
           });
           await alert.present();
           return;
@@ -134,7 +128,6 @@ export class ChangeUsernamePage implements OnInit {
           header: 'Success',
           message: 'Username and Email updated successfully',
           buttons: ['OK'],
-          cssClass: 'alert-style'
         });
         await alert.present();
         this.router.navigate(['/profile']);
@@ -143,7 +136,6 @@ export class ChangeUsernamePage implements OnInit {
           header: 'Error',
           message: 'An error occurred while updating. Please try again.',
           buttons: ['OK'],
-          cssClass: 'alert-style'
         });
         await alert.present();
       }

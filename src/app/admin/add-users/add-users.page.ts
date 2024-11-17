@@ -149,7 +149,6 @@ export class AddUsersPage implements OnInit {
             header: 'User Added',
             message: 'Successfully.',
             buttons: ['OK'],
-            cssClass: 'alert-style'
           });
           await alert.present();
           this.router.navigate(['/users']);
@@ -160,7 +159,6 @@ export class AddUsersPage implements OnInit {
           header: 'Registration Error',
           message: 'An error occurred during registration. Please try again.',
           buttons: ['OK'],
-          cssClass: 'alert-style'
         });
         await alert.present();
       }

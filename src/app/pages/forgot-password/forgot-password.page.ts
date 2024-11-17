@@ -49,7 +49,6 @@ export class ForgotPasswordPage implements OnInit {
       header: title,
       message: message,
       buttons: ['OK'],
-      cssClass: 'alert-style',
     });
 
     await alert.present();
