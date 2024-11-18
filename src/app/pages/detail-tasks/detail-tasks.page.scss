@@ -25,6 +25,7 @@
     cursor: pointer;
     flex-shrink: 0;
     font-size: 32px;
+    color: #ffffff;
 }
 
 .task-title-container {
@@ -47,6 +48,7 @@
     font-size: 28px;
     font-weight: bold;
     margin-left: 20px;
+    color: #ffffff;
 }
 
 .task-info-container {
@@ -56,6 +58,7 @@
     /* Ajustar ancho */
     margin: 0 auto 16px;
     /* Centrar contenido horizontalmente */
+    color: #ffffff;
 }
 
 .info-row {
@@ -63,6 +66,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    color: #ffffff;
 }
 
 .label {
@@ -77,11 +81,13 @@
     align-items: center;
     font-size: 16px;
     font-weight: 500;
+    color: #ffffff;
 }
 
 .date {
     font-size: 16px;
     font-weight: 500;
+    color: #ffffff;
 }
 
 .task-details {
@@ -91,6 +97,7 @@
     /* Centrar contenido */
     font-size: 16px;
     font-weight: 500;
+    color: #ffffff;
 }
 
 .button-container {
