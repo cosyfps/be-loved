@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
-import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { AlertController, MenuController } from '@ionic/angular';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { MailgunService } from 'src/app/services/mailgun.service';
 
 @Component({
@@ -19,21 +19,12 @@ export class ForgotPasswordPage implements OnInit {
     private alertController: AlertController,
     private screenOrientation: ScreenOrientation,
     private mailgunService: MailgunService,
-    private storage: NativeStorage
+    private bd: DatabaseService
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-
-    try {
-      const token = await this.storage.getItem('session_token');
-      if (token) {
-        // Redirigir al área protegida si el usuario ya está autenticado
-        this.router.navigate(['/tasks']);
-      }
-    } catch (error) {
-      // No hay token, permite acceso normal
-    }
+    this.menu.enable(true);
   }
 
   async sendEmail() {
@@ -44,14 +35,25 @@ export class ForgotPasswordPage implements OnInit {
     } else if (!emailPattern.test(this.email)) {
       await this.showAlert('Error', 'Please enter a valid email address');
     } else {
-      this.mailgunService.sendEmail(this.email, 'Reset Password | beLoved', 'Support has been contacted, wait for a response soon.')
-        .then(() => {
-          this.showAlert('Success', 'Email enviado exitosamente.');
-        })
-        .catch((error) => {
-          this.showAlert('Error', 'Hubo un error al enviar el email.');
-          console.error(error);
-        });
+      try {
+        // Check if the email exists in the database
+        const user = await this.bd.searchUserByEmail(this.email);
+
+        if (user) {
+          // Send the email
+          await this.mailgunService.sendEmail(
+            this.email,
+            'Reset Password | beLoved',
+            'Support has been contacted, wait for a response soon.'
+          );
+          await this.showAlert('Success', 'Email sent successfully.');
+        } else {
+          await this.showAlert('Error', 'Email does not exist in our system.');
+        }
+      } catch (error) {
+        await this.showAlert('Error', 'An error occurred while sending the email.');
+        console.error(error);
+      }
     }
   }
 
