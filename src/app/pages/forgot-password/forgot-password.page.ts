@@ -12,6 +12,9 @@ import { MailgunService } from 'src/app/services/mailgun.service';
 })
 export class ForgotPasswordPage implements OnInit {
   email: string = '';
+  generatedCode: string | null = null; // Código generado
+  enteredCode: string = ''; // Código ingresado por el usuario
+  isCodeSent: boolean = false;
 
   constructor(
     private router: Router,
@@ -24,10 +27,21 @@ export class ForgotPasswordPage implements OnInit {
 
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-    this.menu.enable(true);
   }
 
-  async sendEmail() {
+  // Generar un código aleatorio
+  generateCode(): string {
+    const length = 6;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+
+  // Simular envío del código
+  async sendCode() {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (this.email === '') {
@@ -36,27 +50,44 @@ export class ForgotPasswordPage implements OnInit {
       await this.showAlert('Error', 'Please enter a valid email address');
     } else {
       try {
-        // Check if the email exists in the database
         const user = await this.bd.searchUserByEmail(this.email);
-
         if (user) {
-          // Send the email
+          // Generar código
+          this.generatedCode = this.generateCode();
+          this.isCodeSent = true;
+
           await this.mailgunService.sendEmail(
             this.email,
             'Reset Password | beLoved',
-            'Support has been contacted, wait for a response soon.'
+            'Code Sent, Your recovery code is: ' + `${this.generatedCode}`
           );
-          await this.showAlert('Success', 'Email sent successfully.');
+
+          await this.showAlert('Success', 'Code sent successfully.');
+
         } else {
           await this.showAlert('Error', 'Email does not exist in our system.');
         }
       } catch (error) {
-        await this.showAlert('Error', 'An error occurred while sending the email.');
         console.error(error);
+        await this.showAlert('Error', 'An error occurred. Please try again.');
       }
     }
   }
 
+  // Verificar el código ingresado
+  async verifyCode() {
+    if (this.generatedCode === null) {
+      await this.showAlert('Error', 'No code has been generated.');
+    } else if (this.enteredCode !== this.generatedCode) {
+      await this.showAlert('Error', 'Invalid code. Please try again.');
+    } else {
+      await this.showAlert('Success', 'Code verified! You can now reset your password.');
+      this.generatedCode = null; // Limpiar código
+      this.router.navigate(['/reset-password']);
+    }
+  }
+
+  // Mostrar alertas
   async showAlert(title: string, message: string) {
     const alert = await this.alertController.create({
       header: title,
