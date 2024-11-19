@@ -82,10 +82,18 @@ export class ForgotPasswordPage implements OnInit {
       await this.showAlert('Error', 'Invalid code. Please try again.');
     } else {
       await this.showAlert('Success', 'Code verified! You can now reset your password.');
-      this.generatedCode = null; // Limpiar código
-      this.router.navigate(['/reset-password']);
+  
+      // Limpiar el código y pasar el email a la página siguiente
+      this.generatedCode = null;
+  
+      this.router.navigate(['/reset-password'], {
+        state: {
+          email: this.email, // Pasar el email a la siguiente página
+        },
+      });
     }
   }
+  
 
   // Mostrar alertas
   async showAlert(title: string, message: string) {

@@ -280,6 +280,18 @@ export class DatabaseService {
     });
   }
 
+  async updatePasswordByEmail(password: string, email: string) {
+    return this.database.executeSql(
+      'UPDATE User SET password = ? WHERE email = ?',
+      [password, email]
+    ).then(res => {
+      this.listUsers();
+    }).catch(e => {
+      this.showAlert('Update Password By Email', 'Error: ' + JSON.stringify(e));
+    });
+  }
+  
+
   async updateUsername(newUsername: string, id_user: number) {
     return this.database.executeSql(
       'UPDATE User SET username = ? WHERE id_user = ?',
