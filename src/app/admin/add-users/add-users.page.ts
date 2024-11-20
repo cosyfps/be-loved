@@ -17,7 +17,7 @@ export class AddUsersPage implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   id_rol: string = '2';
-  passwordVisible: boolean = true;
+  passwordVisible: boolean = false;
 
 
   constructor(
