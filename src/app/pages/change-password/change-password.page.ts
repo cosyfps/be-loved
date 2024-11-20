@@ -16,7 +16,7 @@ export class ChangePasswordPage implements OnInit {
   validateOldPassword: string = "";
   newPassword: string = "";
   confirmPassword: string = "";
-  passwordVisible: boolean = true;
+  passwordVisible: boolean = false;
 
 
   id_user!: number;
