@@ -5,6 +5,7 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
+import { FormsModule } from '@angular/forms'; // Importa FormsModule
 
 describe('LoginPage', () => {
   let component: LoginPage;
@@ -28,7 +29,7 @@ describe('LoginPage', () => {
 
     await TestBed.configureTestingModule({
       declarations: [LoginPage],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), FormsModule], // Agrega FormsModule aquí
       providers: [
         { provide: NativeStorage, useValue: mockNativeStorage },
         { provide: SQLite, useValue: mockSQLite }, // Proveedor simulado para SQLite

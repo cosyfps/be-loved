@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { DatabaseService } from 'src/app/services/servicio-bd.service';
 import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';  // Importar NativeStorage
 
 describe('TasksPage', () => {
   let component: TasksPage;
@@ -23,6 +24,10 @@ describe('TasksPage', () => {
       currentOrientation: 'portrait-primary', // Propiedad simulada currentOrientation
     });
 
+    // Mock de NativeStorage
+    const mockNativeStorage = jasmine.createSpyObj('NativeStorage', ['getItem', 'setItem', 'removeItem']);
+    mockNativeStorage.getItem.and.returnValue(Promise.resolve('mockValue')); // Simula un valor
+
     await TestBed.configureTestingModule({
       declarations: [TasksPage],
       imports: [IonicModule.forRoot()],
@@ -30,6 +35,7 @@ describe('TasksPage', () => {
         { provide: SQLite, useValue: mockSQLite }, // Proveedor simulado para SQLite
         { provide: DatabaseService, useValue: mockDatabaseService }, // Proveedor simulado para DatabaseService
         { provide: ScreenOrientation, useValue: mockScreenOrientation }, // Proveedor simulado para ScreenOrientation
+        { provide: NativeStorage, useValue: mockNativeStorage }, // Agregar el mock de NativeStorage
       ],
     }).compileComponents();
 

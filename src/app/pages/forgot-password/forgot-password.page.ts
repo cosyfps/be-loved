@@ -26,7 +26,9 @@ export class ForgotPasswordPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    this.screenOrientation.lock('portrait-primary').catch((error) => {
+      console.error('Error locking screen orientation', error);
+    });
   }
 
   // Generar un código aleatorio

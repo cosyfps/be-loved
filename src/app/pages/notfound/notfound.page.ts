@@ -8,10 +8,9 @@ import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/n
 })
 export class NotfoundPage implements OnInit {
 
-  constructor(private screenOrientation: ScreenOrientation) { }
+  constructor() { }
 
   ngOnInit() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
   }
 
