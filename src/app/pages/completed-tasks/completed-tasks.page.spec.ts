@@ -1,11 +1,42 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CompletedTasksPage } from './completed-tasks.page';
+import { IonicModule } from '@ionic/angular';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
 describe('CompletedTasksPage', () => {
   let component: CompletedTasksPage;
   let fixture: ComponentFixture<CompletedTasksPage>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    // Mock de SQLite
+    const mockSQLite = jasmine.createSpyObj('SQLite', ['create']);
+
+    // Mock de DatabaseService
+    const mockDatabaseService = jasmine.createSpyObj('DatabaseService', ['initializeDB', 'executeSQL']);
+
+    // Mock de ScreenOrientation
+    const mockScreenOrientation = jasmine.createSpyObj('ScreenOrientation', ['lock', 'unlock'], {
+      PORTRAIT: 'portrait', // Mock de propiedad PORTRAIT
+      LANDSCAPE: 'landscape', // Mock de propiedad LANDSCAPE
+    });
+
+    // Mock de NativeStorage
+    const mockNativeStorage = jasmine.createSpyObj('NativeStorage', ['getItem', 'setItem', 'removeItem']);
+
+    await TestBed.configureTestingModule({
+      declarations: [CompletedTasksPage],
+      imports: [IonicModule.forRoot()],
+      providers: [
+        { provide: SQLite, useValue: mockSQLite },
+        { provide: DatabaseService, useValue: mockDatabaseService },
+        { provide: ScreenOrientation, useValue: mockScreenOrientation },
+        { provide: NativeStorage, useValue: mockNativeStorage }, // Proveedor simulado para NativeStorage
+      ],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(CompletedTasksPage);
     component = fixture.componentInstance;
     fixture.detectChanges();

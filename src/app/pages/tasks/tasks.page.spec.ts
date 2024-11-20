@@ -1,11 +1,38 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TasksPage } from './tasks.page';
+import { IonicModule } from '@ionic/angular';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { DatabaseService } from 'src/app/services/servicio-bd.service';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 describe('TasksPage', () => {
   let component: TasksPage;
   let fixture: ComponentFixture<TasksPage>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    // Mock de SQLite
+    const mockSQLite = jasmine.createSpyObj('SQLite', ['create']);
+
+    // Mock de DatabaseService
+    const mockDatabaseService = jasmine.createSpyObj('DatabaseService', ['initializeDB', 'executeSQL']);
+
+    // Mock de ScreenOrientation
+    const mockScreenOrientation = jasmine.createSpyObj('ScreenOrientation', ['lock', 'unlock'], {
+      PORTRAIT: 'portrait', // Propiedad simulada PORTRAIT
+      LANDSCAPE: 'landscape', // Propiedad simulada LANDSCAPE
+      currentOrientation: 'portrait-primary', // Propiedad simulada currentOrientation
+    });
+
+    await TestBed.configureTestingModule({
+      declarations: [TasksPage],
+      imports: [IonicModule.forRoot()],
+      providers: [
+        { provide: SQLite, useValue: mockSQLite }, // Proveedor simulado para SQLite
+        { provide: DatabaseService, useValue: mockDatabaseService }, // Proveedor simulado para DatabaseService
+        { provide: ScreenOrientation, useValue: mockScreenOrientation }, // Proveedor simulado para ScreenOrientation
+      ],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TasksPage);
     component = fixture.componentInstance;
     fixture.detectChanges();

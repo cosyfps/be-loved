@@ -12,36 +12,9 @@ import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/n
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  id_user!: number;
-  username: string = "";
-
-  constructor(private menu: MenuController, private storage: NativeStorage, private bd: DatabaseService, private router: Router, private screenOrientation: ScreenOrientation) {}
+  constructor() {}
 
   ngOnInit() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
-  }
-
-  /*Antes de cargar la pagina, activa el menu*/
-  ionViewWillEnter() {
-    this.menu.enable(true);
-
-    this.storage.getItem('id').then(data => {
-      this.id_user = data;
-
-      // llama a la consulta solo cuando se haya obtenido el id
-      return this.bd.searchUserById(this.id_user);
-    }).then(data => {
-      if (data) {
-        this.username = data.username;
-      }
-    }).catch(error => {
-      console.error('Error retrieving user data', error);
-    });
-  }
-
-  goToAddTask() {
-    this.router.navigate(['/add-task']);
   }
 }

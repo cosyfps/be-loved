@@ -23,9 +23,10 @@ export class ProfilePage implements OnInit {
   constructor(private menu: MenuController, private router: Router, private storage: NativeStorage, private db: DatabaseService, private cdr: ChangeDetectorRef, private alertController: AlertController, private screenOrientation: ScreenOrientation) {}
 
   ngOnInit() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-
+    // Usa 'portrait' directamente
+    this.screenOrientation.lock('portrait');
   }
+  
 
   ionViewWillEnter() {
     this.storage.getItem('id').then(data => {
