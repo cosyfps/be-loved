@@ -24,7 +24,8 @@
         <p>Username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
         <p>Password: {{ user.password && user.password.length > 0 ? '*'.repeat(user.password.length) : '' }}</p>
-        <p>Role: {{ user.id_role_fk === 1 ? 'Admin' : user.id_role_fk === 2 ? 'User' : '' }}</p>
+        <p>Role: {{ user.id_role_fk === 1 ? 'Admin' : user.id_role_fk === 2 ? 'User' : user.id_role_fk === 3 ? 'Banned'
+          : '' }}</p>
       </mat-card-content>
     </mat-card>
   </div>

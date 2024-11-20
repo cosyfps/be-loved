@@ -39,10 +39,11 @@
         <ion-icon name="id-card-outline" slot="start"></ion-icon>
         <ion-label position="stacked">Role</ion-label>
         <ion-select [(ngModel)]="id_role_fk" name="role" fill="outline"
-          [placeholder]="id_role_fk === 1 ? 'Admin' : id_role_fk === 2 ? 'User' : 'Select Role'"
+          [placeholder]="id_role_fk === 1 ? 'Admin' : id_role_fk === 2 ? 'User' : id_role_fk === 3 ? 'Banned' : 'Select Role'"
           style="margin-top: 5px;">
           <ion-select-option value="1">Admin</ion-select-option>
           <ion-select-option value="2">User</ion-select-option>
+          <ion-select-option value="3">Banned</ion-select-option>
         </ion-select>
 
       </ion-item>

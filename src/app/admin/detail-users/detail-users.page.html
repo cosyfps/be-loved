@@ -39,15 +39,12 @@
         <ion-icon name="id-card-outline" slot="start"></ion-icon>
         <ion-label>Role: </ion-label>
         <ion-input fill="clear" color="dark"
-          [value]="user?.id_role_fk === 1 ? 'Admin' : user?.id_role_fk === 2 ? 'User' : ''" readonly>
+          [value]="user?.id_role_fk === 1 ? 'Admin' : user?.id_role_fk === 2 ? 'User' : user?.id_role_fk === 3 ? 'Banned' : ''"
+          readonly>
         </ion-input>
       </ion-item>
 
       <div class="ion-text-center ion-margin">
-        <ion-button class="boton-delete txt-marcado" style="width: 45%;" (click)="confirmDeleteUser()">
-          Delete User
-          <ion-icon slot="end" name="trash-outline"></ion-icon>
-        </ion-button>
 
         <ion-button *ngIf="user?.id_user" class="boton-inicio txt-marcado" style="width: 45%;"
           (click)="goToEditUser(user.id_user)">

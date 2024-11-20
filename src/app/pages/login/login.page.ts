@@ -55,7 +55,15 @@ export class LoginPage implements OnInit {
           // Redirect to home
           if (user.id_role_fk == 1) {
             this.router.navigate(['/adminhome']);
-          } else {
+          } 
+          else if (user.id_role_fk == 3){
+            const alert = await this.alertController.create({
+              header: 'Login Error',
+              message: 'This User has been Banned, Contact your support.',
+              buttons: ['OK'],
+            });
+            await alert.present();
+          }else {
             this.router.navigate(['/tasks']);
           }
         } else {

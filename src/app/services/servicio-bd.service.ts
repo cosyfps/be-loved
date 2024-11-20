@@ -21,6 +21,7 @@ export class DatabaseService {
 
   insertRoleAdmin: string = "INSERT or IGNORE INTO Role(id_role, namerole) VALUES (1, 'Admin')";
   insertRoleUser: string = "INSERT or IGNORE INTO Role(id_role, namerole) VALUES (2, 'User')";
+  insertRoleBanned: string = "INSERT or IGNORE INTO Role(id_role, namerole) VALUES (3, 'Banned')";
 
   // User table
   userTable: string = "CREATE TABLE IF NOT EXISTS User (id_user INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username VARCHAR NOT NULL UNIQUE, password VARCHAR NOT NULL, email VARCHAR NOT NULL UNIQUE, user_photo TEXT, id_role_fk INTEGER NOT NULL, FOREIGN KEY (id_role_fk) REFERENCES Role (id_role));";
@@ -95,10 +96,10 @@ export class DatabaseService {
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
-        // this.deleteDatabase().then(() => {
-        //   this.createTables();
-        // });
-        this.createTables();
+        this.deleteDatabase().then(() => {
+          this.createTables();
+        });
+        // this.createTables();
       }).catch(e => {
         this.showAlert('Database', 'Error creating the database: ' + JSON.stringify(e));
       });
@@ -128,6 +129,7 @@ export class DatabaseService {
       // Execute default inserts if they exist
       await this.database.executeSql(this.insertRoleAdmin, []);
       await this.database.executeSql(this.insertRoleUser, []);
+      await this.database.executeSql(this.insertRoleBanned, []);
 
       await this.database.executeSql(this.insertAdmin, []);
       await this.database.executeSql(this.insertUser1, []);
