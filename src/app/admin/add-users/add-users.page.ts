@@ -17,8 +17,9 @@ export class AddUsersPage implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   id_rol: string = '2';
-  passwordVisible: boolean = false;
 
+  passwordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
 
   constructor(
     private menu: MenuController, 
@@ -32,20 +33,16 @@ export class AddUsersPage implements OnInit {
   async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
-    try {
-      const token = await this.storage.getItem('session_token');
-      if (!token) {
-        // Si no hay token, redirigir al login
-        this.router.navigate(['/login']);
-      }
-    } catch (error) {
-      // Si hay un error al obtener el token, redirigir al login
-      this.router.navigate(['/login']);
-    }
+    
   }
 
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
+  }
+
+  // Función para alternar la visibilidad de la confirmación de la contraseña
+  toggleConfirmPasswordVisibility() {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
   async register() {

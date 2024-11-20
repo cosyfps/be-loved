@@ -13,7 +13,8 @@ export class ResetPasswordPage implements OnInit {
   newPassword: string = '';
   confirmPassword: string = '';
   email: string = ''; // El email recibido de la página anterior
-  passwordVisible: boolean = false;
+  passwordVisibleNew: boolean = false;
+  passwordVisibleConfirm: boolean = false;
 
   constructor(
     private router: Router,
@@ -30,8 +31,12 @@ export class ResetPasswordPage implements OnInit {
     }
   }
 
-  togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible;
+  togglePasswordVisibility(field: string) {
+    if (field === 'new') {
+      this.passwordVisibleNew = !this.passwordVisibleNew;
+    } else if (field === 'confirm') {
+      this.passwordVisibleConfirm = !this.passwordVisibleConfirm;
+    }
   }
 
   async resetPassword() {

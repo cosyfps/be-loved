@@ -19,7 +19,7 @@
           label-placement="floating" color="dark" name="password" maxlength="12" [(ngModel)]="password"
           required></ion-input>
         <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
-          <ion-icon style="color: white;" [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+          <ion-icon style="color: white;" [name]="passwordVisible ? 'eye' : 'eye-off'"></ion-icon>
         </ion-button>
         <ion-note *ngIf="password.length > 0 && password.length < 8" color="danger">Enter a valid Password.</ion-note>
       </ion-item>

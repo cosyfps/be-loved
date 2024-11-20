@@ -25,25 +25,24 @@
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input type="password" placeholder="Password (MAX 12 C.)" label="Password" label-placement="floating"
+        <ion-input [type]="passwordVisible ? 'text' : 'password'" placeholder="Password (MAX 12 C.)" label="Password" label-placement="floating"
           color="dark" name="password" maxlength="12" [(ngModel)]="password" required></ion-input>
-        <ion-note *ngIf="password.length > 0 && password.length < 8" color="danger">Password must be at least 8
-          characters long.</ion-note>
+        <ion-note *ngIf="password.length > 0 && password.length < 8" color="danger">Password must be at least 8 characters long.</ion-note>
         <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
-          <ion-icon style="color: white;" [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+          <ion-icon style="color: white;" [name]="passwordVisible ? 'eye' : 'eye-off'"></ion-icon>
         </ion-button>
       </ion-item>
-
+      
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input type="password" placeholder="Confirm Password" label="Confirm Password" label-placement="floating"
+        <ion-input [type]="confirmPasswordVisible ? 'text' : 'password'" placeholder="Confirm Password" label="Confirm Password" label-placement="floating"
           color="dark" name="confirmPassword" maxlength="12" [(ngModel)]="confirmPassword" required></ion-input>
-        <ion-note *ngIf="confirmPassword.length > 0 && confirmPassword !== password" color="danger">Passwords do not
-          match.</ion-note>
-        <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
-          <ion-icon style="color: white;" [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+        <ion-note *ngIf="confirmPassword.length > 0 && confirmPassword !== password" color="danger">Passwords do not match.</ion-note>
+        <ion-button fill="clear" slot="end" (click)="toggleConfirmPasswordVisibility()">
+          <ion-icon style="color: white;" [name]="confirmPasswordVisible ? 'eye' : 'eye-off'"></ion-icon>
         </ion-button>
       </ion-item>
+      
 
       <div class="ion-text-center">
         <ion-button class="ion-margin-top ion-margin-bottom start-button text-highlight" shape="block"

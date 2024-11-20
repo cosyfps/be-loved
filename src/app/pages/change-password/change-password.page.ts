@@ -16,7 +16,9 @@ export class ChangePasswordPage implements OnInit {
   validateOldPassword: string = "";
   newPassword: string = "";
   confirmPassword: string = "";
-  passwordVisible: boolean = false;
+  passwordVisibleOld: boolean = false;
+  passwordVisibleNew: boolean = false;
+  passwordVisibleConfirm: boolean = false;
 
 
   id_user!: number;
@@ -32,7 +34,7 @@ export class ChangePasswordPage implements OnInit {
 
   async ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-
+    
     try {
       const token = await this.storage.getItem('session_token');
       if (!token) {
@@ -61,9 +63,16 @@ export class ChangePasswordPage implements OnInit {
     });
   }
 
-  togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible;
+  togglePasswordVisibility(field: string) {
+    if (field === 'old') {
+      this.passwordVisibleOld = !this.passwordVisibleOld;
+    } else if (field === 'new') {
+      this.passwordVisibleNew = !this.passwordVisibleNew;
+    } else if (field === 'confirm') {
+      this.passwordVisibleConfirm = !this.passwordVisibleConfirm;
+    }
   }
+  
 
   async goToProfile() {
 

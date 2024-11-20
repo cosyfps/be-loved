@@ -19,6 +19,7 @@ export class RegisterPage implements OnInit {
   confirmPassword: string = '';
   id_rol: string = '2';
   passwordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
 
   constructor(private storage: NativeStorage, private menu: MenuController, private alertController: AlertController, private router: Router, private bd: DatabaseService, private screenOrientation: ScreenOrientation) { }
 
@@ -36,8 +37,12 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  togglePasswordVisibility() {
+   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
 
