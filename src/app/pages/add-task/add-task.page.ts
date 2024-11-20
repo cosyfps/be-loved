@@ -85,7 +85,7 @@ export class AddTaskPage implements OnInit {
   }
 
   async addTask() {
-    if (!this.title || !this.description || !this.category_id) {
+    if (!this.title || !this.description || !this.category_id || this.title.trim() === "" || this.description.trim() === "") {
       await this.showAlert('Error', 'All fields are required. Please fill in all fields before adding a task.');
       return;
     }

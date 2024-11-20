@@ -94,8 +94,8 @@ export class EditTasksPage implements OnInit {
 
   // Actualizar la tarea en la base de datos
   async updateTask() {
-    if (!this.title || !this.description || !this.category_id) {
-      await this.showAlert('Error', 'Todos los campos son obligatorios.');
+    if (!this.title || !this.description || !this.category_id || this.title.trim() === "" || this.description.trim() === "") {
+      await this.showAlert('Error', 'All fields are required. Please fill in all fields before adding a task.');
       return;
     }
 
