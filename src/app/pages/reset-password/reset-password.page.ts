@@ -13,7 +13,7 @@ export class ResetPasswordPage implements OnInit {
   newPassword: string = '';
   confirmPassword: string = '';
   email: string = ''; // El email recibido de la página anterior
-  passwordVisible: boolean = true;
+  passwordVisible: boolean = false;
 
   constructor(
     private router: Router,
