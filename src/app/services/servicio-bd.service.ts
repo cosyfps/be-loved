@@ -96,10 +96,10 @@ export class DatabaseService {
         location: 'default'
       }).then((db: SQLiteObject) => {
         this.database = db;
-        this.deleteDatabase().then(() => {
-          this.createTables();
-        });
-        // this.createTables();
+        // this.deleteDatabase().then(() => {
+        //   this.createTables();
+        // });
+        this.createTables();
       }).catch(e => {
         this.showAlert('Database', 'Error creating the database: ' + JSON.stringify(e));
       });
