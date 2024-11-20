@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
 
   username: string = "";
   password: string = "";
-  passwordVisible: boolean = true;
+  passwordVisible: boolean = false;
 
   constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: DatabaseService, private screenOrientation: ScreenOrientation) {}
 
