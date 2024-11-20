@@ -29,6 +29,9 @@
           color="dark" name="password" maxlength="12" [(ngModel)]="password" required></ion-input>
         <ion-note *ngIf="password.length > 0 && password.length < 8" color="danger">Password must be at least 8
           characters long.</ion-note>
+        <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
+          <ion-icon style="color: white;" [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
       </ion-item>
 
       <ion-item class="ion-margin-horizontal ion-color">
@@ -37,6 +40,9 @@
           color="dark" name="confirmPassword" maxlength="12" [(ngModel)]="confirmPassword" required></ion-input>
         <ion-note *ngIf="confirmPassword.length > 0 && confirmPassword !== password" color="danger">Passwords do not
           match.</ion-note>
+        <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
+          <ion-icon style="color: white;" [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
       </ion-item>
 
       <div class="ion-text-center">

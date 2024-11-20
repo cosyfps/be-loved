@@ -17,6 +17,8 @@ export class AddUsersPage implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   id_rol: string = '2';
+  passwordVisible: boolean = true;
+
 
   constructor(
     private menu: MenuController, 
@@ -40,6 +42,10 @@ export class AddUsersPage implements OnInit {
       // Si hay un error al obtener el token, redirigir al login
       this.router.navigate(['/login']);
     }
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
   async register() {

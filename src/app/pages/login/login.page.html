@@ -1,5 +1,4 @@
 <ion-content [fullscreen]="true" class="background">
-
   <div class="header-title">
     <ion-icon name="chevron-back-sharp" class="header-icon" (click)="goToStart()"></ion-icon>
     <h2>Log In</h2>
@@ -16,8 +15,12 @@
 
       <ion-item class="ion-margin-horizontal ion-color">
         <ion-icon aria-hidden="true" name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input type="password" placeholder="Enter Password" label="Password" label-placement="floating" color="dark"
-          name="password" maxlength="12" [(ngModel)]="password" required></ion-input>
+        <ion-input [type]="passwordVisible ? 'text' : 'password'" placeholder="Enter Password" label="Password"
+          label-placement="floating" color="dark" name="password" maxlength="12" [(ngModel)]="password"
+          required></ion-input>
+        <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
+          <ion-icon style="color: white;" [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
         <ion-note *ngIf="password.length > 0 && password.length < 8" color="danger">Enter a valid Password.</ion-note>
       </ion-item>
 

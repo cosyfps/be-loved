@@ -16,6 +16,8 @@ export class ChangePasswordPage implements OnInit {
   validateOldPassword: string = "";
   newPassword: string = "";
   confirmPassword: string = "";
+  passwordVisible: boolean = true;
+
 
   id_user!: number;
 
@@ -57,6 +59,10 @@ export class ChangePasswordPage implements OnInit {
     }).catch(error => {
       console.error('Error retrieving user data', error);
     });
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
   async goToProfile() {

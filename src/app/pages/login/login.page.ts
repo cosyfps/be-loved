@@ -16,6 +16,7 @@ export class LoginPage implements OnInit {
 
   username: string = "";
   password: string = "";
+  passwordVisible: boolean = true;
 
   constructor(private router: Router, private menu: MenuController, private alertController: AlertController, private storage: NativeStorage, private dbService: DatabaseService, private screenOrientation: ScreenOrientation) {}
 
@@ -31,6 +32,10 @@ export class LoginPage implements OnInit {
     } catch (error) {
       // No hay token, permite acceso normal
     }
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
   async goToPage() {
