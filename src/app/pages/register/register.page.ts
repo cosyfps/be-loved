@@ -18,7 +18,7 @@ export class RegisterPage implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   id_rol: string = '2';
-  passwordVisible: boolean = true;
+  passwordVisible: boolean = false;
 
   constructor(private storage: NativeStorage, private menu: MenuController, private alertController: AlertController, private router: Router, private bd: DatabaseService, private screenOrientation: ScreenOrientation) { }
 
