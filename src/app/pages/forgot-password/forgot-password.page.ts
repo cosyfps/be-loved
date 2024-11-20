@@ -54,7 +54,6 @@ export class ForgotPasswordPage implements OnInit {
         if (user) {
           // Generar código
           this.generatedCode = this.generateCode();
-          this.isCodeSent = true;
 
           await this.mailgunService.sendEmail(
             this.email,
@@ -64,6 +63,8 @@ export class ForgotPasswordPage implements OnInit {
 
           await this.showAlert('Success', 'Code sent successfully.');
 
+          this.isCodeSent = true;
+          
         } else {
           await this.showAlert('Error', 'Email does not exist in our system.');
         }
