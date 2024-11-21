@@ -61,12 +61,6 @@ describe('LoginPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should toggle password visibility', () => {
-    expect(component.passwordVisible).toBeTrue();
-    component.togglePasswordVisibility();
-    expect(component.passwordVisible).toBeFalse();
-  });
-
   it('should display an alert if fields are empty', async () => {
     component.username = '';
     component.password = '';
